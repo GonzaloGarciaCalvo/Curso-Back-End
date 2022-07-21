@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Remera Azul",
+    "categoria": "remera",
+    "precio": 4100,
+    "id": 1
+  },
+  {
+    "nombre": "Remera Roja",
+    "categoria": "remera",
+    "precio": 4110,
+    "id": 2
+  },
+  {
+    "nombre": "Remera Gris",
+    "categoria": "remera",
+    "precio": 4100,
+    "id": 3
+  },
+  {
+    "nombre": "Remera Gris",
+    "categoria": "remera",
+    "precio": 4100,
+    "id": 4
+  },
+  {
+    "nombre": "Remera Gris",
+    "categoria": "remera",
+    "precio": 4100,
+    "id": 5
+  }
+]
