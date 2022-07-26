@@ -9,26 +9,20 @@ contenedor.save({ nombre: 'Remera Blanca', categoria: 'remera', precio: 4100, th
  */
 
 const app = express()
-/* let productos = function (products) {`<h2>Lista de productos</h2>
-                ${products.map((prod) =><h3>{prod}</h3>)}`} */
 
 const getProducts = contenidoArchivo.getAll() 
 contenidoArchivo.getById(3)
 
 app.get('/', async(req,res)=>{
     const resultado = await getProducts
-    res.send(`<h1 color="blue">Bien venidos al servicos Experess</h1>` )
+    res.send(resultado)
 })
-// app.get('/productos', (req,res)=>{
-//   /* const products = contenedor.getAll() */
-//     /* res.send(`<h2>Lista de productos</h2>
-//     ${products.map((prod) =><h3>{prod}</h3>)}`) */
-// })
 
-// app.get('/productoRandom', (req,res)=>{
-//     const fyh = new Date()
-//     res.send(`FyH: ${ fyh.getDate() }/${ fyh.getMonth() }/${ fyh.getFullYear() }  ${ fyh.getHours() }:${ fyh.getMinutes() }:${ fyh.getSeconds() }`)
-// })
+app.get("/productoRandom", async (req, res) => {
+    const resultado = await getProducts;
+    const productoAleatorio= resultado[Math.floor(Math.random() * resultado.length)];
+    res.send(productoAleatorio) 
+})
 
 
 const PORT = 8080

@@ -37,8 +37,7 @@ class Contenedor {
 	async getAll () { 
 		try {
 			const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
-			/* const parsedDataArray = JSON.parse(dataArray, null , 2) */
-			const parsedDataArray = await JSON.parse(dataArray)
+			const parsedDataArray = await JSON.parse(dataArray, null , 2)
 			if (parsedDataArray.length) {
 				console.log(`dataArray en if getAll: ${dataArray}`)
 				console.log("Lista de Productos:", parsedDataArray)  
