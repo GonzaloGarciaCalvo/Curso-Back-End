@@ -33,5 +33,5 @@
     "precio": 4500,
     "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "id": 5
-  },
+  }
 ]
