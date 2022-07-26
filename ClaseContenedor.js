@@ -52,17 +52,14 @@ class Contenedor {
 		}
 
 	}
-	async deleteById (id) {  // MAL borra todo
+	async deleteById (id) { 
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
-			/* console.log('dataArch de deleteById',dataArch) */
-			const dataArchParse = JSON.parse(dataArch) //da error
-			/* let dataArchParse = JSON.parse(dataArch) */
+			const dataArchParse = JSON.parse(dataArch) 
 			let product = dataArchParse.find(prod => prod.id === id);
 			if (product) {
 				let dataArchParsefiltered = dataArchParse.filter( prod => prod.id !== id )
 				await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParsefiltered, null, 2))
 				console.log('producto eliminado')
-				// console.log('producto eliminado, froductos filtrados', dataArchParsefiltered ) 
 			} else {
 				console.log('producto no encontrado')
 			}
