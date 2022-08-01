@@ -1,0 +1,7 @@
+# POST http://localhost:8080/api/personas HTTP/1.1
+#     const {nombre, categoria, precio, thumbnail} = req.body
+#     const agregar = contenidoArchivo.save()
+
+DELETE http//localhost:8080/api/personas/:id HTTP/1.1
+Content-Type: application/json
+    [5]

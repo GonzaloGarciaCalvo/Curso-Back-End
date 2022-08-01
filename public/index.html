@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <h1>Ingresar producto</h1>
+    <form method="POST" action="http://localhost:4000/api/productos" >
+      <input type="text" name="nombre" placeholder="nombre">
+      <input type="text" name="categoria" placeholder="categoria">
+      <input type="number" name="precio" placeholder="precio" min="0">
+      <input type="text" name="thumbnail" placeholder="thumbnail">
+      <input type="number" name="id" placeholder="id">
+      <button type="submit">Enviar</button>
+  </form>
+  <h1>Modificar producto</h1>
+  <form method="PUT" action="http://localhost:4000/api/productos/:id" >
+    <input type="number" name="id" placeholder="id">
+    <input type="text" name="nombre" placeholder="nombre">
+    <input type="text" name="categoria" placeholder="categoria">
+    <input type="number" name="precio" placeholder="precio" min="0">
+    <button type="submit">Enviar</button>
+</form>
+  </main>
+  
+</body>
+</html>

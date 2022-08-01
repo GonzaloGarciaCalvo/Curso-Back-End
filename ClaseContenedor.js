@@ -21,9 +21,15 @@ class Contenedor {
 
 	async getById(id) {
 		try {
+			console.log('id en metodo', id) //entra con el id de params
 			const data = await fs.promises.readFile(this.ruta, 'utf8')
 			const dataParsed = JSON.parse(data)
-			const searchedProduct = dataParsed.find(prod => prod.id === id)
+			console.log("dataParsed: ", dataParsed) //lo muestra bien
+			const searchedProduct = dataParsed.find(
+				prod => 
+					prod.id === id
+			)
+			console.log("searchedProduct: ", searchedProduct) //undefined
 			if (searchedProduct) {
 				console.log (`El producto con id ${id} es ${JSON.stringify(searchedProduct, null, 2)}`)
 				return searchedProduct
@@ -39,13 +45,13 @@ class Contenedor {
 			const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
 			const parsedDataArray = await JSON.parse(dataArray, null , 2)
 			if (parsedDataArray.length) {
-				console.log(`dataArray en if getAll: ${dataArray}`)
+				/* console.log(`dataArray en if getAll: ${dataArray}`) */
 				console.log("Lista de Productos:", parsedDataArray)  
 				return parsedDataArray
 			} else {
 				console.log('no hay productos')
-				console.log(`dataArray en else getAll: ${dataArray}`)
-		}
+				/* console.log(`dataArray en else getAll: ${dataArray}`) */
+		  }
 		console.log("parsedDataArray getAll fuera del if else", parsedDataArray)
 		} catch (error){
 			console.log(error)
