@@ -8,22 +8,27 @@
 </head>
 <body>
   <main>
+
     <h1>Ingresar producto</h1>
-    <form method="POST" action="http://localhost:4000/api/productos" >
+    <form method="POST" action="http://localhost:8080/api/productos" >
       <input type="text" name="nombre" placeholder="nombre">
       <input type="text" name="categoria" placeholder="categoria">
       <input type="number" name="precio" placeholder="precio" min="0">
       <input type="text" name="thumbnail" placeholder="thumbnail">
-      <input type="number" name="id" placeholder="id">
       <button type="submit">Enviar</button>
   </form>
   <h1>Modificar producto</h1>
-  <form method="PUT" action="http://localhost:4000/api/productos/:id" >
+  <form method="PUT" action="http://localhost:8080/api/productos/:id" >
     <input type="number" name="id" placeholder="id">
     <input type="text" name="nombre" placeholder="nombre">
     <input type="text" name="categoria" placeholder="categoria">
     <input type="number" name="precio" placeholder="precio" min="0">
     <button type="submit">Enviar</button>
+</form>
+<h1>Eliminar producto</h1>  <!-- ERROR method de form solo puede ser get o post -->
+<form method="DELETE" action="http://localhost:8080/api/productos/:id" >
+  <input type="number" name="id" placeholder="id">
+  <button type="submit">Enviar</button>
 </form>
   </main>
   

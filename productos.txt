@@ -33,5 +33,26 @@
     "precio": 4500,
     "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "id": 5
+  },
+  {
+    "nombre": "aaa",
+    "categoria": "bbbb",
+    "precio": "2222",
+    "thumbnail": "",
+    "id": 6
+  },
+  {
+    "nombre": "xxxx",
+    "categoria": "eeee",
+    "precio": "6788",
+    "thumbnail": "",
+    "id": 7
+  },
+  {
+    "nombre": "sed",
+    "categoria": "rtthh",
+    "precio": "88",
+    "thumbnail": "",
+    "id": 8
   }
 ]

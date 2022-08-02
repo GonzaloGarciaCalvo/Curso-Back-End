@@ -7,7 +7,10 @@ const { Router } = express
 
 const app = express()
 app.use(express.json())
-app.use(express.static(__dirname + 'public'))
+app.use(express.urlencoded({ extended: true }))
+
+/* app.use(express.static(__dirname + 'public')) */
+app.use(express.static('public'))
 const routerProductos = Router()
 
 
@@ -20,41 +23,38 @@ routerProductos.get('/:id', async(req, res)=>{
     const id = req.params.id
     const numberId = Number(id) // para mantener el === en el find del metodo
     const resultado = await contenidoArchivo.getById(numberId) 
-    /* const filtrado = contenidoArchivo.getById(numberId) 
-    const resultado = await filtrado */
     console.log("resultado:  ",resultado) 
     res.json(resultado) 
 })
 
-routerProductos.post('/', async(req,res) => { //Pendiente
-    const {nombre, categoria, precio, thumbnail} = req.body
-    const agregar = contenidoArchivo.save()
-    /* res.json({
-
-    }) */
+routerProductos.post('/', async(req,res) => {
+    /* const {nombre, categoria, precio, thumbnail} = req.body */ //el evento submit se dispara con cada entrada de teclado
+    const datosproductoNuevo = req.body
+    console.log(datosproductoNuevo)
+    const productoAgregado = await contenidoArchivo.save(datosproductoNuevo)
+    res.send(
+       `<h1>id producto agragado: ${productoAgregado}</h1>` 
+    )
 })
-routerProductos.put('/:id', async(req, res) =>{ //pendiente
+routerProductos.put('/:id', async(req, res) =>{ // FALTA PROBAR   ////////
     const id = req.params.id
     const numberId = Number(id) // para mantener el === en el find del metodo
-    const resultado = await contenidoArchivo.getById(numberId)
-    const inputs =req.body
+    const item = req.body;
+    const itemUpdate = await contenidoArchivo.updateProduct(item, numberId);
+    res.send(itemUpdate);
+})
+
+routerProductos.delete('/:id', async(req, res)=>{ //FALTA PROBAR  //////
+    const id = req.params.id
+    console.log("id en router delete", id)
+    const numberId = Number(id) 
+    console.log("numberId: ",numberId)
+    const resultadoDelete = await contenidoArchivo.deleteById(numberId) 
+    console.log("resultado:  ",resultadoDelete) 
     res.json({
-        nombre: req.body.nombre || nombre,
-        categoria: req.body.categoria || categoria,
-        precio:req.body.precio || precio,
-        thumbnail,
-        id
+        result:"eliminado",
+        id:req.params.id
     }) 
-})
-
-routerProductos.delete('/:id', async(req, res)=>{ 
-    const id = req.params.id
-    const numberId = Number(id) // para mantener el === en el find del metodo
-    const resultado = await contenidoArchivo.deleteById(numberId) 
-    /* const filtrado = contenidoArchivo.getById(numberId) 
-    const resultado = await filtrado */
-    console.log("resultado:  ",resultado) 
-    res.json(resultado) 
 })
 
 
