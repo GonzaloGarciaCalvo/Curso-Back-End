@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-/* app.use(express.static(__dirname + 'public')) */
+/* app.use(express.static(__dirname + 'public')) */ 
 app.use(express.static('public'))
 const routerProductos = Router()
 
@@ -28,7 +28,7 @@ routerProductos.get('/:id', async(req, res)=>{
 })
 
 routerProductos.post('/', async(req,res) => {
-    /* const {nombre, categoria, precio, thumbnail} = req.body */ //el evento submit se dispara con cada entrada de teclado
+    /* const {nombre, categoria, precio, thumbnail} = req.body */ //con esto el evento submit se dispara con cada entrada de teclado
     const datosproductoNuevo = req.body
     console.log(datosproductoNuevo)
     const productoAgregado = await contenidoArchivo.save(datosproductoNuevo)
@@ -46,14 +46,11 @@ routerProductos.put('/:id', async(req, res) =>{ // FALTA PROBAR   ////////
 
 routerProductos.delete('/:id', async(req, res)=>{ //FALTA PROBAR  //////
     const id = req.params.id
-    console.log("id en router delete", id)
     const numberId = Number(id) 
-    console.log("numberId: ",numberId)
     const resultadoDelete = await contenidoArchivo.deleteById(numberId) 
-    console.log("resultado:  ",resultadoDelete) 
     res.json({
         result:"eliminado",
-        id:req.params.id
+        id:id
     }) 
 })
 

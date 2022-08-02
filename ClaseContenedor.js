@@ -60,7 +60,6 @@ class Contenedor {
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
 			const dataArchParse = JSON.parse(dataArch) 
 			let product = dataArchParse.find(prod => prod.id === id);
-			console.log("prod en deleteById id: ", product.id)
 			if (product) {
 				let dataArchParsefiltered = dataArchParse.filter( prod => prod.id !== id )
 				await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParsefiltered, null, 2))

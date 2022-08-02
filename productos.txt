@@ -54,5 +54,12 @@
     "precio": "88",
     "thumbnail": "",
     "id": 8
+  },
+  {
+    "nombre": "remera loca2",
+    "categoria": "re",
+    "precio": "5555",
+    "thumbnail": "",
+    "id": 9
   }
 ]
