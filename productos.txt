@@ -35,10 +35,10 @@
     "id": 5
   },
   {
-    "nombre": "aaa",
-    "categoria": "bbbb",
-    "precio": "2222",
-    "thumbnail": "",
+    "nombre": "remera loca9990000",
+    "categoria": "remera manga larga",
+    "thumbnail": "no hay",
+    "precio": 60000,
     "id": 6
   },
   {
@@ -54,12 +54,5 @@
     "precio": "88",
     "thumbnail": "",
     "id": 8
-  },
-  {
-    "nombre": "remera loca2",
-    "categoria": "re",
-    "precio": "5555",
-    "thumbnail": "",
-    "id": 9
   }
 ]

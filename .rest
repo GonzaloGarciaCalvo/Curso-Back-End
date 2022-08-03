@@ -1,3 +1,16 @@
+
+GET http://localhost:8080/api/productos/ HTTP/1.1
+Content-Type: application/json
+
+######## 
+
+
+GET http://localhost:8080/api/productos/9 HTTP/1.1 
+Content-Type: application/json
+
+####### Tenia error en el param, había puesto /:9
+
+
 POST http://localhost:8080/api/productos/ HTTP/1.1 
 Content-Type: application/json
 
@@ -7,13 +20,25 @@ Content-Type: application/json
     "precio": "88",
     "thumbnail": "",
 }
-###### el post anterior NO FUNCIONA  responde con 400 Bad request, pero desde el form sí funciona
+###### NO FUNCIONA  responde con 400 Bad request, pero desde el form sí funciona
 
 
-DELETE http://localhost:8080/api/productos/:9 HTTP/1.1 
+# PUT http://localhost:8080/api/productos/6 HTTP/1.1
+# Content-Type: application/json
+
+# {
+#     "nombre": "remera loca9990000",
+#     "categoria": "remera manga larga",
+#     "thumbnail": "no hay",
+# 	"precio": 60000,
+#     "id":6
+# }
+
+## Tenia error en el param, había puesto /:6
+
+
+DELETE http://localhost:8080/api/productos/9 HTTP/1.1 
 Content-Type: application/json
-    
-########## la simulación en rest corre pero no borra de verdad.
 
-PUT http://localhost:8080/api/productos/:id HTTP/1.1
-## No entiendo como hacer esta
+
+########## También había error en el parámetro 

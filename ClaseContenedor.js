@@ -22,12 +22,10 @@ class Contenedor {
 
 	async getById(id) {
 		try {
-			//console.log('id en metodo', id) //entra con el id de params
 			const data = await fs.promises.readFile(this.ruta, 'utf8')
 			const dataParsed = JSON.parse(data)
-			//console.log("dataParsed: ", dataParsed) //lo muestra bien
 			const searchedProduct = dataParsed.find(prod => prod.id === id)
-			console.log("searchedProduct: ", searchedProduct) //undefined
+			console.log("searchedProduct: ", searchedProduct) 
 			if (searchedProduct) {
 				console.log (`El producto con id ${id} es ${JSON.stringify(searchedProduct, null, 2)}`)
 				return searchedProduct
@@ -43,12 +41,10 @@ class Contenedor {
 			const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
 			const parsedDataArray = await JSON.parse(dataArray, null , 2)
 			if (parsedDataArray.length) {
-				/* console.log(`dataArray en if getAll: ${dataArray}`) */
-				console.log("Lista de Productos:", parsedDataArray)  
+				/* console.log("Lista de Productos:", parsedDataArray)  */ 
 				return parsedDataArray
 			} else {
 				console.log('no hay productos')
-				/* console.log(`dataArray en else getAll: ${dataArray}`) */
 		  }
 		console.log("parsedDataArray getAll fuera del if else", parsedDataArray)
 		} catch (error){
@@ -57,9 +53,10 @@ class Contenedor {
 
 	}
 	async deleteById (id) { 
+		console.log(`id en deleteNyId ${id}`)
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
 			const dataArchParse = JSON.parse(dataArch) 
-			let product = dataArchParse.find(prod => prod.id === id);
+			let product = dataArchParse.find(prod => prod.id === id); //con === no anda
 			if (product) {
 				let dataArchParsefiltered = dataArchParse.filter( prod => prod.id !== id )
 				await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParsefiltered, null, 2))
@@ -74,19 +71,31 @@ class Contenedor {
 				console.log(`array de prod ${this.arrayProductos}`)
 	}
 
-	async updateProduct (producto, id){ // Falta probar !!
-		const itemToModify = this.getById(id)
+	async updateProduct (producto, id){ 
+		await this.deleteById(id)
+		const itemToModify = { ...producto, ...id} 
+		let products = await this.getAll()
+		products = [...products , itemToModify]
+		const orderedProducts = products.sort((a,b)=>a.id-b.id)
+		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
+	}
+
+	//otra prueba
+    // Agrega producto pero no reemplaza
+	 /* async updateProduct (producto, id){ // Falta probar !!
+		let itemToModify = await this.getById(id)
 		itemToModify = {
-			nombre: producto.nombre || nombre,
-			categoria: producto.categoria || categoria,
-			thumbnail: producto.thumbnail || thumbnail,
-			id
-		}
-		this.deleteById(id)
-		const products = this.getAll()
+			nombre: producto.nombre,
+			categoria: producto.categoria,
+			thumbnail: producto.thumbnail,
+			precio: producto.precio,
+			id:id
+		} 
+		await this.deleteById(id)
+		let products = await this.getAll()
 		products = [...products , itemToModify]
 		const orderedProducts = products.sort((a,b)=>a-b)
 		await fs.promises.writeFile(this.ruta, JSON.stringify([...orderedProducts],null,2))    
-	}
+	} */
 }
 module.exports = Contenedor

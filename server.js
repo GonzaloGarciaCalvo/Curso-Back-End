@@ -16,35 +16,36 @@ const routerProductos = Router()
 
 routerProductos.get('/' , async(req, res)=>{  
     const resultado = await contenidoArchivo.getAll() 
-    console.log("resultado:  ",resultado)
+    /* console.log("resultado:  ",resultado) */
     res.send(resultado)
 })
 routerProductos.get('/:id', async(req, res)=>{ 
     const id = req.params.id
     const numberId = Number(id) // para mantener el === en el find del metodo
     const resultado = await contenidoArchivo.getById(numberId) 
-    console.log("resultado:  ",resultado) 
+    /* console.log("resultado:  ",resultado)  */
     res.json(resultado) 
 })
 
 routerProductos.post('/', async(req,res) => {
     /* const {nombre, categoria, precio, thumbnail} = req.body */ //con esto el evento submit se dispara con cada entrada de teclado
     const datosproductoNuevo = req.body
-    console.log(datosproductoNuevo)
+    /* console.log(datosproductoNuevo) */
     const productoAgregado = await contenidoArchivo.save(datosproductoNuevo)
     res.send(
        `<h1>id producto agragado: ${productoAgregado}</h1>` 
     )
 })
-routerProductos.put('/:id', async(req, res) =>{ // FALTA PROBAR   ////////
+routerProductos.put('/:id', async(req, res) =>{ //
     const id = req.params.id
+    console.log(req.params)
     const numberId = Number(id) // para mantener el === en el find del metodo
     const item = req.body;
-    const itemUpdate = await contenidoArchivo.updateProduct(item, numberId);
+    const itemUpdate = await contenidoArchivo.updateProduct(item, numberId); 
     res.send(itemUpdate);
 })
 
-routerProductos.delete('/:id', async(req, res)=>{ //FALTA PROBAR  //////
+routerProductos.delete('/:id', async(req, res)=>{ 
     const id = req.params.id
     const numberId = Number(id) 
     const resultadoDelete = await contenidoArchivo.deleteById(numberId) 
