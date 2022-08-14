@@ -19,7 +19,7 @@
   <main class="container">
     <div>
       <h1 class="fs-2">Ingresar producto</h1>
-      <form method="POST" action="/productos" class="d-flex flex-column justify-content-center w-25" >
+      <form id="addProduct"  class="d-flex flex-column justify-content-center w-25" >
         <input type="text" name="nombre" placeholder="nombre">
         <input type="text" name="categoria" placeholder="categoria">
         <input type="number" name="precio" placeholder="precio" min="0">
@@ -27,23 +27,16 @@
         <button type="submit" class="btn btn-primary mt-2" id="btnPost">Enviar</button>
       </form>
     </div>
-    <div class="mt-4">
-      <form method="GET" action="/productos">
-        <button type="submit" class="btn btn-primary mt-2">Ver Productos</button>
-      </form>
-    </div>
-    <!-- <h1 class="fs-2">Modificar producto</h1>
-    <form method="PUT" action="http://localhost:8080/api/productos/:id" >
-      <input type="number" name="id" placeholder="id">
-      <input type="text" name="nombre" placeholder="nombre">
-      <input type="text" name="categoria" placeholder="categoria">
-      <input type="number" name="precio" placeholder="precio" min="0">
-      <input type="url" name="thumbnail"  placeholder="thumbnail" >
+    <div class="mt-4" id="productos">
 
-      <button type="submit" class="btn btn-primary">Enviar</button>
-    </form> -->
+      <!-- <form method="GET" action="/productos">
+        <button type="submit" class="btn btn-primary mt-2">Ver Productos</button>
+      </form> -->
+    </div>
+
 
   </main>
   
 </body>
+<script src="main.js"></script>
 </html>
