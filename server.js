@@ -44,20 +44,20 @@ io.on('connection',  socket => {
   socket.emit('productos', productsCollection.getAll());
 
   // actualizacion de productos
-  socket.on('update', producto => {
+  /* socket.on('update', producto => {
       productosApi.guardar(producto)
       io.sockets.emit('productos',  productsCollection.getAll());
-  })
+  }) */
 
   // carga inicial de mensajes
-  socket.emit('mensajes',  messegesCollection.getAll());
+  /* socket.emit('mensajes',  messegesCollection.getAll()); */
 
   // actualizacion de mensajes
-  socket.on('nuevoMensaje', async mensaje => {
+  /* socket.on('nuevoMensaje', async mensaje => {
       mensaje.fyh = new Date().toLocaleString()
        mensajesApi.guardar(mensaje)
       io.sockets.emit('mensajes',  messegesCollection.getAll());
-  })
+  }) */
 });
 
 

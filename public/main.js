@@ -1,8 +1,8 @@
-const socket = io.connect();
+const socket = io();
 
 //------------------------------------------------------------------------------------
 
-const addProduct = document.querySelector('#products')
+const addProduct = document.querySelector('#addProduct')
 addProduct.addEventListener('submit', e => {
     e.preventDefault()
     const producto = {
@@ -20,21 +20,20 @@ socket.on('productos', productos => {
     })
 });
 
-function makeTable(productos) {
-  console.log("makeTable")
-    /* return fetch('views/vista.ejs')
+async function makeTable(producto) {
+  console.log("!!! makeTable")
+    return await fetch('../views/vista.ejs')
         .then(respuesta => respuesta.text())
         .then(plantilla => {
-          plantilla.render("vista", {
-            productos: productos,
-            hayProductos: productos.length
+            let template = ejs.render("vista", {
+            productos: producto,
         })
             return html
-        }) */
+        })
 }
 
 //-------------------------------------------------------------------------------------
-
+/* 
 const inputUsername = document.getElementById('inputUsername')
 const inputMensaje = document.getElementById('inputMensaje')
 const btnEnviar = document.getElementById('btnEnviar')
@@ -77,4 +76,4 @@ inputUsername.addEventListener('input', () => {
 inputMensaje.addEventListener('input', () => {
     const hayTexto = inputMensaje.value.length
     btnEnviar.disabled = !hayTexto
-})
+}) */

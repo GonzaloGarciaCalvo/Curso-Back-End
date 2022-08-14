@@ -16,14 +16,14 @@
         <div>
             <h1>Productos</h1>
             <% if(hayProductos) { %>
-                <div class="table-responsive">
-                    <table class="table table-primary table-striped align-middle">
-                        <tr>
+                <!-- <div class="table-responsive">
+                    <table class="table table-primary table-striped align-middle"> -->
+                        <!-- <tr>
                             <th>Nombre</th>
                             <th>Precio</th>
                             <th>Foto</th>
-                        </tr>
-                        <% productos.forEach((producto)=> { %>
+                        </tr> -->
+                        <!-- <% productos.forEach((producto)=> { %> -->
                             <tr>
                                 <td>
                                     <%= producto.nombre%>
@@ -33,15 +33,15 @@
                                 </td>
                                 <td><img width="40" src=<%=producto.thumbnail%> alt="foto producto"></td>
                             </tr>
-                            <% }); %>
-                    </table>
-                </div>
+                            <!-- <% }); %> -->
+                    <!-- </table>
+                </div> -->
                 <% } else{ %>
                     <p class="fs-2">No hay productos</p>
                     <% } %>
-                <a href="/" type="button" class="btn btn-primary mt-2">Cargar producto</a>
+                <!-- <a href="/" type="button" class="btn btn-primary mt-2">Cargar producto</a> -->
         </div>
     </main>
-    <%- include('partial/footer.ejs')-%>
+    <!-- <%- include('partial/footer.ejs')-%> -->
 </body>
 </html>
