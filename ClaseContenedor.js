@@ -40,7 +40,7 @@ class Contenedor {
 			const parsedDataArray = await JSON.parse(dataArray, null , 2)
 			/* console.log("parsedData 1", parsedDataArray) */ // Entra 2 veces, una vez muestra array con los 5 elementos y luego muestra array vacio.
 			if (parsedDataArray.length) { 
-				console.log(" length", parsedDataArray.length)
+				console.log(" length en getAll", parsedDataArray.length)
 				return parsedDataArray
 			} else {
 				console.log('no hay productos - getAll')

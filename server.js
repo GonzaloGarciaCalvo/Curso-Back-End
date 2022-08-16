@@ -25,16 +25,6 @@ app.post('/productos', async (req,res) =>{
  res.redirect('/')
 })
 
-/* app.get('/productos', async (req, res) => { 
-  const productos =  await productsCollection.getAll()
-  res.render("vista", {
-      productos: productos,
-      hayProductos: productos.length
-  });
-}) */
-/* app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: __dirname })
-}) */
 app.get("/", (req, res) => {
 
   res.sendFile(__dirname + "/public/index.html")

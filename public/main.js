@@ -13,36 +13,23 @@ addProduct.addEventListener('submit', e => {
     addProduct.reset()
 })
 
-socket.on('productos', async (productos) =>  {
-    socket.on('productos', productos => {
+socket.on('productos-guardados', async (productos) =>  {
+        console.log("productos en socket.on", productos) //entra
         makeTable(productos).then(html => {
             document.getElementById('productos').innerHTML = html
         })
-    });
-     function makeTable(producto) {  //no funciona
-        console.log("! makeTable")
-        let response = fetch('views/vista.ejs')
+
+     async function makeTable(producto) {  //no funciona
+        console.log("! makeTable") // entra
+        return await fetch('views/vista.ejs')
             .then(response => response.text())
             .then(plantilla => {
-                let template = response.render(plantilla, {
+                response.render(plantilla, {// tira ERROR  main.js:27 Uncaught (in promise) ReferenceError: response is not defined
                 productos: producto,
-            })
-            return template
+                })
             }) 
     }
     
-
-     /* productos.map(prod =>{ 
-     
-     const templateHtml= (producto) =>{
-        `<tr>
-        <td>${producto.nombre}</td>
-        <td>${producto.categoria}</td>
-        </tr>
-        `
-    }
-    return document.getElementById('productos').innerHTML = templateHtml
-    }) */
 });
 
 
