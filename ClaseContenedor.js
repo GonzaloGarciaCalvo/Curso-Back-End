@@ -5,7 +5,6 @@ class Contenedor {
 		this.ruta = ruta
 	}
 	async save(obj) { 
-		let aux =[]
 		try {
 			let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
 			let dataArchParse = JSON.parse(dataArch)
@@ -14,7 +13,6 @@ class Contenedor {
 			} else {
 				await fs.promises.writeFile(this.ruta, JSON.stringify([...dataArchParse, {...obj, id:dataArchParse.length+1}],null,2))
 			}
-			aux=dataArchParse
 			console.log(`El objeto tiene id: ${dataArchParse.length+1}`) 
 			return dataArchParse.length+1
 		}catch (error) { console.log(error)}
@@ -40,10 +38,12 @@ class Contenedor {
 		try {
 			const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
 			const parsedDataArray = await JSON.parse(dataArray, null , 2)
+			/* console.log("parsedData 1", parsedDataArray) */ // Entra 2 veces, una vez muestra array con los 5 elementos y luego muestra array vacio.
 			if (parsedDataArray.length) { 
+				console.log(" length", parsedDataArray.length)
 				return parsedDataArray
 			} else {
-				console.log('no hay productos')
+				console.log('no hay productos - getAll')
 		  }
 		} catch (error){
 			console.log(error)
@@ -77,6 +77,25 @@ class Contenedor {
 		const orderedProducts = products.sort((a,b)=>a.id-b.id)
 		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
 	}
+
+	async getMesseges () { 
+		try {
+			const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
+			 const parsedDataArray = await JSON.parse(dataArray, null , 2)
+				/* console.log(" length getMesseges", parsedDataArray.length) */
+				return parsedDataArray
+		} catch (error){
+			console.log(error)
+		}
+	}
+	async saveMessege(obj) {
+		/* console.log("obj en saveM", obj) */
+		/* const data = await this.getAll(); */
+		let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
+		let dataArchParse = JSON.parse(dataArch)
+			await fs.promises.writeFile(this.ruta, JSON.stringify([...dataArchParse, { ...obj} ],null,2))
+
+} 
 
 	//otra prueba
     // Agrega producto pero no reemplaza

@@ -33,5 +33,52 @@
     "precio": 4500,
     "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "id": 5
+  },
+  {
+    "nombre": "remera colorida",
+    "precio": "remera",
+    "thumbnail": "9888",
+    "id": 6
+  },
+  {
+    "nombre": "remera loca",
+    "precio": "remera",
+    "thumbnail": "8888",
+    "id": 7
+  },
+  {
+    "nombre": "",
+    "categoria": "",
+    "precio": "",
+    "thumbnail": "",
+    "id": 8
+  },
+  {
+    "nombre": "remera loca",
+    "categoria": "remera",
+    "precio": "9876",
+    "thumbnail": "aa",
+    "id": 9
+  },
+  {
+    "nombre": "remera loca",
+    "categoria": "rem",
+    "precio": "77777",
+    "thumbnail": "vv",
+    "id": 10
+  },
+  {
+    "nombre": "aadd",
+    "categoria": "www",
+    "precio": "333333",
+    "thumbnail": "dd",
+    "id": 11
+  },
+  {
+    "nombre": "reww",
+    "categoria": "1111",
+    "precio": "1111",
+    "thumbnail": "1111",
+    "id": 12
   }
 ]

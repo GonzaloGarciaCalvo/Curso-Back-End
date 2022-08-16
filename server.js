@@ -8,7 +8,7 @@ const io = new IOServer(httpServer)
 
 const Contenedor = require('./ClaseContenedor')
 const productsCollection = new Contenedor('./productos.txt')
-const messegesCollection = new Contenedor('./mensajes.json')
+const messegesCollection = new Contenedor('./mensajes.txt')
 
 app.use(express.json());
 app.use(express.urlencoded({extends:true}));
@@ -32,32 +32,40 @@ app.post('/productos', async (req,res) =>{
       hayProductos: productos.length
   });
 }) */
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname })
+}) */
+app.get("/", (req, res) => {
+
+  res.sendFile(__dirname + "/public/index.html")
 })
 
 
 //Configuracion del socket
-io.on('connection',  socket => {
+io.on('connection', async (socket) => {
   console.log('cliente online ');
   // carga inicial de productos
-  socket.emit('productos', productsCollection.getAll());
-
+  const getProducts =await productsCollection.getAll()
+  socket.emit('productos-guardados', getProducts); 
+  /* console.log("getP", getProducts) */
+  
   // actualizacion de productos
-  /* socket.on('update', producto => {
-      productosApi.guardar(producto)
-      io.sockets.emit('productos',  productsCollection.getAll());
-  }) */
+  socket.on('update', async(producto) => {
+    productsCollection.save(producto)
+      io.sockets.emit('productos', getProducts);
+  }) 
 
-  // carga inicial de mensajes
-  /* socket.emit('mensajes',  messegesCollection.getAll()); */
 
-  // actualizacion de mensajes
-  /* socket.on('nuevoMensaje', async mensaje => {
-      mensaje.fyh = new Date().toLocaleString()
-       mensajesApi.guardar(mensaje)
-      io.sockets.emit('mensajes',  messegesCollection.getAll());
-  }) */
+  //Chat
+  const resultado = await messegesCollection.getMesseges()
+  /* console.log("resultado",resultado) */
+  socket.emit('MENSAJES_GUARDADOS', resultado );
+  socket.on('chat_message', (msg) => {
+      msj = { ...msg, id: socket.id, date: new Date }
+      messegesCollection.saveMessege(msj) 
+      /* console.log("mensaje:", msj) */
+      io.sockets.emit('new_message', msj)
+  })
 });
 
 
