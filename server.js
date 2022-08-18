@@ -26,22 +26,21 @@ app.post('/productos', async (req,res) =>{
 })
 
 app.get("/", (req, res) => {
-
   res.sendFile(__dirname + "/public/index.html")
 })
 
 
 //Configuracion del socket
 io.on('connection', async (socket) => {
-  console.log('cliente online ');
-  // carga inicial de productos
+
   const getProducts =await productsCollection.getAll()
   socket.emit('productos-guardados', getProducts); 
-  /* console.log("getP", getProducts) */
   
   // actualizacion de productos
-  socket.on('update', async(producto) => {
-    productsCollection.save(producto)
+  socket.on('add-product', async (producto) => {  //recibe el producto de main.js del cliente
+    await productsCollection.save(producto)
+    const getProducts =await productsCollection.getAll()
+    console.log("getP en actualizacion", getProducts) //
       io.sockets.emit('productos', getProducts);
   }) 
 
