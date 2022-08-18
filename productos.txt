@@ -40,5 +40,26 @@
     "precio": 44446,
     "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "id": 6
+  },
+  {
+    "nombre": "remera coloridawww",
+    "categoria": "remerawww",
+    "precio": 222222,
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 7
+  },
+  {
+    "nombre": "remera coloridaEE",
+    "categoria": "remeraEE",
+    "precio": 1,
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 8
+  },
+  {
+    "nombre": "remera coloridass",
+    "categoria": "remerass",
+    "precio": 22,
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 9
   }
 ]

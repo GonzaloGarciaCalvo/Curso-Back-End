@@ -17,12 +17,13 @@ const socket = io();
 // })
 
 socket.on('productos-guardados', productos =>  {
-    const productsContainer = document.getElementById('productos')
+    
     fetch('../views/vista.ejs')
         .then(response => response.text())
         .then(plantilla => {
             let html = ejs.render(plantilla, { 
             productos})
+            const productsContainer = document.getElementById('productos')
             productsContainer.innerHTML = html
         }) 
 });
@@ -43,48 +44,13 @@ socket.on('productos-guardados', productos =>  {
     console.log("prod ", producto)
     socket.emit('add-product', producto);
     console.log("sendProduct !!")
-    /* title.value = '';
+    title.value = '';
     price.value = '';
-    thumbnail.value = ''; */
+    thumbnail.value = '';
 
     return false; 
 } 
 
-//////////////////////////////////////////////////////////////
-////  FUNCIONA  hardcodeado horrible pero renderiza    //////
-/* const renderTemplate = (data) => {   
-    const productsList = document.querySelector('#productos')
-    console.log("listadoProductos", productsList)
-    const html = data.map(product =>    `<tr>
-                                            <td>${product.nombre}</td>
-                                            <td>Precio: ${product.precio}</td>
-                                            <td><img src="${product.thumbnail}" width="70px" alt="img"></td>
-                                            <td>${product.id}</td>
-                                        </tr>
-                                        `)
-
-    productsList.innerHTML += html
-}
-
-socket.on('productos-guardados', data => {
-    console.log("data", data)  // llega
-    renderTemplate(data) //renderiza como objeto sin las etiquetas 
-}) */
-
-/* socket.on('productos-guardados', async (productos) =>  {
-        console.log("productos en socket.on", productos) //entra
-        console.log("ejs", ejs)  // ejs is not defined
-        const productsContainer = document.getElementById('productos')
-        return await fetch('../views/vista.ejs')
-            .then(response => response.text())
-            .then(plantilla => {
-                let html = ejs.render(plantilla, { // tira ERROR  main.js:27 Uncaught (in promise) ReferenceError: response is not defined
-                productos
-                })
-                productsContainer.innerHTML = html
-            }) 
-}); */
-////////////////////////////////////////////////////////////////
 
 //////// CHAT messeges /////////
 socket.on('new_message', (msg) => {
@@ -106,8 +72,12 @@ const enviarMensaje = () => {
 }
 const agregarMensajes = (msg) => {
     const box = document.getElementById('post').innerHTML += `
-    <div class='card'>
-        <p style='color:blue'>${msg.correo}</p> <p style='color:brown'>[${msg.date}]</p> <p style='color:green; font-style: italic' >${msg.mensaje}</p>
+    <div class='card p-1'>
+        <div class="d-flex flex-row">
+            <p style="color:blue; font-weight:700; width:200px">usuario: ${msg.correo}</p> 
+            <p style="color:brown">fecha: [${msg.date}]</p> 
+        </div>
+        <p style='color:green; font-style: italic' >${msg.mensaje}</p>
     </div>
     `
 }

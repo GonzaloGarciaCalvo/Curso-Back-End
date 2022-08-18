@@ -2,6 +2,7 @@ const express = require('express')
 const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io')  
 const app = express()
+const moment = require('moment-timezone');
 
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
@@ -37,11 +38,10 @@ io.on('connection', async (socket) => {
   socket.emit('productos-guardados', getProducts); 
   
   // actualizacion de productos
-  socket.on('add-product', async (producto) => {  //recibe el producto de main.js del cliente
+  socket.on('add-product', async (producto) => {  
     await productsCollection.save(producto)
     const getProducts =await productsCollection.getAll()
-    console.log("getP en actualizacion", getProducts) //
-      io.sockets.emit('productos', getProducts);
+      io.sockets.emit('productos-guardados', getProducts);
   }) 
 
 
@@ -50,7 +50,8 @@ io.on('connection', async (socket) => {
   /* console.log("resultado",resultado) */
   socket.emit('MENSAJES_GUARDADOS', resultado );
   socket.on('chat_message', (msg) => {
-      msj = { ...msg, id: socket.id, date: new Date }
+      let date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss')
+      msj = { ...msg, id: socket.id, date: date }
       messegesCollection.saveMessege(msj) 
       /* console.log("mensaje:", msj) */
       io.sockets.emit('new_message', msj)
