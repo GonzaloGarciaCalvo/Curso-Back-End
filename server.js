@@ -17,6 +17,8 @@ app.use(express.urlencoded({extends:true}));
 app.use(express.static('public'));
 
 
+
+
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
