@@ -11,7 +11,6 @@ routerProductos.use(express.urlencoded({ extended: true }));
 
 routerProductos.get('/' , async(req, res)=>{  
   const resultado = await contenidoArchivo.getAll() 
-  /* console.log("resultado:  ",resultado) */
   res.send(resultado)
 })
 routerProductos.get('/:id', async(req, res)=>{ 

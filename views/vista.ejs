@@ -11,36 +11,31 @@
 </head>
 
 <body>
-    <%- include('./styles/styles')-%>
     <main class="container mt-3">
-        <div>
-            <h1>Productos</h1>
-            <% if(hayProductos) { %>
-                <div class="table-responsive">
-                    <table class="table table-primary table-striped align-middle">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Foto</th>
-                        </tr>
-                        <% productos.forEach((producto)=> { %>
-                            <tr>
-                                <td>
-                                    <%= producto.nombre%>
-                                </td>
-                                <td>
-                                    <%= producto.precio%>
-                                </td>
-                                <td><img width="40" src=<%=producto.thumbnail%> alt="foto producto"></td>
-                            </tr>
-                            <% }); %>
-                    </table>
-                </div>
-                <% } else{ %>
-                    <p class="fs-2">No hay productos</p>
-                    <% } %>
-                <a href="/" type="button" class="btn btn-primary mt-2">Cargar producto</a>
+        <div class="container">
+                <% if(productos.length> 0) {%>
+                    <h1> Productos</h1>
+                        <% productos.map(function (item) { %>
+                            <div class="card" style="width: 18rem;">
+                                <img src='<%= item.thumbnail %>' class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= item.nombre %></h5>
+                                    <p class="card-text"><%= item.precio %>.</p>
+                                    <% if(administrador) { %>
+                                        <a href="#" onclick="asd()" class="btn btn-primary" >Editar</a>
+                                        <a href="#" class="btn btn-primary">Actualizar</a>
+                                        <% } %>
+                                </div>
+                            </div>                           
+                            <% }) %>                       
+                    <% } else { %>
+                        <h2>No hay productos</h2>
+                        <a href="/" class="btn btn-primary m-2">Volver a cargar productos</a>
+                        <% } %>
+    
+    
         </div>
+        
     </main>
     <%- include('partial/footer.ejs')-%>
 </body>

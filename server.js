@@ -5,14 +5,10 @@ const contenidoArchivo = new Contenedor('./productos.txt')
 const routerProductos = require('./routers/productos')
 const routerCarrito = require('./routers/carrito')
 
-
-/* app.use(express.urlencoded({ extended: true })) //En este orden no funciona !!
-app.use(express.static('public'))
-app.use(express.json) */
-
-app.use(express.json());
-app.use(express.urlencoded({extends:true}));
+/* app.use(express.json());
+app.use(express.urlencoded({extends:true})); */
 //Advertencia NODE body-parser deprecated undefined extended: provide extended option server.js:14:17
+//  FIX comentando, estaba duplicado en los routers
 app.use(express.static('public'));
 
 app.use('/api/productos', routerProductos)
@@ -39,7 +35,8 @@ app.get('/productos', async (req, res) => {
   const productos =  await contenidoArchivo.getAll()
   res.render("vista", {
       productos: productos,
-      hayProductos: productos.length
+      hayProductos: productos.length,
+      administrador: true
   });
 })
 

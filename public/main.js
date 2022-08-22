@@ -8,18 +8,13 @@ const handleGetById = () => {
           console.log(post.title);
       });
 };
-const method = {
-  method: 'DELETE'
-}
-const delYd = () => {
+
+const handleDeleteById = () => {
   const id= document.getElementById('deletId').value
-  fetch(`http://localhost:8080/api/productos/${id}`, 'DELETE',)
+  fetch(`http://localhost:8080/api/productos/${id}`, {method: 'DELETE'})
       .then(data => {
           window.location.replace(data.url);;
       })
-      .then(post => {
-          console.log(post.title);
-      });
 };
 
 const getCart = () => {
@@ -28,37 +23,25 @@ const getCart = () => {
       .then(data => {
           window.location.replace(data.url);;
       })
-      /* .then(post => {
-          console.log(post.title);
-      }); */
 };
 
-const createCart = () => {
+const HandleCreateCart = () => {
   /* const id= document.getElementById('newCart').value */
-  fetch(`http://localhost:8080/api/carrito/`, {method:'POST'})
-      .then(response => response.json)
-      .then(data => {
-          console.log("data fetch post", data);
-      });
+    fetch(`http://localhost:8080/api/carrito/`, {method:'POST'})
+        .then(response => response.json)
 };
 
-const appProductToCart = () => {
-  /* const id= document.getElementById('newCart').value */ // consultar  como tomar el id del cart ?
-  fetch(`http://localhost:8080/api/carrito/${id}/productos`, {method:'POST'})
-      .then(response => response.json)
-      .then(data => {
-          console.log("data fetch post", data);
-      });
+const handleAddToCart = () => {
+  const id= document.getElementById('addToCart').value // consultar  como tomar el id del cart ?
+    fetch(`http://localhost:8080/api/carrito/${id}/productos`, {method:'POST'})
+        .then(response => response.json)    
 };
 
 const delProd = () => {
-  const id= document.getElementById('deletProd').value;
-  const prod= document.getElementById('prod').value
-  fetch(`http://localhost:8080/api/carrito/${id}/prods/${prod}`, 'DELETE',)
-      .then(data => {
-          window.location.replace(data.url);;
-      })
-      .then(post => {
-          console.log(post.title);
-      });
+    const id= document.getElementById('deletProd').value;
+    const prod= document.getElementById('prod').value
+    fetch(`http://localhost:8080/api/carrito/${id}/prods/${prod}`, {method:'DELETE'})
+        .then(data => {
+            window.location.replace(data.url);;
+        })
 };

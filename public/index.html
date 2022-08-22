@@ -42,21 +42,28 @@
 
       <button type="submit" class="btn btn-primary">Enviar</button>
     </form> -->
-    <h2> GetId</h2>
+  <h4> GetId</h4>
   ID: <input type="number" name="id" id='prodId' />
   <button onclick="handlegetById()">Traer</button>
 
-  <h2>Delet by Id</h2>
+  <h4>Delet by Id</h4> <!-- pendiente -->
   ID: <input type="number" name="id" id='deletId'/>
-  <button onclick="delYd()">Eliminar</button>
-  <hr/>
-  <h2>Crear Carrito</h2>
+  <button onclick="HanbleDeleteById()">Eliminar</button>
+  <hr>
+
+  <h4>Crear Carrito</h4>
   ID: <input type="number" name="id" id='newCart' />
-  <button onclick="createCart(cartId)">Ver Carrito</button>
-  <h2>Mostrar Carrito</h2>
+  <button onclick="handleCreateCart(cartId)">Ver Carrito</button>
+
+  <h4>Mostrar Carrito</h4>
   ID: <input type="number" name="id" id='cartId' />
   <button onclick="getCart()">Ver Carrito</button>
-  <h2>Prueba de Delet prod carro</h2>
+
+  <h4>Agregar al carrito</h4>
+  ID: <input type="number" name="id" id='addToCart' />
+  <button onclick="handleAddToCart()">Ver Carrito</button>
+
+  <!-- <h4>Prueba de Delet prod carrito</h4> -->
   <!-- ID: <input type="number" name="id" id='deletProd'/>
   Prod: <input type="number" name="prod" id='prod'/>
   <button onclick="delProd()">Eliminar</button> -->
