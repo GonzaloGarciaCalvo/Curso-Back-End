@@ -33,5 +33,12 @@
     "precio": 4500,
     "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "id": 5
+  },
+  {
+    "nombre": "remera colorida55",
+    "categoria": "remera",
+    "precio": "8888",
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 6
   }
 ]

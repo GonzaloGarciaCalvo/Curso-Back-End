@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const Contenedor = require('./ClaseContenedor')
 const contenidoArchivo = new Contenedor('./productos.txt')
+const routerProductos = require('./routers/productos')
+const routerCarrito = require('./routers/carrito')
 
 
 /* app.use(express.urlencoded({ extended: true })) //En este orden no funciona !!
@@ -12,6 +14,16 @@ app.use(express.json());
 app.use(express.urlencoded({extends:true}));
 //Advertencia NODE body-parser deprecated undefined extended: provide extended option server.js:14:17
 app.use(express.static('public'));
+
+app.use('/api/productos', routerProductos)
+app.use('/api/carrito', routerCarrito)
+
+/////////////
+routerProductos.use(express.json());
+routerProductos.use(express.urlencoded({ extended: true }));
+
+
+//////////
 
 
 app.set("view engine", "ejs");
