@@ -2,11 +2,6 @@
   {
     "id": 1,
     "timestamp": 1661136182584,
-    "productos": {}
-  },
-  {
-    "id": 2,
-    "timestamp": 1661193326981,
-    "productos": {}
+    "productos": []
   }
 ]

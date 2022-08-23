@@ -40,5 +40,26 @@
     "precio": "8888",
     "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
     "id": 6
+  },
+  {
+    "nombre": "Remera Azul",
+    "categoria": "remera",
+    "precio": 4500,
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 7
+  },
+  {
+    "nombre": "Remera Azul",
+    "categoria": "remera",
+    "precio": 4500,
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 8
+  },
+  {
+    "nombre": "Remera Azul",
+    "categoria": "remera",
+    "precio": 4500,
+    "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "id": 9
   }
 ]

@@ -58,16 +58,23 @@ routerCarrito.get('/:id/productos', async (req, res) => {
 // CONSULTAR: 
 routerCarrito.post('/:id/productos', async (req, res) => {
     const id = req.params.id
-    /* const cart = await carrito.getById(id) */
-    const prod = await contenidoArchivo.getById(id)
-    /* const item = await carrito.getById(req.body.id) */ // COMO SE LINKEA 
-    carrito.push(prod);
-    console.log(cart.carrito)
-    const resultado = await carrito.updateItem(cart, id)    
-    res.json(resultado)
+    
+    const cartSelected = await carrito.lastCart()
+    console.log("cartSelected en carrito", cartSelected)
+    const cart = await carrito.getById(cartSelected) 
+    console.log("cart: !!  ", cart)
+    const item = await contenidoArchivo.getById(id)
+    console.log("item", item)
+    /* console.log("cart.productos", cart.productos) */
+    /* cart.productos = await carrito.save(item) */
+    let arrayProductos = cart.productos
+    arrayProductos = await carrito.save(item) 
+    console.log("cart.productos2", arrayProductos)
+       
+    res.json(arrayProductos)
 })
 
-// e) eliminar prod del cart    PENDIENTE DE PRUEBA
+// e) eliminar prod del cart    PENDIENTE DE PRUEBA ...  no puedo agregar al carrito
 routerCarrito.delete('/:id/productos/:id_prod', async (req, res) => {
     const cartId = req.params.id
     const prodId = req.params.id_prod;

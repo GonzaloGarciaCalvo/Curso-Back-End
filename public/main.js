@@ -25,7 +25,7 @@ const getCart = () => {
       })
 };
 
-const HandleCreateCart = () => {
+const handleCreateCart = () => {
   /* const id= document.getElementById('newCart').value */
     fetch(`http://localhost:8080/api/carrito/`, {method:'POST'})
         .then(response => response.json)

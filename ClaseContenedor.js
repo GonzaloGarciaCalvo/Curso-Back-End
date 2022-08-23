@@ -18,11 +18,39 @@ class Contenedor {
 		}catch (error) { console.log(error)}
 	}
 
+	// async saveInCart(obj) {  NO FUNCIONA
+	// 	try {
+	// 		let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
+	// 		let dataArchParse = JSON.parse(dataArch)
+	// 		if (dataArchParse) {
+	// 			await fs.promises.writeFile(this.ruta, JSON.stringify({ ...obj, productos:[...productos, obj] })
+	// 		} 
+	// 		/* console.log(`El objeto tiene id: ${dataArchParse.length+1}`)  */
+	// 		return dataArchParse.length+1
+	// 	}catch (error) { console.log(error)}
+	// }
+
+	async lastCart() { 
+		//tomo el ultimo cart
+		const dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
+		
+		try {
+			/* let dataArch = await fs.promises.readFile(this.ruta, 'utf-8') */
+			const dataArchParse = JSON.parse(dataArch) //intento obtener parseado el ultimo elemento del array archivo
+			const cartPosition = dataArchParse.length //id coincide con length
+      console.log("cartPosition", cartPosition)//ok
+			const cartSelected = dataArchParse[cartPosition-1] //ok
+			console.log("cartSelected ",cartSelected)
+			
+			return cartPosition
+		}catch (error) { console.log(error)}
+	}
+
 	async getById(id) {
 		try {
 			const data = await fs.promises.readFile(this.ruta, 'utf8')
 			const dataParsed = JSON.parse(data)
-			console.log("dataParsed en getById: ", dataParsed) //muestra array con objeto cart id=1
+			/* console.log("dataParsed en getById: ", dataParsed) */ //muestra array con objeto cart id=1
 			const numId = Number(id) // fix al find
 			const searchedProduct = dataParsed.find(prod => prod.id === numId)
 			if (searchedProduct) {
@@ -82,7 +110,7 @@ class Contenedor {
 			const cart = {
 			id: id ,
 			timestamp : Date.now(),
-			productos: prod
+			productos: []
 		}
 			let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
 			let dataArchParse = JSON.parse(dataArch)
@@ -99,6 +127,10 @@ class Contenedor {
 			console.log(`El objeto tiene id: ${dataArchParse.length+1}`) 
 			return dataArchParse.length+1
 		}catch (error) { console.log(error)}
+	}
+
+	async addTocart(){
+
 	}
 	
 }
