@@ -1,7 +1,64 @@
 [
   {
     "id": 1,
-    "timestamp": 1661136182584,
+    "timestamp": 1661439305383,
     "productos": []
+  },
+  {
+    "id": 2,
+    "timestamp": 1661439306073,
+    "productos": []
+  },
+  {
+    "id": 3,
+    "timestamp": 1661439306836,
+    "productos": [
+      {
+        "nombre": "Remera Azul",
+        "categoria": "remera",
+        "precio": 4500,
+        "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+        "id": 1,
+        "stock": 40
+      },
+      {
+        "nombre": "Remera Azul",
+        "categoria": "remera",
+        "precio": 4500,
+        "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+        "id": 2,
+        "stock": 50
+      },
+      {
+        "nombre": "remera colorida55",
+        "categoria": "remera",
+        "precio": "8888",
+        "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+        "id": 3,
+        "stock": 20
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "timestamp": 1661439454757,
+    "productos": [
+      {
+        "nombre": "Remera Azul",
+        "categoria": "remera",
+        "precio": 4500,
+        "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+        "id": 2,
+        "stock": 50
+      },
+      {
+        "nombre": "remera colorida55",
+        "categoria": "remera",
+        "precio": "8888",
+        "thumbnail": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+        "id": 3,
+        "stock": 20
+      }
+    ]
   }
 ]

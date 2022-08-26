@@ -1,4 +1,4 @@
-const handleGetById = () => {
+const handlegetById = () => {
   const id= document.getElementById('prodId').value
   fetch(`http://localhost:8080/api/productos/${id}`)
       .then(data => {
@@ -37,11 +37,9 @@ const handleAddToCart = () => {
         .then(response => response.json)    
 };
 
-const delProd = () => {
-    const id= document.getElementById('deletProd').value;
-    const prod= document.getElementById('prod').value
-    fetch(`http://localhost:8080/api/carrito/${id}/prods/${prod}`, {method:'DELETE'})
-        .then(data => {
-            window.location.replace(data.url);;
-        })
+const handleDeleteProd = () => {
+    const id= document.getElementById('deleteProd_id').value;
+    const id_prod= document.getElementById('deleteProd_prodId').value
+    fetch(`http://localhost:8080/api/carrito/${id}/productos/${id_prod}`, {method:'DELETE'})
+        .then(response => response.json)    
 };

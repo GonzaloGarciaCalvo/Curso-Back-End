@@ -9,34 +9,39 @@ class Contenedor {
 			let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
 			let dataArchParse = JSON.parse(dataArch)
 			if (dataArchParse) {
-				await fs.promises.writeFile(this.ruta, JSON.stringify([...dataArchParse, { ...obj, id:dataArchParse.length+1 } ],null,2))
+				await fs.promises.writeFile(this.ruta, JSON.stringify(
+					[...dataArchParse, { ...obj, id:dataArchParse.length+1, timestamp: Date.now()} ],null,2))
 			} else {
-				await fs.promises.writeFile(this.ruta, JSON.stringify([...dataArchParse, {...obj, id:dataArchParse.length+1}],null,2))
+				await fs.promises.writeFile(this.ruta, JSON.stringify(
+					[...dataArchParse, {...obj, id:dataArchParse.length+1,timestamp: Date.now() }],null,2))
 			}
 			console.log(`El objeto tiene id: ${dataArchParse.length+1}`) 
 			return dataArchParse.length+1
 		}catch (error) { console.log(error)}
 	}
-
-	// async saveInCart(obj) {  NO FUNCIONA
-	// 	try {
-	// 		let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
-	// 		let dataArchParse = JSON.parse(dataArch)
-	// 		if (dataArchParse) {
-	// 			await fs.promises.writeFile(this.ruta, JSON.stringify({ ...obj, productos:[...productos, obj] })
-	// 		} 
-	// 		/* console.log(`El objeto tiene id: ${dataArchParse.length+1}`)  */
-	// 		return dataArchParse.length+1
-	// 	}catch (error) { console.log(error)}
-	// }
+  
+	async saveInCart(obj, id) {  //NO FUNCIONA
+		try {
+			let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
+			let dataArchParse = JSON.parse(dataArch)
+			if (dataArchParse) {
+				await this.deleteById(id)
+				await fs.promises.writeFile(this.ruta, JSON.stringify({ ...dataArchParse, obj})
+				)
+			return dataArchParse.length+1
+		} 
+	}catch (error) { console.log(error)}
+  }
 
 	async lastCart() { 
 		//tomo el ultimo cart
-		const dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
+		/* const dataArch = await fs.promises.readFile(this.ruta, 'utf-8') */
 		
 		try {
-			/* let dataArch = await fs.promises.readFile(this.ruta, 'utf-8') */
-			const dataArchParse = JSON.parse(dataArch) //intento obtener parseado el ultimo elemento del array archivo
+			const dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
+			console.log("dataArch lastCart ",dataArch)
+			const dataArchParse = await JSON.parse(dataArch) //intento obtener parseado el ultimo elemento del array archivo
+			console.log("dataArch.Parse lastCart ",dataArchParse)
 			const cartPosition = dataArchParse.length //id coincide con length
       console.log("cartPosition", cartPosition)//ok
 			const cartSelected = dataArchParse[cartPosition-1] //ok
@@ -80,6 +85,7 @@ class Contenedor {
 	async deleteById (id) { 
 		console.log(`id en deleteNyId ${id}`)
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
+			console.log("dataArch en deleteById",dataArch)
 			const dataArchParse = JSON.parse(dataArch) 
 			let product = dataArchParse.find(prod => prod.id === id); //con === no anda
 			if (product) {
@@ -97,16 +103,37 @@ class Contenedor {
 	}
 
 	async updateItem (producto, id){ 
-		await this.deleteById(id)
 		const itemToModify = { ...producto, ...id} 
 		let products = await this.getAll()
-		products = [...products , itemToModify]
-		const orderedProducts = products.sort((a,b)=>a.id-b.id)
+		await this.deleteById(id)
+		const filteredCart = products.filter(prod => prod.id !== id)
+		filteredCart = [...filteredCart , itemToModify]
+		const orderedProducts = filteredCart.sort((a,b)=>a.id-b.id)
 		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
 	}
+
+	async updateCart (producto, id){ 
+		
+		const itemToModify = { ...producto} 
+		let products = await this.getAll()
+		console.log("cart antes de deleteAll  ", products)
+		await this.deleteAll()
+		const chequeoArchivo = await fs.promises.readFile(this.ruta, 'utf-8')
+		console.log("che ", chequeoArchivo) // muestra array vacio
+		const productsFiltered = products.filter(item => item.id !==producto.id)
+		console.log("pf", productsFiltered) // muestra array sin elementos duplicados, pero en realidad al agregar producto, queda el carrito con la cantidad anterior y otro con la nueva
+		products = [...productsFiltered , itemToModify]
+		const orderedProducts = products.sort((a,b)=>a.id-b.id)
+		/* for (let i=1; i<100000; i++) {  // efectivamente se borra el archivo
+			console.log("esperando")
+		} */
+		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
+	}
+
 	async saveCart(prod) { 
 		try {
 			let id 
+		
 			const cart = {
 			id: id ,
 			timestamp : Date.now(),
@@ -129,9 +156,48 @@ class Contenedor {
 		}catch (error) { console.log(error)}
 	}
 
-	async addTocart(){
+	async deletProd(cartId, prodId) {
+		try {
+				const cartSelected = await this.getById(cartId);
+				console.log("data", cartSelected)
+				const arrayProd = await cartSelected.productos
+				console.log("arrayProd", arrayProd)//bien
+				const cart = await this.getAll() // traigo todo el cart 
+        /* console.log("cart", cart)
+				console.log("cart[cartId]", cart[Number(cartId-1)] )
+				const cartProd = cart[cartId-1].productos */
+				const cartProd = cartSelected.productos
+				console.log("cartProd", cartProd)
+				console.log("type of ", typeof cartProd)
+				const cartProdFiltered = cartProd.filter(item => item.id !=prodId) //prodId es string
+				console.log("cartProdFiltered", cartProdFiltered)
+				const cartFiltered = cart.filter(item => item.id != cartId)
+				cartSelected.productos = cartProdFiltered
+				const newCartArray = [...cartFiltered, cartSelected]
+				/* console.log("filtrado",filtrado)
+				const nuevoCarrito = { ...data, productos: filtrado }
+				console.log(nuevoCarrito)
+				cart[cartId-1].productos = nuevoCarrito */
+				/* const asd = await this.deleteById(cartId); */
+				const asd = await this.deleteAll()  // OJO VA 
+				/* asd.push(nuevoCarrito); */
+				/* asd = [ nuevoCarrito ] */ 
+				/* await this.deleteAll() */
 
-	}
+				/* const dataFinal = asd.sort((a, b) => {
+						return a.id - b.id
+				}) */
+				const newCartArraySaved = fs.promises.writeFile(this.ruta, JSON.stringify(newCartArray),null,2);
+				return newCartArraySaved // OJO Va
+				// fs.promises.writeFile(
+				//     this.url,
+				//     JSON.stringify(...getAll, filtrado)
+
+				// );
+		} catch (error) {
+				return console.log(error)
+		}
+}
 	
 }
 module.exports = Contenedor
