@@ -4,6 +4,7 @@ const Contenedor = require('./ClaseContenedor')
 const contenidoArchivo = new Contenedor('./productos.txt')
 const routerProductos = require('./routers/productos')
 const routerCarrito = require('./routers/carrito')
+const dotenv = require('dotenv').config()
 
 /* app.use(express.json());
 app.use(express.urlencoded({extends:true})); */
@@ -40,7 +41,7 @@ app.get('/productos', async (req, res) => {
   });
 })
 
-const PORT = 8080
+const PORT = process.env.PORT
 const server = app.listen(PORT || 8080, () => {
     console.log(`Servidor corriendo en el puerto: ${ server.address().port }`)
 }).on('error', (e) => console.log('Error: ', e.message));
