@@ -8,11 +8,23 @@ const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
 const Contenedor = require('./ClaseContenedor')
-const productsCollection = new Contenedor('./productos.txt')
-const messegesCollection = new Contenedor('./mensajes.txt')
+/* const productsCollection = new Contenedor('./productos.txt')// pasar ruta, 
+const messegesCollection = new Contenedor('./mensajes.txt') */
 
-app.use(express.json());
+/* const knex = require('knex')(options) */
+const { mariaDB } = require('./configDB/config')
+console.log("mdb", mariaDB)
+const { sqlite3 } = require('./configDB/configSqlite')
+console.log("sqlite", sqlite3)
+const knex_mariaDB = require('knex')(mariaDB) 
+const knex_sqlite = require('knex')(sqlite3)  // crashea
+const productsCollection = new Contenedor(knex_mariaDB, "productos")
+const messegesCollection = new Contenedor(knex_sqlite, "mensajes")
+
+
+
 app.use(express.urlencoded({extends:true}));
+app.use(express.json());
 //Advertencia NODE body-parser deprecated undefined extended: provide extended option server.js:14:17
 app.use(express.static('public'));
 
