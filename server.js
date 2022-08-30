@@ -7,29 +7,22 @@ const moment = require('moment-timezone');
 const httpServer = new HttpServer(app)
 const io = new IOServer(httpServer)
 
-const Contenedor = require('./ClaseContenedor')
-/* const productsCollection = new Contenedor('./productos.txt')// pasar ruta, 
-const messegesCollection = new Contenedor('./mensajes.txt') */
+const Contenedor = require('./claseContenedor')
+const ContenedorSqlite = require('./contenedorSqlite')
+
 
 /* const knex = require('knex')(options) */
 const { mariaDB } = require('./configDB/config')
-console.log("mdb", mariaDB)
 const { sqlite3 } = require('./configDB/configSqlite')
-console.log("sqlite", sqlite3)
 const knex_mariaDB = require('knex')(mariaDB) 
-const knex_sqlite = require('knex')(sqlite3)  // crashea
-const productsCollection = new Contenedor(knex_mariaDB, "productos")
-const messegesCollection = new Contenedor(knex_sqlite, "mensajes")
-
-
+const knex_sqlite = require('knex')(sqlite3)  
+const productsCollection = new Contenedor(knex_mariaDB, "productos", "ruta")
+const messegesCollection = new ContenedorSqlite(knex_sqlite, "mensajes", "ruta2")
 
 app.use(express.urlencoded({extends:true}));
 app.use(express.json());
 //Advertencia NODE body-parser deprecated undefined extended: provide extended option server.js:14:17
 app.use(express.static('public'));
-
-
-
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
@@ -63,11 +56,11 @@ io.on('connection', async (socket) => {
   const resultado = await messegesCollection.getMesseges()
   /* console.log("resultado",resultado) */
   socket.emit('MENSAJES_GUARDADOS', resultado );
-  socket.on('chat_message', (msg) => {
+  socket.on('chat_message', async (msg) => {
       let date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss')
       msj = { ...msg, id: socket.id, date: date }
-      messegesCollection.saveMessege(msj) 
-      /* console.log("mensaje:", msj) */
+      await messegesCollection.saveMessege(msj) 
+      console.log("mensaje en soket:", msj)
       io.sockets.emit('new_message', msj)
   })
 });

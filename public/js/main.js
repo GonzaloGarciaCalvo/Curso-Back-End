@@ -59,9 +59,11 @@ socket.on('new_message', (msg) => {
 });
 
 socket.on('MENSAJES_GUARDADOS', (a)=>{
+    if (a) {
     a.forEach(element => {
         return agregarMensajes(element)
     });
+    }
 })
 
 const enviarMensaje = () => {

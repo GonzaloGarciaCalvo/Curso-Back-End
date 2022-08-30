@@ -22,31 +22,30 @@ Definir una carpeta DB para almacenar la base datos SQLite3 llamada ecommerce */
 
 
 class Contenedor {
-	constructor(ruta, knex, nombreTabla) {
-		this.ruta = ruta
+	constructor(knex, nombreTabla, ruta) {
 		this.knex = knex
 		this.nombreTabla = nombreTabla
-	}
-
-	async createTable (nombreTabla){
-			try {
-					await knex.schema.createTable(nombreTabla, table =>{
-							table.increments('id').primary()
-							table.string('nombre',20)
-							table.float('precio',50) 
-							table.string('thumbnail',30)  
+		this.ruta = ruta;
+		(async() => {
+			let exists = await this.knex.schema.hasTable(this.nombreTabla)
+			/* console.log("exists", exists)
+			console.log("knex", knex) */
+			if (!exists) {
+					await this.knex.schema.createTable(this.nombreTabla, table => {
+							table.increments('id').primary();
+							table.string('nombre', 30);
+							table.float('precio', 100);
+							table.string('thumbnail',200);
 							table.integer('stock')
-					})
-					console.log('Tabla creada')
-			} catch (error) {
-					console.log(error)
-			} 
-			
+					});
+					console.log('Tabla de productos creada!')
+			}
+	})()
 	}
 
 	async save(obj) { 
 		try {
-			await this.knex(nombreTabla).insert(obj)
+			return await this.knex(this.nombreTabla).insert(obj)
 			/* .then(resp => console.log(resp))
 			.catch(err => console.log(err))
 			.finally(() => knex.destroy()) */
@@ -55,52 +54,20 @@ class Contenedor {
 	}
 
 	async getById(id) {
-	
-		try {
-      const itemSelected = this.knex.from(nombreTabla).select('*').where('id', '=', id)
-			if (itemSelected) {
-				console.log (`El producto con id ${id} es ${JSON.stringify(itemSelected, null, 2)}`)
-				return itemSelected
-			} else {
-				console.log(`Producto no encontrado`)
-				return null
-			}
-		}catch {
-      err => console.log(err)
-		}finally {
-      () => this.knex.destroy()
-		}
-	}
-
-
-	async getAll () { //falta
-		/* try {
-			const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
-			const parsedDataArray = await JSON.parse(dataArray, null , 2)
-			if (parsedDataArray.length) { 
-				return parsedDataArray
-			} else {
-				console.log('no hay productos - getAll')
-		  }
-		} catch (error){
-			console.log(error)
-		} */
-    try {
-			knex.from(this.nombreTabla).select('*')
-					.then(resp => {
-							for(obj of resp){
-									console.log(`El id: ${obj.id} es un ${obj.name} y cuesta ${obj.price}`)
-							}
-					})
-					
-		} catch {
-			(err => console.log(err))
-		}
-			
-
+    await this.knex.from(this.nombreTabla).select('*').where('id', '=', id).orderBy('id', 'asc')
+		.then(resp => console.log(resp))
+		.catch(err => console.log(err))
+		.finally(() => knex.destroy())
 
 	}
-	async deleteById (id) { //falta
+
+
+	async getAll () { // FUNCIONA
+		return	await this.knex.from(this.nombreTabla).select('*')
+		 
+	}
+
+	async deleteById (id) { //PENDIENTE
 		console.log(`id en deleteNyId ${id}`)
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
 			const dataArchParse = JSON.parse(dataArch) 
@@ -114,12 +81,12 @@ class Contenedor {
 			}
 	}
 
-	async deleteAll () {
+	async deleteAll () { // PENDIENTE
 		await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2))
 				console.log(`array de prod ${this.arrayProductos}`)
 	}
 
-	async updateProduct (producto, id){ 
+	async updateProduct (producto, id){ //PENDIENTE
 		await this.deleteById(id)
 		const itemToModify = { ...producto, ...id} 
 		let products = await this.getAll()
@@ -128,41 +95,5 @@ class Contenedor {
 		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
 	}
 
-	async getMesseges () { 
-		// try {
-		// 	const dataArray = await fs.promises.readFile(this.ruta, 'utf8')
-		// 	 const parsedDataArray = await JSON.parse(dataArray, null , 2)
-		// 		/* console.log(" length getMesseges", parsedDataArray.length) */
-		// 		return parsedDataArray
-		// } catch (error){
-		// 	console.log(error)
-		// }
-
-    knex.from(nombreTabla).select('*')
-				.then(resp => {
-						for(obj of resp){
-								console.log(`El id: ${obj.correo} es un ${obj.mensaje}, ${obj.id}, ${obj.date}`)
-						}
-})
-.catch(err => console.log(err))
-
-	}
-	async saveMessege(obj) {  // FALTA
-		/* let dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
-		let dataArchParse = JSON.parse(dataArch)
-			await fs.promises.writeFile(this.ruta, JSON.stringify([...dataArchParse, { ...obj} ],null,2)) */
-		try {
-			await knex('cars').insert(arrayCars)
-
-		}	catch {
-			err => console.log(err)
-		} finally {
-			() => knex.destroy()
-		}
-			/* .then(resp => console.log(resp)) */
-
 } 
-
-	
-}
 module.exports = Contenedor

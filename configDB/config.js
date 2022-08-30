@@ -4,7 +4,7 @@ const mariaDB = {
       host: '127.0.0.1',
       user: 'root',
       password: '',
-      database: 'productos'
+      database: 'ecommerce_mariadb'
   },
   pool: { min: 0, max: 7 }
 }
