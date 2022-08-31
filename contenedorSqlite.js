@@ -14,7 +14,6 @@ class ContenedorSqlite {
 					await this.knex.schema.createTable(this.nombreTabla, table => {
 						table.string('correo',20)
             table.string('date',25)
-						table.increments('id').primary();
 						table.string('mensaje', 500);
 					});
 					console.log('Tabla de mensajes creada en sqlite')
