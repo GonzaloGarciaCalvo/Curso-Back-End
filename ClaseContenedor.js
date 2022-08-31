@@ -34,6 +34,7 @@ class Contenedor {
 					await this.knex.schema.createTable(this.nombreTabla, table => {
 							table.increments('id').primary();
 							table.string('nombre', 30);
+							table.string('categoria', 15);
 							table.float('precio', 100);
 							table.string('thumbnail',200);
 							table.integer('stock')

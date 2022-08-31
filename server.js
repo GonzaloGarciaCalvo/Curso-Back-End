@@ -59,7 +59,7 @@ io.on('connection', async (socket) => {
   socket.on('chat_message', async (msg) => {
       let date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss')
       msj = { ...msg, id: socket.id, date: date }
-      await messegesCollection.saveMessege(msj) 
+      await messegesCollection.saveMessage(msj) 
       console.log("mensaje en soket:", msj)
       io.sockets.emit('new_message', msj)
   })

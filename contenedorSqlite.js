@@ -12,9 +12,9 @@ class ContenedorSqlite {
 			console.log("exists en sqlite", exists)
 			if (!exists) {
 					await this.knex.schema.createTable(this.nombreTabla, table => {
-						table.string('correo',20)
-            table.string('date',25)
 						table.string('mensaje', 500);
+						table.string('id',20)
+            table.string('date',25)
 					});
 					console.log('Tabla de mensajes creada en sqlite')
 			}
@@ -43,7 +43,7 @@ class ContenedorSqlite {
 		} catch {(err => console.log(err))}
   }
 				
-	async saveMessege(obj) {  // NO FUNCIONA
+	async saveMessage(obj) {  // NO FUNCIONA
 		try {
 			console.log("obj mensaje  ",obj) //llega 
 			const knex = this.knex
