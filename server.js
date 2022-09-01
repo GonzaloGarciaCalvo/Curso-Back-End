@@ -58,9 +58,9 @@ io.on('connection', async (socket) => {
   socket.emit('MENSAJES_GUARDADOS', resultado );
   socket.on('chat_message', async (msg) => {
       let date = moment().tz('America/Argentina/Buenos_Aires').format('DD/MM/YYYY HH:mm:ss')
-      msj = { ...msg, id: socket.id, date: date }
+      msj = { ...msg, date: date }
       await messegesCollection.saveMessage(msj) 
-      console.log("mensaje en soket:", msj)
+      console.log("mensaje en soket:", msj) //llega
       io.sockets.emit('new_message', msj)
   })
 });

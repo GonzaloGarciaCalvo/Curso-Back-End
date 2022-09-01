@@ -8,12 +8,13 @@ class ContenedorSqlite {
 		this.nombreTabla = nombreTabla,
 		(async() => {
 			let exists = await this.knex.schema.hasTable(`${this.nombreTabla}`)
-			console.log("nombreTable en sqlite", this.nombreTabla)
-			console.log("exists en sqlite", exists)
+/* 			console.log("nombreTable en sqlite", this.nombreTabla)
+			console.log("exists en sqlite", exists) */
 			if (!exists) {
 					await this.knex.schema.createTable(this.nombreTabla, table => {
+						table.increments('id',50).primary();
+						table.string('correo',20)
 						table.string('mensaje', 500);
-						table.string('id',20)
             table.string('date',25)
 					});
 					console.log('Tabla de mensajes creada en sqlite')
@@ -21,37 +22,23 @@ class ContenedorSqlite {
 	})()
 	}
 
-	// async saveMessege(obj) { // SQLITE_MISMATCH: datatype mismatch]
-	// 	const seveChat = await this.knex(this.nombreTabla).insert(obj)
-	// 	console.log("en saveMessege")
-	// 	.then(resp => console.log(resp))
-	// 	.catch(err => console.log(err))
-	// 	.finally(() => knex.destroy())
-	// 	return seveChat
-	// }
-
-/* 	async deleteAll () {
-		await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2))
-				console.log(`array de prod ${this.arrayProductos}`)
-	} */
-
 	async getMesseges () { 
 		try {
 			console.log("getMesseges")
 			return await this.knex.from(this.nombreTabla).select('*')
 
-		} catch {(err => console.log(err))}
+		} catch (error){console.log(error)}
   }
 				
 	async saveMessage(obj) {  // NO FUNCIONA
 		try {
-			console.log("obj mensaje  ",obj) //llega 
-			const knex = this.knex
-			/* const insertedObj = await knex(this.nombreTabla).insert(obj)  *///no incerta
-      /* console.log("indertedObject  ", insertedObj) */
-			return await knex(this.nombreTabla).insert(obj) //no incerta
-		}	catch {
-			err => console.log(err)
+			console.log("obj mensaje en saveMessage ",obj) //llega 
+			/* await console.log("entrada a db",this.knex(this.nombreTabla).insert(obj))  */ // muestra objeto queryBuilder
+			console.log("nombre tabla", this.nombreTabla)
+			console.log("MARCAAAA")   // NO SE EJECUTA
+			return await this.knex(this.nombreTabla).insert(obj)
+		}	catch (error) {
+			console.log(error)
 		} finally {
 			() => knex.destroy()
 		}
