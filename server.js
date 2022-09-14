@@ -1,21 +1,27 @@
-const express = require('express')
+/* const express = require('express') */
+import express from 'express'
+import routerCarrito from './routes/routerCarrito'
+import routerProductos from './routes/routerProductos'
  
 const app = express()
 
 
 //MongoDB
-const {connection} = require('./config')
-connection()
+/* const {connection} = require('./config')
+connection() */
 
 //Firebase
-const {dbFirebase} = require('./config')
-dbFirebase()
+/* const {dbFirebase} = require('./config')
+dbFirebase() */
 
 
 
 //Routes 
-const routerProductos = require("./routes/routerProductos")
-const routerCarrito = require('./routes/routerCarrito')
+/* import routerCarrito from './routes/routerCarrito'
+import routerProductos from './routes/routerProductos' */
+/* const routerCart = routerCarrito() */
+/* const routerProductos = require("./routes/routerProductos") */
+/* const routerCarrito = require('./routes/routerCarrito') */
 
 app.use('/productos', routerProductos)
 app.use('/carritos', routerCarrito)

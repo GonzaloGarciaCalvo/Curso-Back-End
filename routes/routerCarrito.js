@@ -1,8 +1,10 @@
-const express = require('express');
+/* const express = require('express'); */
+import express from 'express'
 const { Router } = express;
 
 /* const CarritoFirebase = require('../../daos/carritos/CarritosDaoFirebase') */
-const carritosDao = require('../daos/') // reemplaza CarritoFirebase
+/* const carritosDao = require('../daos/')  */// reemplaza CarritoFirebase
+import { carritosDao } from '../daos';
 
 const routerCarrito = new Router();  // routerCarrito
 routerCarrito.use(express.json());
@@ -59,4 +61,4 @@ routerCarrito.delete('/:id', async (req, res) => {
 
 })
 
-module.exports = routerCarrito
+export default routerCarrito

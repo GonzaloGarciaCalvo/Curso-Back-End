@@ -1,6 +1,6 @@
 
-
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+/* const mongoose = require('mongoose') */
 
 const connectDB = async () => {
     try {
@@ -14,7 +14,8 @@ const connectDB = async () => {
         console.error(error)
     }
 }
-module.exports = connectDB
+export {connectDB}
+/* module.exports = connectDB */
 
 
   firebase={

@@ -1,7 +1,9 @@
-const express = require('express');
+/* const express = require('express'); */
+import express from 'express'
 const { Router } = express;
 
-const productosDao = require('../daos/productos')
+/* const productosDao = require('../daos/productos') */
+import { productosDao } from '../daos';
 
 const routerProductos = new Router();
 routerProductos.use(express.json());
@@ -58,4 +60,4 @@ routerProductos.delete('/:id', async (req, res) => {
 
 })
 
-module.exports = routerProductos
+export default routerProductos
