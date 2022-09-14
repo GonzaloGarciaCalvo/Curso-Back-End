@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "desafio-clase8",
   "version": "1.0.0",
   "description": "",
@@ -24,6 +25,7 @@
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "finalhandler": "^1.2.0",
+    "firebase-admin": "^11.0.1",
     "forwarded": "^0.2.0",
     "fresh": "^0.5.2",
     "function-bind": "^1.1.1",
@@ -42,6 +44,7 @@
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
     "moment-timezone": "^0.5.34",
+    "mongoose": "^6.6.0",
     "ms": "^2.0.0",
     "mysql": "^2.18.1",
     "negotiator": "^0.6.3",
