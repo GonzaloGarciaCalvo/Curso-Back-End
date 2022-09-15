@@ -1,7 +1,8 @@
 /* const express = require('express') */
 import express from 'express'
-import routerCarrito from './routes/routerCarrito'
-import routerProductos from './routes/routerProductos'
+/* const routerCarrito = require('./routes/routerCarrito') */
+import routerCarrito from './routes/routerCarrito.js'
+import routerProductos from './routes/routerProductos.js'
  
 const app = express()
 
