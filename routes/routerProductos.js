@@ -1,15 +1,16 @@
-/* const express = require('express'); */
-import express from 'express'
+const express = require('express');
+/* import express from 'express' */
 const { Router } = express;
 
-/* const productosDao = require('../daos/productos') */
-import { productosDao } from '../daos';
+const productosDao = require('../daos')
+const prod = productosDao.productosDao
+/* import { productosDao } from '../daos'; */
 
 const routerProductos = new Router();
 routerProductos.use(express.json());
 routerProductos.use(express.urlencoded({ extended: true }));
 
-const prod = new productosDao
+/* const prod = new productosDao */
 
 //Getall
 routerProductos.get('/', async (req, res) => {
@@ -60,4 +61,5 @@ routerProductos.delete('/:id', async (req, res) => {
 
 })
 
-export default routerProductos
+/* export default routerProductos */
+module.exports = routerProductos

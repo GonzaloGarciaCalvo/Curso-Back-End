@@ -1,8 +1,9 @@
-/* const express = require('express') */
-import express from 'express'
-/* const routerCarrito = require('./routes/routerCarrito') */
-import routerCarrito from './routes/routerCarrito.js'
-import routerProductos from './routes/routerProductos.js'
+const express = require('express')
+/* import express from 'express' */
+const routerCarrito = require('./routes/routerCarrito')
+const routerProductos = require('./routes/routerProductos')
+/* import routerCarrito from './routes/routerCarrito.js' */
+/* import routerProductos from './routes/routerProductos.js' */
  
 const app = express()
 
@@ -30,6 +31,10 @@ app.use('/carritos', routerCarrito)
 
 
 const PORT = 8080
-const server = httpServer.listen(PORT || 8080, () => {
+/* const server = httpServer.listen(PORT || 8080, () => {
     console.log(`Servidor corriendo en el puerto: ${ server.address().port }`)
-}).on('error', (e) => console.log('Error: ', e.message));
+}).on('error', (e) => console.log('Error: ', e.message)); */
+
+app.listen(PORT, () => {
+    console.log(`Servidor Online puerto ${PORT}`)
+})

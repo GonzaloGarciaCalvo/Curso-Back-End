@@ -1,5 +1,6 @@
 
 const mongoDB = require('../config')
+/* import mongoDB from '../config' */
 
 
 

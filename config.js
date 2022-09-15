@@ -1,6 +1,6 @@
 
-import mongoose from 'mongoose'
-/* const mongoose = require('mongoose') */
+/* import mongoose from 'mongoose' */
+const mongoose = require('mongoose')
 
 const connectDB = async () => {
     try {
@@ -12,13 +12,14 @@ const connectDB = async () => {
         console.log('MongoDB connected')
     } catch (error) {
         console.error(error)
+        console.log("sin conexion a DB")
     }
 }
-export {connectDB}
-/* module.exports = connectDB */
+/* export {connectDB} */
+module.exports = connectDB
 
 
-  firebase={
+  /* const firebase={
     "type": "service_account",
     "project_id": "cursobackend-ggc",
     "private_key_id": "4e382147cbf010d514f6f6c1da270c8598b7f851",
@@ -30,5 +31,9 @@ export {connectDB}
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-lclxz%40cursobackend-ggc.iam.gserviceaccount.com"
   }
+  module.exports = firebase 
+  
+  */
+ 
 
 

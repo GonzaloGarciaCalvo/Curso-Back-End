@@ -1,5 +1,5 @@
-/* const ContenedorMongoDB = require("../../contenedores/contenedorMongodb"); */
-import ContenedorMongoDB from '../../contenedores/contenedorMongoDB'
+const ContenedorMongoDB = require("../../contenedores/contenedorMongodb");
+/* import ContenedorMongoDB from '../../contenedores/contenedorMongoDB' */
 const {carritos} = require('../../schemas/schemas')
 
 class CarritosDaoMongo extends ContenedorMongoDB {
@@ -7,5 +7,5 @@ class CarritosDaoMongo extends ContenedorMongoDB {
         super(carritos)
     }  
 }
-/* module.exports = CarritosDaoMongo */
-export default CarritosDaoMongo
+module.exports = CarritosDaoMongo
+/* export default CarritosDaoMongo */

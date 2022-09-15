@@ -1,9 +1,20 @@
+/* import CarritoDaoFirebase from './carritos/CarritosDaoFirebase';
+import CarritosDaoMongo from './carritos/CarritosDaoMongo';
+import ProductosFirebase from './productos/ProductosDaoFirebase';
+import ProductosDaoMongo from './productos/ProductosDaoMongo'; */
+const CarritoDaoFirebase = require('./carritos/CarritosDaoFirebase')
+const CarritosDaoMongo = require('./carritos/CarritosDaoMongo')
+const ProductosDaoFirebase = require('./productos/ProductosDaoFirebase')
+const ProductosDaoMongo = require('./productos/ProductosDaoMongo')
+
 
 let productosDao;
 let carritosDao;
 let selector;
+/* selector = 'mongoDB' */
+selector = 'firebase'
 
-switch (selector) {
+/* switch (selector) {
   case 'firebase':
     const { default: ProductosDaoFirebase} = await import('../contenedores/contenedorFirebase')
     productosDao = new ProductosDaoFirebase()
@@ -19,4 +30,20 @@ switch (selector) {
     break;
   }
 
-  export {productosDao, carritosDao}
+  export {productosDao, carritosDao} */
+  switch (selector) {
+
+    case 'firebase': {
+      productosDao = new ProductosDaoFirebase()    
+      carritosDao = new CarritoDaoFirebase()
+    }
+    break;
+    
+    case 'mongoDB':
+    productosDao = new ProductosDaoMongo()
+    carritosDao = new CarritosDaoMongo()
+    
+    break;
+    }
+
+    module.exports = {productosDao, carritosDao} 

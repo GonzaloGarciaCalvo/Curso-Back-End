@@ -1,18 +1,23 @@
-/* const express = require('express'); */
-import express from 'express'
+const express = require('express');
+/* import express from 'express' */
 const { Router } = express;
 
 /* const CarritoFirebase = require('../../daos/carritos/CarritosDaoFirebase') */
-/* const carritosDao = require('../daos/')  */// reemplaza CarritoFirebase
-import { carritosDao } from '../daos';
+const carritosDao = require('../daos') // reemplaza CarritoFirebase
+const cart = carritosDao.carritosDao
+/* import { carritosDao } from '../daos'; */
 
 const routerCarrito = new Router();  // routerCarrito
 routerCarrito.use(express.json());
 routerCarrito.use(express.urlencoded({ extended: true }));
 
 /* const cart = new CarritoFirebase */
-const cart = new carritosDao
-
+/* const cart = new carritosDao */
+console.log('carritosDao',  carritosDao)/* llega:
+carritosDao {
+            productosDao: ProductosDaoMongo { mongoDB: [AsyncFunction: connectDB] },
+            carritosDao: CarritosDaoMongo { mongoDB: [AsyncFunction: connectDB] }
+  } */
 
 //Getall
 routerCarrito.get('/', async (req, res) => {
@@ -54,11 +59,11 @@ routerCarrito.put('/:id', async (req, res) => {
 
 //Delete
 routerCarrito.delete('/:id', async (req, res) => {
-
     const id = req.params.id
     const eliminar = await cart.eliminar(id);
     res.json(eliminar)
 
 })
 
-export default routerCarrito
+/* export default routerCarrito */
+module.exports = routerCarrito
