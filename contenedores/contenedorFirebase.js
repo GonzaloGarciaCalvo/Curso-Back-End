@@ -1,7 +1,8 @@
 const admin = require("firebase-admin");
 /* const path = "../configDB/firebaseDB.json" */
 const serviceAccount = require("../configDB/firebaseDB.json"); //ruta al archivo json de claves
-
+ // TIRA ERROR DE PATH, ...Path must be a non-empty string.
+console.log("serviceAccount, ", serviceAccount) //llega
 
 
 admin.initializeApp({
@@ -20,7 +21,7 @@ class ContenedorFirebase {
 
     async getAll() {
         try {
-            const querySnapshot = await this.url.get();
+            const querySnapshot = await this.collection.get();
             const docs = querySnapshot.docs;
             const collection = docs.map(doc => {
                 return {...doc.data(), id: doc.id }      
@@ -33,7 +34,7 @@ class ContenedorFirebase {
     
     async getById(id) {
         try {
-            const doc = this.url.doc(id)
+            const doc = this.collection.doc(id)
             const result = await doc.get()
             const data = result.data()
             return {...data, id}
@@ -42,10 +43,9 @@ class ContenedorFirebase {
         }
     }
 
-
     async insert(newDoc) {
         try {
-            const doc= this.url.doc();
+            const doc= this.collection.doc();
             const insert = await doc.create({...newDoc})
             return insert
         } catch (error) {
@@ -55,7 +55,7 @@ class ContenedorFirebase {
     }
 
     async actualizar(id, newDoc) {
-        const doc = this.url.doc(id)
+        const doc = this.collection.doc(id)
         const result = await doc.update({...newDoc});
         return result
     }

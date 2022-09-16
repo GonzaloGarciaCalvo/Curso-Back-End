@@ -6,7 +6,21 @@ const mongoDB = require('../config')
 
 class ContenedorMongoDB {
     constructor() {
-        this.mongoDB = mongoDB
+        this.ruta = ruta
+        this.modelo = model
+        this.connection()
+    }
+    connection = async () => {
+        try {
+            const url = 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test'
+            await mongoose.connect(url,{
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            })
+            console.log('MongoDB connected')
+        } catch (error) {
+            console.error(error)
+        }
     }
     async getAll() {
         try {
@@ -28,7 +42,7 @@ class ContenedorMongoDB {
 
     async insertar(item) {
         try {
-            const result = await item.save()
+            const result = await new this.modelo(item).save()
             return result
         } catch (error) {
             console.log(error)
