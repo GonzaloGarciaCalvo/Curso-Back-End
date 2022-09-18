@@ -14,8 +14,8 @@ let productosDao;
 let carritosDao;
 let selector;
 /* selector = 'mongoDB' */
-/* selector = 'firebase' */
-selector = 'archivo'
+selector = 'firebase'
+/* selector = 'archivo' */
 
 /* switch (selector) {
   case 'firebase':

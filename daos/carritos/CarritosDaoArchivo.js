@@ -3,7 +3,7 @@ const ContenedorFirebase = require('../../contenedores/claseContenedor')
 
 class CarritoDaoFirebase extends ContenedorFirebase {
     constructor() {
-        super('carritos')
+        super('carritos', '../../carritos.txt')
     }  
 }
 module.exports = CarritoDaoFirebase

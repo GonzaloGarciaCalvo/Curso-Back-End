@@ -2,14 +2,12 @@ const fs = require('fs');
 
 
 class Contenedor {
-	constructor(knex, nombreTabla, ruta) {
-		this.knex = knex
+	constructor(/* knex, */ nombreTabla, ruta) {
+		/* this.knex = knex */
 		this.nombreTabla = nombreTabla
 		this.ruta = ruta;
-		(async() => {
+		/* (async() => {
 			let exists = await this.knex.schema.hasTable(this.nombreTabla)
-			/* console.log("exists", exists)
-			console.log("knex", knex) */
 			if (!exists) {
 					await this.knex.schema.createTable(this.nombreTabla, table => {
 							table.increments('id').primary();
@@ -21,7 +19,7 @@ class Contenedor {
 					});
 					console.log('Tabla de productos creada!')
 			}
-	})()
+	})() */
 	}
 
 	async save(obj) { 

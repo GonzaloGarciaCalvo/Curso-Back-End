@@ -4,7 +4,7 @@ const { Router } = express;
 
 /* const CarritoFirebase = require('../../daos/carritos/CarritosDaoFirebase') */
 const carritosDao = require('../daos') // reemplaza CarritoFirebase
-const cart = carritosDao.carritosDao
+const cart = carritosDao
 /* import { carritosDao } from '../daos'; */
 
 const routerCarrito = new Router();  // routerCarrito
