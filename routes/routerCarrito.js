@@ -36,10 +36,7 @@ routerCarrito.get("/:id", async (req, res) => {
 
 //Insert
 routerCarrito.post('/', async (req, res) => {
-
-    
     const item = req.body
-        
     const insertar = await cart.insert(item);
     res.json(insertar)
 
@@ -65,5 +62,4 @@ routerCarrito.delete('/:id', async (req, res) => {
 
 })
 
-/* export default routerCarrito */
 module.exports = routerCarrito

@@ -1,24 +1,4 @@
 const fs = require('fs');
-/* const knex = require('knex')(options) */
-/* const mariaDB = require('./configDB/config')
-const sqlite = require('./configDB/configSqlite')
-const knex_mariaDB = require('knex')(mariaDB)
-const knex_sqlite = require('knex')(sqlite)   */// creshea nodemon
-
-/* >> Consigna: Tomando como base las clases Contenedor en memoria y en archivos, 
-desarrollar un nuevo contenedor con idénticos métodos pero que funcione sobre bases 
-de datos, utilizando Knex para la conexión. 
-*** Esta clase debe recibir en su constructor el objeto de configuración de Knex y 
-el nombre de la tabla sobre la cual trabajará ***. Luego, modificar el desafío entregable de la clase 11”Chat con Websocket”, y:
-cambiar la persistencia de los mensajes de filesystem a base de datos SQLite3.
-cambiar la persistencia de los productos de memoria a base de datos MariaDB.
-
-Desarrollar también un script que utilizando knex cree las tablas necesarias para la persistencia en cuestión (tabla mensajes en sqlite3 y tabla productos en mariaDb).
-
->> Notas:
-Definir una carpeta DB para almacenar la base datos SQLite3 llamada ecommerce */
-
-
 
 
 class Contenedor {
@@ -63,12 +43,12 @@ class Contenedor {
 	}
 
 
-	async getAll () { // FUNCIONA
+	async getAll () { 
 		return	await this.knex.from(this.nombreTabla).select('*')
 		 
 	}
 
-	async deleteById (id) { //PENDIENTE
+	async deleteById (id) { 
 		console.log(`id en deleteNyId ${id}`)
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
 			const dataArchParse = JSON.parse(dataArch) 
@@ -82,12 +62,12 @@ class Contenedor {
 			}
 	}
 
-	async deleteAll () { // PENDIENTE
+	async deleteAll () { 
 		await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2))
 				console.log(`array de prod ${this.arrayProductos}`)
 	}
 
-	async updateProduct (producto, id){ //PENDIENTE
+	async updateProduct (producto, id){ 
 		await this.deleteById(id)
 		const itemToModify = { ...producto, ...id} 
 		let products = await this.getAll()

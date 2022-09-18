@@ -25,8 +25,8 @@ import routerProductos from './routes/routerProductos' */
 /* const routerProductos = require("./routes/routerProductos") */
 /* const routerCarrito = require('./routes/routerCarrito') */
 
-app.use('/productos', routerProductos)
-app.use('/carritos', routerCarrito)
+app.use('api/productos', routerProductos)
+app.use('api/carritos', routerCarrito)
 
 
 
