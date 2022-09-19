@@ -14,7 +14,7 @@ class ContenedorMongoDB {
     }
     connection = async () => {
         try {
-            console.log('modelo en ContenedorMongoDB', this.modelo)// undefined
+            console.log('modelo en ContenedorMongoDB', this.modelo())// undefined
             const url = 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test'
             await mongoose.connect(url,{
                 useNewUrlParser: true,
@@ -25,9 +25,19 @@ class ContenedorMongoDB {
             console.error(error)
         }
     }
+
+    async save(item) {
+        try {
+            const result = await new this.modelo(item).save()
+            return result
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getAll() {
         try {
-            const getAll = await this.modelo.find()
+            const getAll = await this.modelo().find()
             return getAll
         } catch (error) {
             return console.log(error)
@@ -36,17 +46,8 @@ class ContenedorMongoDB {
 
     async getById(id) {
         try {
-            const getById = await this.modelo.findOne({ _id: id })
+            const getById = await this.modelo().findOne({ _id: id })
             return getById
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    async save(item) {
-        try {
-            const result = await this.modelo.save()
-            return result
         } catch (error) {
             console.log(error)
         }
@@ -54,7 +55,7 @@ class ContenedorMongoDB {
 
     async actualizar(id, item) {
         try {    
-            const update = await this.modelo.findOneAndUpdate(id ,item )
+            const update = await this.modelo().findOneAndUpdate(id ,item )
             return update
         } catch (error) {
             console.log(error)
@@ -63,7 +64,7 @@ class ContenedorMongoDB {
 
     async eliminar(id) {
         try {
-            const eliminado = await this.modelo.deleteOne({ _id: id });
+            const eliminado = await this.modelo().deleteOne({ _id: id });
             return eliminado
         } catch (error) {
             console.log(error)

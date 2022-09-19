@@ -16,10 +16,10 @@ const carritoSchema= new Schema({
     
 },{timestamps: true}) 
 const productos = model('productos', prodSchema)
-const carritos = model('carrito', carritoSchema)
+/* const carritos = model('carrito', carritoSchema) */
 module.exports = {
     productos,
     prodSchema,
-    carritos, 
-    carritoSchema
+    /* carritos, 
+    carritoSchema */
 }
