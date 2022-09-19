@@ -1,11 +1,11 @@
 const express = require('express')
-/* import express from 'express' */
 const routerCarrito = require('./routes/routerCarrito')
 const routerProductos = require('./routes/routerProductos')
-/* import routerCarrito from './routes/routerCarrito.js' */
-/* import routerProductos from './routes/routerProductos.js' */
+
  
 const app = express()
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 
 //MongoDB
@@ -16,17 +16,8 @@ connection() */
 /* const {dbFirebase} = require('./config')
 dbFirebase() */
 
-
-
-//Routes 
-/* import routerCarrito from './routes/routerCarrito'
-import routerProductos from './routes/routerProductos' */
-/* const routerCart = routerCarrito() */
-/* const routerProductos = require("./routes/routerProductos") */
-/* const routerCarrito = require('./routes/routerCarrito') */
-
-app.use('api/productos', routerProductos)
-app.use('api/carritos', routerCarrito)
+app.use('/api/productos', routerProductos)
+app.use('/api/carritos', routerCarrito)
 
 
 

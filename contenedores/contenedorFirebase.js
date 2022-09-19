@@ -1,8 +1,7 @@
 const admin = require("firebase-admin");
 /* const path = "../configDB/firebaseDB.json" */
 const serviceAccount = require("../configDB/firebaseDB.json"); //ruta al archivo json de claves
- // TIRA ERROR DE PATH, ...Path must be a non-empty string.
-console.log("serviceAccount, ", serviceAccount) //llega
+/* console.log("serviceAccount, ", serviceAccount) */ //llega
 
 
 admin.initializeApp({
@@ -43,7 +42,7 @@ class ContenedorFirebase {
         }
     }
 
-    async insert(newDoc) {
+    async save(newDoc) {
         try {
             const doc= this.collection.doc();
             const insert = await doc.create({...newDoc})

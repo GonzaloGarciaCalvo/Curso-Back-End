@@ -3,9 +3,10 @@ const express = require('express');
 const { Router } = express;
 
 /* const CarritoFirebase = require('../../daos/carritos/CarritosDaoFirebase') */
-const carritosDao = require('../daos') // reemplaza CarritoFirebase
-const cart = carritosDao
-/* import { carritosDao } from '../daos'; */
+const dao = require('../daos') // reemplaza CarritoFirebase
+const cart = dao.carritosDao
+/* const cart = carritosDao.productosDao */
+
 
 const routerCarrito = new Router();  // routerCarrito
 routerCarrito.use(express.json());
@@ -13,11 +14,7 @@ routerCarrito.use(express.urlencoded({ extended: true }));
 
 /* const cart = new CarritoFirebase */
 /* const cart = new carritosDao */
-console.log('carritosDao',  carritosDao)/* llega:
-carritosDao {
-            productosDao: ProductosDaoMongo { mongoDB: [AsyncFunction: connectDB] },
-            carritosDao: CarritosDaoMongo { mongoDB: [AsyncFunction: connectDB] }
-  } */
+ console.log('carritosDao en routercarrito', cart)// llega:
 
 //Getall
 routerCarrito.get('/', async (req, res) => {
@@ -37,10 +34,16 @@ routerCarrito.get("/:id", async (req, res) => {
 //Insert
 routerCarrito.post('/', async (req, res) => {
     const item = req.body
-    const insertar = await cart.insert(item);
+    const insertar = await cart.save(item);
     res.json(insertar)
-
 })
+/* routerCarrito.post('/', async (req, res) => {
+    const item = req.body;  
+    const carroAgregado = carrito.save(item)
+    const resultado = await carroAgregado
+    console.log("post/ ") // server responde not found
+    res.json(resultado.id)
+}) */
 
 //Update
 routerCarrito.put('/:id', async (req, res) => {

@@ -2,15 +2,25 @@ const express = require('express');
 /* import express from 'express' */
 const { Router } = express;
 
-const productosDao = require('../daos')
-const prod = productosDao.productosDao
-/* import { productosDao } from '../daos'; */
+const dao = require('../daos')
+const prod = dao.productosDao
 
 const routerProductos = new Router();
 routerProductos.use(express.json());
 routerProductos.use(express.urlencoded({ extended: true }));
 
-/* const prod = new productosDao */
+//Insert
+routerProductos.post('/', async (req, res) => {
+    const {nombre, precio} = req.body
+    const item = {
+        nombre:nombre,
+        categoria:categoria,
+        precio:precio,
+        thumbnail:thumbnail,
+    }
+    const insertar = await prod.insert(item);
+    res.json(insertar)
+})
 
 //Getall
 routerProductos.get('/', async (req, res) => {
@@ -27,18 +37,6 @@ routerProductos.get("/:id", async (req, res) => {
     res.json(getById)
 })
 
-//Insert
-routerProductos.post('/', async (req, res) => {
-
-    const {nombre, precio} = req.body
-    const item = {
-        nombre:nombre,
-        precio:precio
-    }
-    const insertar = await prod.insert(item);
-    res.json(insertar)
-
-})
 
 //Update
 routerProductos.put('/:id', async (req, res) => {

@@ -134,8 +134,7 @@ class Contenedor {
 		try {
 			const data = await fs.promises.readFile(this.ruta, 'utf8')
 			const dataParsed = JSON.parse(data)
-			/* console.log("dataParsed en getById: ", dataParsed) */ //muestra array con objeto cart id=1
-			const numId = Number(id) // fix al find
+			const numId = Number(id) 
 			const searchedProduct = dataParsed.find(prod => prod.id === numId)
 			if (searchedProduct) {
 				console.log (`El producto con id ${id} es ${JSON.stringify(searchedProduct, null, 2)}`)
@@ -198,14 +197,11 @@ class Contenedor {
 		console.log("cart antes de deleteAll  ", products)
 		await this.deleteAll()
 		const chequeoArchivo = await fs.promises.readFile(this.ruta, 'utf-8')
-		console.log("che ", chequeoArchivo) // muestra array vacio
+		console.log("che ", chequeoArchivo) 
 		const productsFiltered = products.filter(item => item.id !==producto.id)
-		console.log("pf", productsFiltered) // muestra array sin elementos duplicados, pero en realidad al agregar producto, queda el carrito con la cantidad anterior y otro con la nueva
+		console.log("pf", productsFiltered) 
 		products = [...productsFiltered , itemToModify]
 		const orderedProducts = products.sort((a,b)=>a.id-b.id)
-		/* for (let i=1; i<100000; i++) {  // efectivamente se borra el archivo
-			console.log("esperando")
-		} */
 		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
 	}
 
