@@ -19,8 +19,7 @@ routerProductos.post('/', async (req, res) => {
         thumbnail:thumbnail,
     }
     const insertar = await prod.save(item);
-    insertar.then(data)
-    res.json(data)
+    res.json(insertar)
 })
 
 //Getall
@@ -47,7 +46,7 @@ routerProductos.put('/:id', async (req, res) => {
         nombre:nombre,
         precio:precio
     }
-    const insertar = await prod.actualizar(id, item);
+    const insertar = await prod.update(id, item);
     res.json(insertar)
 })
 
