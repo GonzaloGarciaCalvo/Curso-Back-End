@@ -54,7 +54,7 @@ routerProductos.put('/:id', async (req, res) => {
 routerProductos.delete('/:id', async (req, res) => {
 
     const id= req.params.id
-    const eliminar = await prod.eliminar(id);
+    const eliminar = await prod.deleteById(id);
     res.json(eliminar)
 
 })

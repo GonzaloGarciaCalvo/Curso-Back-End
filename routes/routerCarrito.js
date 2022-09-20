@@ -14,7 +14,7 @@ routerCarrito.use(express.urlencoded({ extended: true }));
 
 /* const cart = new CarritoFirebase */
 /* const cart = new carritosDao */
- console.log('carritosDao en routercarrito', cart)// llega:
+ /* console.log('carritosDao en routercarrito', cart) */// llega:
 
  //Insert
 routerCarrito.post('/', async (req, res) => {
@@ -64,14 +64,14 @@ routerCarrito.put('/:id', async (req, res) => {
         nombre: nombre,
         precio: precio
     }
-    const insertar = await cart.actualizar(id, item);
+    const insertar = await cart.update(id, item);
     res.json(insertar)
 })
 
 //Delete
 routerCarrito.delete('/:id', async (req, res) => {
     const id = req.params.id
-    const eliminar = await cart.eliminar(id);
+    const eliminar = await cart.deleteById(id);
     res.json(eliminar)
 
 })

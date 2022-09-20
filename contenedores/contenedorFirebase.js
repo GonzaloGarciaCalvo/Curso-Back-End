@@ -44,6 +44,7 @@ class ContenedorFirebase {
 
     async save(newDoc) {
         try {
+            console.log("en save")
             const doc= this.collection.doc();
             const insert = await doc.create({...newDoc})
             return insert
@@ -59,7 +60,7 @@ class ContenedorFirebase {
         return result
     }
 
-    async eliminar(id) {
+    async deleteById (id) {
         const doc = this.collection.doc(id);
         const result = await doc.delete()
         return result

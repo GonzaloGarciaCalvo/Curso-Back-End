@@ -62,7 +62,7 @@ class ContenedorMongoDB {
         }
     }
 
-    async eliminar(id) {
+    async deleteById (id) {
         try {
             const eliminado = await this.modelo.deleteOne({ _id: id });
             return eliminado

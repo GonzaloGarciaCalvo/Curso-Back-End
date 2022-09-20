@@ -1,13 +1,17 @@
 
-# GET http://localhost:8080/api/productos/ HTTP/1.1
-# Content-Type: application/json
+GET http://localhost:8080/api/productos/ HTTP/1.1
+Content-Type: application/json
+####
 
-# ######## 
+
+GET http://localhost:8080/api/carritos/ HTTP/1.1
+Content-Type: application/json
+### funciona en firebase y mongo
+####
 
 
-# GET http://localhost:8080/api/productos/9 HTTP/1.1 
-# Content-Type: application/json
-
+GET http://localhost:8080/api/productos/bhTDYpUcUl06bAbgEZav HTTP/1.1 
+Content-Type: application/json
 ####### 
 
 
@@ -15,14 +19,22 @@ POST http://localhost:8080/api/productos/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "AAAAA",
+    "nombre": "AAAbb",
     "categoria": "rtthh",
-    "precio": "88",
-    "thumbnail": "",
-    "id":1
+    "precio": "8899",
+    "thumbnail": "ddd",
+    "stock": 40,
 }
+###  sin el id no funciona con contenedorArchivo 
+### con mongo  pruebo con "timestamps": true /"true" y tampoco funciona.
 
-###### NO FUNCIONA  responde con 400 Bad request, pero desde el form sí funciona
+
+POST http://localhost:8080/api/carritos/ HTTP/1.1
+Content-Type: application/json
+
+#### ## funciona en con los 3 contenedores
+
+
 PUT http://localhost:8080/api/productos/6 HTTP/1.1
 Content-Type: application/json
 
@@ -34,14 +46,30 @@ Content-Type: application/json
     "id":1
 }
 
-# 
+###
 
 
-DELETE http://localhost:8080/api/productos/9 HTTP/1.1 
+DELETE http://localhost:8080/api/productos/ecHWVGlpbTfTMmChGFu1 HTTP/1.1 
 Content-Type: application/json
-
 
 ########## 
 
+
 POST http://localhost:8080/api/carritos/ HTTP/1.1 
 Content-Type: application/json
+
+###
+
+
+PUT http://localhost:8080/api/productos/bhTDYpUcUl06bAbgEZav HTTP/1.1 
+Content-Type: application/json
+
+{
+	"nombre": "remera loca9990000",
+    "categoria": "remera manga larga",
+    "thumbnail": "no hay",
+	"precio": 8000,
+    "id":1
+}
+
+### en firebase funcionan todos con productos
