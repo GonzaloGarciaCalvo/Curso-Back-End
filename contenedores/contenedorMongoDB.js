@@ -53,7 +53,7 @@ class ContenedorMongoDB {
         }
     }
 
-    async actualizar(id, item) {
+    async update(id, item) {
         try {    
             const update = await this.modelo.findOneAndUpdate(id ,item )
             return update

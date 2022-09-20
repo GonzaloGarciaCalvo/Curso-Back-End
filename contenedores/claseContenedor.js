@@ -180,7 +180,7 @@ class Contenedor {
 				console.log(`array de prod ${this.arrayProductos}`)
 	}
 
-	async updateItem (producto, id){ 
+	async update (producto, id){ 
 		const itemToModify = { ...producto, ...id} 
 		let products = await this.getAll()
 		await this.deleteById(id)

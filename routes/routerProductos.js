@@ -9,16 +9,16 @@ const routerProductos = new Router();
 routerProductos.use(express.json());
 routerProductos.use(express.urlencoded({ extended: true }));
 
-//Insert
+//Save
 routerProductos.post('/', async (req, res) => {
-    const {nombre, precio} = req.body
+    const {nombre, categoria, precio, thumbnail} = req.body
     const item = {
         nombre:nombre,
         categoria:categoria,
         precio:precio,
         thumbnail:thumbnail,
     }
-    const insertar = await prod.insert(item);
+    const insertar = await prod.save(item);
     res.json(insertar)
 })
 

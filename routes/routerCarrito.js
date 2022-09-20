@@ -16,6 +16,22 @@ routerCarrito.use(express.urlencoded({ extended: true }));
 /* const cart = new carritosDao */
  console.log('carritosDao en routercarrito', cart)// llega:
 
+ //Insert
+routerCarrito.post('/', async (req, res) => {
+    const item = req.body
+    let timestamp = Date.now();
+    const insertar = await cart.save({ timestamp, productos: [] });
+    res.json(insertar)
+})
+/* app.post("/api/carrito", (req, res) => {
+    let timestamp = Date.now();
+  
+    Carritos.guardar({ timestamp, productos: [] }).then((data) => {
+      res.json({
+        id: data,
+      });
+    });
+  }); */
 //Getall
 routerCarrito.get('/', async (req, res) => {
 
@@ -31,12 +47,7 @@ routerCarrito.get("/:id", async (req, res) => {
     res.json(getById)
 })
 
-//Insert
-routerCarrito.post('/', async (req, res) => {
-    const item = req.body
-    const insertar = await cart.save(item);
-    res.json(insertar)
-})
+
 /* routerCarrito.post('/', async (req, res) => {
     const item = req.body;  
     const carroAgregado = carrito.save(item)

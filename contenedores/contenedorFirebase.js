@@ -53,7 +53,7 @@ class ContenedorFirebase {
         }
     }
 
-    async actualizar(id, newDoc) {
+    async update(id, newDoc) {
         const doc = this.collection.doc(id)
         const result = await doc.update({...newDoc});
         return result
