@@ -19,7 +19,8 @@ routerProductos.post('/', async (req, res) => {
         thumbnail:thumbnail,
     }
     const insertar = await prod.save(item);
-    res.json(insertar)
+    insertar.then(data)
+    res.json(data)
 })
 
 //Getall

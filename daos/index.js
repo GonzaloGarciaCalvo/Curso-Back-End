@@ -13,9 +13,9 @@ const ProductosDaoArchivo = require('./productos/ProductosDaoArchivo')
 let productosDao;
 let carritosDao;
 let selector;
-selector = 'mongoDB'
+/* selector = 'mongoDB' */
 /* selector = 'firebase' */
-/* selector = 'archivo' */
+selector = 'archivo'
 
 /* switch (selector) {
   case 'firebase':
