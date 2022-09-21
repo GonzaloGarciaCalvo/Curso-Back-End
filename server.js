@@ -1,7 +1,7 @@
 const express = require('express')
+const app = express()
 const { Server: HttpServer } = require('http')
 const { Server: IOServer } = require('socket.io')  
-const app = express()
 const moment = require('moment-timezone');
 
 const httpServer = new HttpServer(app)
@@ -19,10 +19,10 @@ const knex_sqlite = require('knex')(sqlite3)
 const productsCollection = new Contenedor(knex_mariaDB, "productos", "ruta")
 const messegesCollection = new ContenedorSqlite(knex_sqlite, "mensajes", "ruta2")
 
-app.use(express.urlencoded({extends:true}));
-app.use(express.json());
-//Advertencia NODE body-parser deprecated undefined extended: provide extended option server.js:14:17
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+//Advertencia NODE body-parser deprecated undefined extended: provide extended option server.js:14:17
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
