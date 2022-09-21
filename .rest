@@ -1,29 +1,63 @@
 
 GET http://localhost:8080/api/productos/ HTTP/1.1
 Content-Type: application/json
-####
-
+#### Trae productos
 
 GET http://localhost:8080/api/carritos/ HTTP/1.1
 Content-Type: application/json
-### funciona en firebase y mongo
-####
+#### trae carritos // OK
 
+
+############ PRUEBAS agregar producto en carrito  ##############
+
+POST http://localhost:8080/api/carritos/632b1c8b85179c4dd98d3eb1/productos HTTP/1.1
+Content-Type: application/json
+
+{
+    "_id":"632a4a5c0f339dff2bf5dd36"
+}
+### guardar producto en carrito,  prueba en mongo, NO FUNCIONA
+#### 632b1c8b85179c4dd98d3eb1   es id de producto en mongo
+
+POST http://localhost:8080/api/carritos/1/productos HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_prod":2
+}
+### prueba en archivo, guarda producto id=2 en carrito id=1   OK ##
+
+POST http://localhost:8080/api/carritos/HCGgxbklMZQscSRFPEQY/productos HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_prod":"FsEI9nQbjUwYMAj4LxQt "
+}
+### agregar prod a carrito en firebase ///  FALLA
+
+
+POST http://localhost:8080/api/carritos/1/productos HTTP/1.1
+Content-Type: application/json
+###
 
 GET http://localhost:8080/api/productos/bhTDYpUcUl06bAbgEZav HTTP/1.1 
 Content-Type: application/json
-####### 
+####### mongo
+
+GET http://localhost:8080/api/carritos/HCGgxbklMZQscSRFPEQY/productos  HTTP/1.1 
+Content-Type: application/json
+####### traer carrito en firebase  // funciona
 
 
 POST http://localhost:8080/api/productos/ HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "AAAbb",
-    "categoria": "rtthh",
+    "nombre": "AACC",
+    "categoria": "remera",
     "precio": 8899,
     "thumbnail": "ddd",
-    "stock": 40
+    "stock": 50
 }
 ###  sin el id no funciona con contenedorArchivo 
 ### con mongo  pruebo con "timestamps": true /"true" y tampoco funciona.
@@ -31,18 +65,17 @@ Content-Type: application/json
 
 POST http://localhost:8080/api/carritos/ HTTP/1.1
 Content-Type: application/json
+#### CREA CARRITO ## funciona en con los 3 contenedores
 
-#### ## funciona en con los 3 contenedores
 
-
-PUT http://localhost:8080/api/productos/6 HTTP/1.1
+PUT http://localhost:8080/api/productos/1 HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "remera loca9990000",
+    "nombre": "remera BBB",
     "categoria": "remera manga larga",
+	"precio": 11100,
     "thumbnail": "no hay",
-	"precio": 60000,
     "id":1
 }
 
@@ -61,15 +94,17 @@ Content-Type: application/json
 ###
 
 
-PUT http://localhost:8080/api/productos/bhTDYpUcUl06bAbgEZav HTTP/1.1 
+PUT http://localhost:8080/api/productos/1 HTTP/1.1 
 Content-Type: application/json
 
 {
-	"nombre": "remera loca9990000",
+	"nombre": "remera locaAAAA",
     "categoria": "remera manga larga",
     "thumbnail": "no hay",
-	"precio": 8000,
-    "id":1
+	"precio": 88000,
+    "stock":40,
+    "id":1,
+    "timestamp": 1663701920107
 }
 
-### en firebase funcionan todos con productos
+### 

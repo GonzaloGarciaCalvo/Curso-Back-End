@@ -5,6 +5,7 @@ const { Router } = express;
 /* const CarritoFirebase = require('../../daos/carritos/CarritosDaoFirebase') */
 const dao = require('../daos') // reemplaza CarritoFirebase
 const cart = dao.carritosDao
+const prod = dao.productosDao
 /* const cart = carritosDao.productosDao */
 
 
@@ -12,68 +13,75 @@ const routerCarrito = new Router();  // routerCarrito
 routerCarrito.use(express.json());
 routerCarrito.use(express.urlencoded({ extended: true }));
 
-/* const cart = new CarritoFirebase */
-/* const cart = new carritosDao */
- /* console.log('carritosDao en routercarrito', cart) */// llega:
 
- //Insert
-routerCarrito.post('/', async (req, res) => {
-    const item = req.body
-    let timestamp = Date.now();
-    const insertar = await cart.save({ timestamp, productos: [] });
-    res.json(insertar)
-})
-/* app.post("/api/carrito", (req, res) => {
-    let timestamp = Date.now();
-  
-    Carritos.guardar({ timestamp, productos: [] }).then((data) => {
-      res.json({
-        id: data,
-      });
-    });
-  }); */
-//Getall
+//getall
 routerCarrito.get('/', async (req, res) => {
-
+  try {
     const getAll = await cart.getAll()
     res.json(getAll)
+	} catch (error) {
+		console.log(error)
+	}
 
 })
 
-//GetbyId
-routerCarrito.get("/:id", async (req, res) => {
+//getbyId
+routerCarrito.get("/:id/productos", async (req, res) => {
     const id = req.params.id;
     const getById = await cart.getById(id)
     res.json(getById)
 })
 
 
-/* routerCarrito.post('/', async (req, res) => {
-    const item = req.body;  
-    const carroAgregado = carrito.save(item)
-    const resultado = await carroAgregado
-    console.log("post/ ") // server responde not found
-    res.json(resultado.id)
-}) */
+// POST crea 1 carrito
+routerCarrito.post("/", (req, res) => {
+	let timestamp = Date.now();
 
-//Update
-routerCarrito.put('/:id', async (req, res) => {
-    const id = req.params.id;
-    const { nombre, precio } = req.body
-    const item = {
-        nombre: nombre,
-        precio: precio
-    }
-    const insertar = await cart.update(id, item);
-    res.json(insertar)
-})
+	cart.save({ timestamp, productos: [] }).then((data) => {
+		res.json({
+			id: data,
+		});
+	});
+});
 
-//Delete
-routerCarrito.delete('/:id', async (req, res) => {
-    const id = req.params.id
-    const eliminar = await cart.deleteById(id);
-    res.json(eliminar)
+// Delete borra 1 carrito completo
+routerCarrito.delete("/:id", (req, res) => {
+	const { id } = req.params;
 
-})
+	//Carritos.borrarPorId(parseInt(id))
+	cart.borrarPorId(id).then((data) => {
+		res.json({ delete: id });
+	});
+});
+
+// GET lista de productos de 1 carrito
+routerCarrito.get("/:id/productos", (req, res) => {
+	const { id } = req.params;
+	cart.ListarProductosPorId(id).then((data) => {
+		res.json(data);
+	});
+});
+
+// POST guardar 1 producto en 1 carrito
+routerCarrito.post("/:id/productos", async (req, res) => {
+	const { id } = req.params;
+	const { id_prod } = req.body;
+console.log("id :",id," id_prod :", id_prod)
+	let productoData = await prod.getById(id_prod)
+	console.log("productoData ",productoData)
+		cart.guardarProducto(id,id_prod, productoData).then((data) => {
+			res.json(data);
+		});
+	;
+});
+
+// DELETE borra 1 producto de 1 carrito
+routerCarrito.delete("/:id/productos/:id_prod", (req, res) => {
+	const { id, id_prod } = req.params;
+
+	cart.borrarProductoPorId(id, id_prod).then((data) => {
+		res.json(data);
+	});
+});
 
 module.exports = routerCarrito

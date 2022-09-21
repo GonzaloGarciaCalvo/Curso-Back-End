@@ -1,82 +1,3 @@
-// const fs = require('fs');
-
-
-// class Contenedor {
-// 	constructor(/* knex, */ nombreTabla, ruta) {
-// 		/* this.knex = knex */
-// 		this.nombreTabla = nombreTabla
-// 		this.ruta = ruta;
-// 		/* (async() => {
-// 			let exists = await this.knex.schema.hasTable(this.nombreTabla)
-// 			if (!exists) {
-// 					await this.knex.schema.createTable(this.nombreTabla, table => {
-// 							table.increments('id').primary();
-// 							table.string('nombre', 30);
-// 							table.string('categoria', 15);
-// 							table.float('precio', 100);
-// 							table.string('thumbnail',200);
-// 							table.integer('stock')
-// 					});
-// 					console.log('Tabla de productos creada!')
-// 			}
-// 	})() */
-// 	}
-
-// 	async save(obj) { 
-// 		try {
-// 			return await this.knex(this.nombreTabla).insert(obj)
-// 			/* .then(resp => console.log(resp))
-// 			.catch(err => console.log(err))
-// 			.finally(() => knex.destroy()) */
-// 		}catch (error) {console.log(error)
-// 		}finally {() => knex.destroy()}
-// 	}
-
-// 	async getById(id) {
-//     await this.knex.from(this.nombreTabla).select('*').where('id', '=', id).orderBy('id', 'asc')
-// 		.then(resp => console.log(resp))
-// 		.catch(err => console.log(err))
-// 		.finally(() => knex.destroy())
-
-// 	}
-
-
-// 	async getAll () { 
-// 		return	await this.knex.from(this.nombreTabla).select('*')
-		 
-// 	}
-
-// 	async deleteById (id) { 
-// 		console.log(`id en deleteNyId ${id}`)
-// 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
-// 			const dataArchParse = JSON.parse(dataArch) 
-// 			let product = dataArchParse.find(prod => prod.id === id); //con === no anda
-// 			if (product) {
-// 				let dataArchParsefiltered = dataArchParse.filter( prod => prod.id !== id )
-// 				await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParsefiltered, null, 2))
-// 				console.log('producto eliminado')
-// 			} else {
-// 				console.log('producto no encontrado en delete')
-// 			}
-// 	}
-
-// 	async deleteAll () { 
-// 		await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2))
-// 				console.log(`array de prod ${this.arrayProductos}`)
-// 	}
-
-// 	async updateProduct (producto, id){ 
-// 		await this.deleteById(id)
-// 		const itemToModify = { ...producto, ...id} 
-// 		let products = await this.getAll()
-// 		products = [...products , itemToModify]
-// 		const orderedProducts = products.sort((a,b)=>a.id-b.id)
-// 		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
-// 	}
-
-// } 
-// module.exports = Contenedor
-
 const fs = require('fs');
 
 class Contenedor {
@@ -105,16 +26,13 @@ class Contenedor {
 			let dataArchParse = JSON.parse(dataArch)
 			if (dataArchParse) {
 				await this.deleteById(id)
-				await fs.promises.writeFile(this.ruta, JSON.stringify({ ...dataArchParse, obj})
-				)
+				await fs.promises.writeFile(this.ruta, JSON.stringify({ ...dataArchParse, obj}))
 			return dataArchParse.length+1
 		} 
 	}catch (error) { console.log(error)}
   }
 
 	async lastCart() { 
-		//tomo el ultimo cart
-		/* const dataArch = await fs.promises.readFile(this.ruta, 'utf-8') */
 		
 		try {
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf-8')
@@ -161,11 +79,13 @@ class Contenedor {
 
 	}
 	async deleteById (id) { 
-		console.log(`id en deleteNyId ${id}`)
+		/* console.log(`id en deleteById ${id}`) */
+		console.log("id en deleteById  ",id)
 			const dataArch = await fs.promises.readFile(this.ruta, 'utf8');
 			console.log("dataArch en deleteById",dataArch)
 			const dataArchParse = JSON.parse(dataArch) 
 			let product = dataArchParse.find(prod => prod.id === id); //con === no anda
+			console.log("product en deleteById", product)
 			if (product) {
 				let dataArchParsefiltered = dataArchParse.filter( prod => prod.id !== id )
 				await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParsefiltered, null, 2))
@@ -181,14 +101,26 @@ class Contenedor {
 	}
 
 	async update (producto, id){ 
+		console.log("id en update ", id)
 		const itemToModify = { ...producto, ...id} 
 		let products = await this.getAll()
 		await this.deleteById(id)
-		const filteredCart = products.filter(prod => prod.id !== id)
-		filteredCart = [...filteredCart , itemToModify]
-		const orderedProducts = filteredCart.sort((a,b)=>a.id-b.id)
+		let filteredProducts = products.filter(prod => prod.id !== id)
+		filteredProducts = [...filteredProducts , itemToModify]
+		const orderedProducts = filteredProducts.sort((a,b)=>a.id-b.id)
 		await fs.promises.writeFile(this.ruta, JSON.stringify(orderedProducts,null,2))  
 	}
+
+	/* async update(obj){
+		try {
+				let datos = await this.getAll();
+				let nuevosDatos = datos.map(el => el.id === obj.id? obj : el);
+				await fs.promises.writeFile(this.archivo,JSON.stringify(nuevosDatos, null, 2));
+				return obj.id
+		} catch (error) {
+				console.log('update - ocurrio un error:' + error);
+		}
+} */
 
 	async updateCart (producto, id){ 
 		

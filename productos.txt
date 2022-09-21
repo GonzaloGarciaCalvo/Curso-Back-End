@@ -1,11 +1,11 @@
 [
   {
-    "nombre": "AAAAA",
-    "categoria": "rtthh",
-    "precio": "88",
-    "thumbnail": "",
+    "nombre": "remera BBB",
+    "categoria": "remera manga larga",
+    "precio": 11100,
+    "thumbnail": "no hay",
     "id": 1,
-    "timestamp": 1663701920107
+    "timestamp": 1663782463675
   },
   {
     "nombre": "AAAAA",
@@ -14,5 +14,32 @@
     "thumbnail": "",
     "id": 2,
     "timestamp": 1663702008895
+  },
+  {
+    "nombre": "AACC",
+    "categoria": "remera",
+    "precio": 8899,
+    "thumbnail": "ddd",
+    "stock": 50,
+    "id": 3,
+    "timestamp": 1663770721750
+  },
+  {
+    "nombre": "AACC",
+    "categoria": "remera",
+    "precio": 8899,
+    "thumbnail": "ddd",
+    "stock": 50,
+    "id": 4,
+    "timestamp": 1663773881984
+  },
+  {
+    "nombre": "AACC",
+    "categoria": "remera",
+    "precio": 8899,
+    "thumbnail": "ddd",
+    "stock": 50,
+    "id": 5,
+    "timestamp": 1663774220914
   }
 ]

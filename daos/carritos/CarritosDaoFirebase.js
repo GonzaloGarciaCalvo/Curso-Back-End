@@ -7,9 +7,55 @@ const db = firebase.firestore();
 const cart = db.collection("carritos"); */
 
 class CarritoDaoFirebase extends ContenedorFirebase {
-    constructor() {
-        super('carritos')
-    }  
+	constructor() {
+		super("carritos");
+	}
+
+	guardarProducto = async (id, id_prod, obj) => {
+		try {
+			let carrito = await this.getById(id);
+			if (carrito) {
+				carrito.productos.push(obj);
+				await this.update(carrito);
+				return carrito;
+			} else {
+				return [];
+			}
+		} catch (error) {
+			console.log("guardarProducto - error: " + error);
+		}
+	};
+
+	ListarProductosPorId = async (id) => {
+		try {
+			let carrito = await this.getById(id);
+			if (carrito) {
+				if (carrito.productos) {
+					return carrito.productos;
+				} else {
+					return [];
+				}
+			} else {
+				return [];
+			}
+		} catch (error) {
+			console.log("ListarProductosPorId - ocurrio un error: " + error);
+		}
+	};
+
+	borrarProductoPorId = async (id, id_prod) => {
+		try {
+			let carrito = await this.getById(id);
+			let productos = carrito.productos.filter(
+				(producto) => producto.id !== id_prod
+			);
+			carrito.productos = productos;
+			await this.update(carrito);
+			return { delete: id_prod };
+		} catch (error) {
+			console.log("BorrarProductoPorId Ocurrio un error : " + error);
+		}
+	};
 }
 module.exports = CarritoDaoFirebase
 /* export default CarritoDaoFirebase */

@@ -49,12 +49,19 @@ routerProductos.get("/:id", async (req, res) => {
 //Update
 routerProductos.put('/:id', async (req, res) => {
     const id = req.params.id;
-    const {nombre, precio} = req.body
+    const numberId = Number(id)
+    console.log("numberId en routerProductos Update ",numberId)
+    const {nombre, categoria, precio, thumbnail, stock, timestamp} = req.body
     const item = {
         nombre:nombre,
-        precio:precio
+        categoria:categoria,
+        precio:precio,
+        thumbnail:thumbnail,
+        stock:stock,
+        id:numberId,
+        timestamp: Date.now()
     }
-    const insertar = await prod.update(id, item);
+    const insertar = await prod.update(item, numberId);
     res.json(insertar)
 })
 
