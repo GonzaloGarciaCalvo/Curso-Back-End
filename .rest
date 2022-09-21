@@ -21,9 +21,9 @@ Content-Type: application/json
 {
     "nombre": "AAAbb",
     "categoria": "rtthh",
-    "precio": "8899",
+    "precio": 8899,
     "thumbnail": "ddd",
-    "stock": 40,
+    "stock": 40
 }
 ###  sin el id no funciona con contenedorArchivo 
 ### con mongo  pruebo con "timestamps": true /"true" y tampoco funciona.

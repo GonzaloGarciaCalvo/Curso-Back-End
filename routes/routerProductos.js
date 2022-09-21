@@ -11,16 +11,24 @@ routerProductos.use(express.urlencoded({ extended: true }));
 
 //Save
 routerProductos.post('/', async (req, res) => {
-    const {nombre, categoria, precio, thumbnail} = req.body
+    const {nombre, categoria, precio, thumbnail, stock} = req.body
     const item = {
         nombre:nombre,
         categoria:categoria,
         precio:precio,
         thumbnail:thumbnail,
+        stock:stock,
     }
     const insertar = await prod.save(item);
     res.json(insertar)
 })
+/* const prodSchema = new Schema({
+    nombre: { type: String, required:true },
+    categoria:{ type: String, required:true },
+    precio: { type: Number, required:true },
+    thumbnail:{ type: String, required:true },
+    stock: { type: Number, required:true },
+},{timestamps: true})  */
 
 //Getall
 routerProductos.get('/', async (req, res) => {
