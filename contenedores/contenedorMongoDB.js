@@ -14,7 +14,7 @@ class ContenedorMongoDB {
     }
     connection = async () => {
         try {
-            console.log('modelo en ContenedorMongoDB', this.modelo())// undefined
+            /* console.log('modelo en ContenedorMongoDB', this.modelo()) */
             const url = 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test'
             await mongoose.connect(url,{
                 useNewUrlParser: true,
@@ -53,8 +53,10 @@ class ContenedorMongoDB {
         }
     }
 
-    async update(id, item) {
-        try {    
+    async update(item, id) {
+        try {  
+            console.log("id en update mongo ", id)  
+            console.log("item en update mongo ", item)  
             const update = await this.modelo.findOneAndUpdate(id ,item )
             return update
         } catch (error) {

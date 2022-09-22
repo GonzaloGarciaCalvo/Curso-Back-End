@@ -14,8 +14,11 @@ class CarritosDaoMongo extends ContenedorMongoDB {
 		super(carritos);
 	}
 
-	guardarProducto = async (id, obj) => {
+	guardarProducto = async (id, id_prod, obj) => {
 		try {
+			console.log("id en guardarproducto ", id)
+			console.log("id_prod", id_prod)
+			console.log("obj en guardarProductos", obj)
 			let carrito = await this.getById(id);
 			if (carrito) {
 				carrito.productos.push(obj);

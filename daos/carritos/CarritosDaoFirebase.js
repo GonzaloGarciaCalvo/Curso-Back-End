@@ -14,9 +14,12 @@ class CarritoDaoFirebase extends ContenedorFirebase {
 	guardarProducto = async (id, id_prod, obj) => {
 		try {
 			let carrito = await this.getById(id);
+			console.log("carrito en guardarProductos ", carrito)// ok
 			if (carrito) {
 				carrito.productos.push(obj);
-				await this.update(carrito);
+				console.log("carrito.productos ", carrito.productos)
+				await this.save(carrito); //rompe
+				console.log("carrito en guardar ", carrito) //no llega
 				return carrito;
 			} else {
 				return [];

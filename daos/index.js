@@ -13,8 +13,8 @@ const ProductosDaoArchivo = require('./productos/ProductosDaoArchivo')
 let productosDao;
 let carritosDao;
 let selector;
-selector = 'mongoDB'
-/* selector = 'firebase' */
+/* selector = 'mongoDB' */
+selector = 'firebase'
 /* selector = 'archivo' */
 
 /* switch (selector) {

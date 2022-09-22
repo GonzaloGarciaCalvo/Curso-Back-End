@@ -66,9 +66,9 @@ routerCarrito.get("/:id/productos", (req, res) => {
 routerCarrito.post("/:id/productos", async (req, res) => {
 	const { id } = req.params;
 	const { id_prod } = req.body;
-console.log("id :",id," id_prod :", id_prod)
+console.log("routerCarrito // id :",id," id_prod :", id_prod)
 	let productoData = await prod.getById(id_prod)
-	console.log("productoData ",productoData)
+	console.log("productoData ",productoData)// producto con id
 		cart.guardarProducto(id,id_prod, productoData).then((data) => {
 			res.json(data);
 		});
