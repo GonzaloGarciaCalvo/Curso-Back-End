@@ -90,6 +90,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 const productos= require('./routes/productos')
 
+
 const {save, verMsj} = require("./controllers/mensajes")
 app.use('/', productos)
   

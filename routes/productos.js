@@ -5,7 +5,7 @@ const productos= Router()
 productos.get('/api/productos-test',  async (req, res)=> {
     try {
         const productos = []
-        for (let i=0; i<n; i++) {
+        for (let i=0; i<6; i++) {
             const _producto = {
                 nombre: faker.commerce.productName(),
                 precio: faker.commerce.price(),
