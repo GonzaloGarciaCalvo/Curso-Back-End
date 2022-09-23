@@ -22,6 +22,8 @@ socket.on('MENSAJES_EXISTENTES', (a) => {
     });
 })
 socket.on('porcentaje', (a,b) => {
+    console.log('a ', a)
+    console.log("b ", b)
     compresion(a,b)
 })
 
@@ -54,7 +56,9 @@ const agregarMasajes = (msg) => {
 
     const box = document.getElementById('post').innerHTML += `
     <div class='card'>
-        <b style='color:blue'>${msg.author.alias}</b> <img src="${msg.author.avatar}">/> <p style='color:green; font-style: italic' >${msg.text}</p>
+        <b style='color:blue'>${msg.author.alias}</b> 
+        <img src="${msg.author.avatar}">
+        <p style='color:green; font-style: italic' >${msg.text}</p>
     </div>
     `
 }

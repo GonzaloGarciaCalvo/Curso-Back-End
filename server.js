@@ -91,7 +91,7 @@ app.use(express.urlencoded({ extended: true }))
 const productos= require('./routes/productos')
 
 const {save, verMsj} = require("./controllers/mensajes")
-app.use('/productos', productos)
+app.use('/', productos)
   
 
 app.get("/", (req, res) => {
@@ -101,7 +101,7 @@ app.get("/", (req, res) => {
 
 
 io.on('connection', async (socket) => {
-    console.log('conectado al servidor')
+    console.log('conectado al servidor io')
     socket.on("chat_message", (msj)=> {
         save(msj)
         io.sockets.emit('new_message', msj)
