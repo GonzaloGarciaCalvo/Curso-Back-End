@@ -70,3 +70,5 @@ const PORT = 8080
 const server = httpServer.listen(PORT || 8080, () => {
     console.log(`Servidor corriendo en el puerto: ${ server.address().port }`)
 }).on('error', (e) => console.log('Error: ', e.message));
+
+/* mongodb+srv://garciacalvog:<password>@cluster0.qju9tzm.mongodb.net/?retryWrites=true&w=majority */
