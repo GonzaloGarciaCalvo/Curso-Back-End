@@ -21,10 +21,10 @@ socket.on('MENSAJES_EXISTENTES', (a) => {
         return agregarMasajes(element)
     });
 })
-socket.on('porcentaje', (a,b) => {
+socket.on('porcentaje', async (a,b) => {
     console.log('a ', a)
     console.log("b ", b)
-    compresion(a,b)
+   await compresion(a,b)
 })
 
 const enviarMensaje = () => {
@@ -64,11 +64,15 @@ const agregarMasajes = (msg) => {
 }
 
 const compresion = (a,b) => {
+    // b peso original
     let desnormalizar = normalizr.denormalize(a.result, file, a.entities);
+    console.log("desnormalizar  ",desnormalizar)
+    console.log(" b peso original", b)
     let desnormalizarPeso = JSON.stringify(desnormalizar).length / 1024
-    let resultado = parseInt(b/desnormalizarPeso) 
+    console.log("desnormalizarPeso  ",desnormalizarPeso)
+    let resultado = ((parseFloat(b/desnormalizarPeso)*100)-100).toFixed(2)
     
-    console.log(resultado)
+    console.log("resultado compresión ",resultado)
     const div = document.getElementById('compresion').innerHTML += `
     <div class='card'>
         <p> La compresion es de ${resultado} %</p>

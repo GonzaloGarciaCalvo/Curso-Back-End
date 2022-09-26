@@ -109,7 +109,7 @@ io.on('connection', async (socket) => {
     });
     const getAll= await verMsj()
     const getAllPesoOriginal= JSON.stringify(getAll).length / 1024
-    console.log(getAllPesoOriginal)
+    console.log("getAllPesoOriginal", getAllPesoOriginal)
 
     io.sockets.emit('MENSAJES_EXISTENTES', getAll)
     io.sockets.emit('porcentaje', getAll, getAllPesoOriginal )
