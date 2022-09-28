@@ -1,5 +1,5 @@
-const express = require("express");
-const {Router} = express
+/* const express = require("express"); */
+const { Router } = express
 const path = require('path')
 
 const authRouter = new Router()
@@ -35,11 +35,11 @@ authRouter.get('/logout', (req, res) => {
 })
 
 authRouter.post('/login', (req, res) => {
-    console.log("nombre en authRouter.post('/login',", req.body.nombre)//ok
-    let nombre = req.session?.nombre //undefined
-    req.body.nombre = nombre
-    console.log("req.session en authRouter.post('/login', ", req.session)// UNDEFINED
-    res.redirect('/home')
+        console.log("nombre en authRouter.post('/login',", req.body.nombre)//ok
+        let nombre = req.session?.nombre //undefined
+        req.body.nombre = nombre
+        console.log("req.session en authRouter.post('/login', ", nombre)// UNDEFINED
+        res.redirect('/home')
 })
 
 
