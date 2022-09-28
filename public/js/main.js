@@ -66,10 +66,10 @@ const agregarMasajes = (msg) => {
 const compresion = (a,b) => {
     // b peso original
     let desnormalizar = normalizr.denormalize(a.result, file, a.entities);
-    console.log("desnormalizar  ",desnormalizar)
-    console.log(" b peso original", b)
+    /* console.log("desnormalizar  ",desnormalizar)
+    console.log(" b peso original", b) */
     let desnormalizarPeso = JSON.stringify(desnormalizar).length / 1024
-    console.log("desnormalizarPeso  ",desnormalizarPeso)
+    /* console.log("desnormalizarPeso  ",desnormalizarPeso) */
     let resultado = ((parseFloat(b/desnormalizarPeso)*100)-100).toFixed(2)
     
     console.log("resultado compresión ",resultado)

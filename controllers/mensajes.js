@@ -36,7 +36,7 @@ const save = async (msj) => {
 const verMsj = async () => {
     const getAll = await msjModel.find()
     const normalizado = normalizar(getAll)
-    console.log("normalizado en verMesj ", normalizado)
+    /* console.log("normalizado en verMesj ", normalizado) */
     return normalizado
 
 }
