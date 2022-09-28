@@ -1,5 +1,5 @@
 const {faker} = require("@faker-js/faker")
-/*const express = require("express"); */
+const express = require("express");
 const {Router} = express
 const productos= Router()
 productos.get('/api/productos-test',  async (req, res)=> {

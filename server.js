@@ -41,7 +41,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
-console.log("session en server ", session)
 
 /* app.get("/", (req, res) => {
     res.sendFile(__dirname + "/views/pages/login.html")
