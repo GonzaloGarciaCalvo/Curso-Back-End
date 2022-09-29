@@ -1,5 +1,3 @@
-/* mongodb+srv://garciacalvog:<password>@cluster0.qju9tzm.mongodb.net/?retryWrites=true&w=majority */
-
 const express = require('express');
 const app = express();
 
@@ -12,8 +10,7 @@ const io = new IOServer(httpServer)
 
 /* const cookieParser = require("cookie-parser"); */
 const session = require('express-session')
-console.log("session en server ", session)
-/* const logger = require("morgan"); */
+
 const MongoStore = require('connect-mongo');
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
@@ -22,15 +19,18 @@ app.use(express.static('public'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 const productos= require('./routes/productos')
-const auth = require('./routes/auth')
+/* const auth = require('./routes/auth') */
+/* const home = require('./routes/home') */
+const path = require('path')
 
 app.set('view engine', 'ejs')
 
 const {save, verMsj} = require("./controllers/mensajes")
-app.use('/', auth)
+/* app.use('/', auth) */
+/* app.use('/',home) */
 app.use('/', productos)
 app.use(session({
-    //Base de datos Mongo
+    
     store: MongoStore.create({
         mongoUrl: 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.qju9tzm.mongodb.net/?retryWrites=true&w=majority',
         mongoOptions,
@@ -41,11 +41,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
-
-/* app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/views/pages/login.html")
-    //res.sendFile(__dirname + "/public/index.html")//  
-}) */
 
 
 io.on('connection', async (socket) => {
@@ -63,6 +58,58 @@ io.on('connection', async (socket) => {
 
 })
 
+//Rutas login/logout/home
+app.get('/', (req, res) => {
+    /* res.render('./pages/home.ejs') */
+    const nombre =req.session.nombre
+    res.render(path.join(process.cwd(),'views/pages/home.ejs'),{nombre:nombre}) 
+})
+
+app.get('/home', (req, res) => {
+    if (req.session?.nombre) {
+        const nombre =req.session.nombre
+        console.log("nombre en ruta ", nombre)
+        res.render(path.join(process.cwd(), '/views/pages/home.ejs'), { nombre:nombre })
+    } else {
+        res.redirect('/login')
+    }
+
+    /* res.render(path.join(process.cwd(), '/views/pages/home.ejs'), { nombre: req.session.nombre }) */
+})
+
+app.get('/login', (req, res) => {
+    const nombre = req.session?.nombre
+
+    if (nombre) {(console.log("nombre en app.get ", nombre))}
+    if (nombre) {
+        res.redirect('/')
+    } else {
+        console.log("reboto login")
+        res.sendFile(path.join(process.cwd(), '/views/login.html'))
+    }
+})
+
+app.get('/logout', (req, res) => {
+    const nombre = req.session?.nombre
+    if (nombre) {
+        req.session.destroy(err => {
+            if (!err) {
+                res.render(path.join(process.cwd(), '/views/pages/logout.ejs'), { nombre })
+            } else {
+                res.redirect('/')
+            }
+        })
+    } else {
+        res.redirect('/')
+    }
+})
+
+app.post('/login', (req, res) => {
+    let name = req.body.nombre
+    req.session.nombre = name
+    console.log("req.session.nombre en post login", req.session.nombre)// UNDEFINED
+    res.redirect('/home')
+})
 
 httpServer.listen(PORT, () => {
     console.log(`Servidor online puerto ${PORT}`)
