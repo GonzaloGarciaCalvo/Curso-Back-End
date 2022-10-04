@@ -16,9 +16,8 @@ socket.on('MENSAJES_EXISTENTES', (a) => {
     
     const desnormalizar = normalizr.denormalize(a.result, file, a.entities);
     
-    desnormalizar.forEach(element => {
-        console.log(element)
-        return agregarMasajes(element)
+    desnormalizar?.forEach(element => {
+        if (element) return agregarMasajes(element)
     });
 })
 socket.on('porcentaje', async (a,b) => {
@@ -53,14 +52,16 @@ const enviarMensaje = () => {
 
 
 const agregarMasajes = (msg) => {
-
-    const box = document.getElementById('post').innerHTML += `
-    <div class='card'>
-        <b style='color:blue'>${msg.author.alias}</b> 
-        <img src="${msg.author.avatar}">
-        <p style='color:green; font-style: italic' >${msg.text}</p>
-    </div>
-    `
+   
+   
+        const box = document.getElementById('post').innerHTML += `
+        <div class='card'>
+            <b style='color:blue'>${msg.author.alias}</b> 
+            <img src="${msg.author.avatar}">
+            <p style='color:green; font-style: italic' >${msg.text}</p>
+        </div>
+        `
+    
 }
 
 const compresion = (a,b) => {
@@ -79,3 +80,4 @@ const compresion = (a,b) => {
     </div>
     `
 }
+

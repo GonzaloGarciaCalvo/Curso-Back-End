@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const  normalizar = require("./normalizr");
 try {
     connection()
-    console.log("Conectado a MongoDB")
+    /* console.log("Conectado a MongoDB") */
 } catch (error) {
     console.log(error)
 }
