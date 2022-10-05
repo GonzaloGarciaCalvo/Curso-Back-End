@@ -72,23 +72,23 @@ authRouter.post("/login",
     passport.authenticate('login', { failureRedirect: '/nocredentials' }), 
     (req, res) => {
         req.session.user = req.user
-        res.render('/home')
+        res.render('/.pages/home')
     }
 )
 
 
 authRouter.post('/signup',
 	passport.authenticate('signup', {
-		successRedirect: "/registroExitoso",
-		failureRedirect: "/errorRegister",  // siempre entra por aca
+		successRedirect: "/registroExitoso",  // la muestra
+		failureRedirect: "/errorRegister",   
 	}),
 	(req, res) => {
-		res.redirect("/singupExitoso");
+		res.redirect("./pages/singupExitoso");
 	}
 );
 
 
-authRouter.get('/', auth, (req, res) => {
+authRouter.get('/home', auth, (req, res) => {   // falla el home luego de login
     console.log("ruta home")
     res.render('./pages/home'), {
         user: req.user
@@ -98,11 +98,13 @@ authRouter.get('/signup', (req, res) => {
     res.render('./pages/signup')
 })
 
-
-authRouter.get('/singupExitoso', (req, res) => {
-    res.sendFile('/singup.html', {root:'public'})
-
+authRouter.get('/registroExitoso', (req, res) => {
+    res.render('./pages/registroExitoso')
 });
+/* authRouter.get('/singupExitoso', (req, res) => {
+    res.sendFile('./singup.html', {root:'public'})
+}); */
+
 //Errores
 /* authRouter.get('/userexistente', (req, res) => {
     res.render('./pages/noCredentials', { error: 'Correo electronico ya existente' })

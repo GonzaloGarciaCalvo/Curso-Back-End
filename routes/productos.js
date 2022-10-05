@@ -15,7 +15,7 @@ productos.get('/api/productos-test',  async (req, res)=> {
         }
         res.json(productos) 
     } catch (error) {
-        console.log("error ", error)
+        console.log("error en productos ", error)
     }
 }) 
 

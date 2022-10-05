@@ -73,7 +73,7 @@ const compresion = (a,b) => {
     /* console.log("desnormalizarPeso  ",desnormalizarPeso) */
     let resultado = ((parseFloat(b/desnormalizarPeso)*100)-100).toFixed(2)
     
-    console.log("resultado compresión ",resultado)
+
     const div = document.getElementById('compresion').innerHTML += `
     <div class='card'>
         <p> La compresion es de ${resultado} %</p>
