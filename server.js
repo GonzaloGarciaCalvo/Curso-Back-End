@@ -67,9 +67,7 @@ io.on('connection', async (socket) => {
 
 
 /* app.use(express.static('public')); */
-// Router
-app.use('/',authRouter)
-authRouter.use(express.static('public'));
+
 
 //Inicializacion passport
 app.use(passport.initialize());
@@ -133,7 +131,9 @@ passport.deserializeUser(async (id, done) => {
     done(null, user);
 });
 
-
+// Router
+app.use('/',authRouter)
+authRouter.use(express.static('public'));
 
 const PORT = 8080
 httpServer.listen(PORT, () => {

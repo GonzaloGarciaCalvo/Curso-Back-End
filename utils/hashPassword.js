@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 
 const hashPassword = (password) => {
-    console.log("en hashPassword") 
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 }
 const comparePassword = (password, hash) => {

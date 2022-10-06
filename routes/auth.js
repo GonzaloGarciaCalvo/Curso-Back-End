@@ -71,8 +71,9 @@ const passport = require('passport')
 authRouter.post("/login",  
     passport.authenticate('login', { failureRedirect: '/nocredentials' }), 
     (req, res) => {
-        req.session.user = req.user
-        res.render('/.pages/home')
+        
+        /* req.session.user = req.user */
+        res.redirect('/home')
     }
 )
 
@@ -88,11 +89,15 @@ authRouter.post('/signup',
 );
 
 
-authRouter.get('/home', auth, (req, res) => {   // falla el home luego de login
+authRouter.get('/home', auth, (req, res) => {   // falla, no pasa el username a la view y rompe
     console.log("ruta home")
-    res.render('./pages/home'), {
-        user: req.user
-    }
+    console.log("req.user.username", req.user.username) // lo muestra
+    const email= req.user.username
+    res.render('./pages/home', {
+        /* user: req.user, */
+        email:email
+    })
+
 })
 authRouter.get('/signup', (req, res) => {
     res.render('./pages/signup')
@@ -116,11 +121,13 @@ authRouter.get('/errorRegister', (req, res) =>{
     res.render('./pages/errorRegister', { error: 'Registro incorrecto, correo o password invalidos' })
 });
 
+
 //Logout
 authRouter.get("/logout", (req, res) => {
+    const email= req.user.username
     req.session.destroy();
     req.logout(() => {
-        res.render('./pages/logout')
+        res.render('./pages/logout',{email})
     })
 });
 

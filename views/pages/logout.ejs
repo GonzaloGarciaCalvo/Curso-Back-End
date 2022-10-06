@@ -10,12 +10,12 @@
 <body>
     <div>
         <h1 class="alert alert-primary fs-2">
-            Hasta luego, <%=nombre%>!
+            Hasta luego, <%= email %>!
         </h1>
     </div>
     <script>
         setTimeout(() => {
-            location.href = '/login'
+            location.href = '/'
         }, 2000)
     </script>
 </body>
