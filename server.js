@@ -36,18 +36,21 @@ const configServer = parseArgs(process.argv.slice(2), connectionOptions);
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+//Routers
 const productos= require('./routes/productos')
 const authRouter = require('./routes/auth')
+const randomsRouter = require('./routes/randoms')
+const infoRouter = require('./routes/info')
 
 app.set('view engine', 'ejs')
 
 const {save, verMsj} = require("./controllers/mensajes")
 
 app.use('/', productos)
-
+app.use('/', randomsRouter)
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.qju9tzm.mongodb.net/usuarios?retryWrites=true&w=majority',
+        mongoUrl: process.env.MONGO_DB,
         mongoOptions,
         maxAge:600000,
         retries: 0
@@ -85,15 +88,12 @@ app.use(passport.session())
 //Login
 passport.use('login', new LocalStrategy(
     async (username, password, done) => {
-        /* console.log("en passport: ") */
         try {
             const user = await User.findOne({ username });
-            /* console.log("user", user) */
             const hassPass = user?.password
             if (!user || !comparePassword(password, hassPass)) {
                 return done(null, false)
             } else {
-                /* console.log('user:', user) */
                 return done(null, user)
             }
         }
@@ -109,8 +109,6 @@ passport.use('signup', new LocalStrategy(
     {  passReqToCallback: true},  
     async ( req, username, password, done) => {
        /*  try { */
-            console.log(req)
-            console.log("passport en signup ")
             const user = await User.findOne({ username:username });
             if (user) {
                 return done(null, false)
@@ -132,40 +130,18 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     id = Types.ObjectId(id);
     const user = await User.findById(id);
-    // console.log('user deserializado', user)
     done(null, user);
 });
 
-//Route info
-app.get('/info', (req, res) => {
-    res.send({
-        'agrumentos': process.argv, //?
-        'directorio': process.cwd(),
-        'id proceso': process.pid,
-        'version node': process.version,
-        'titulo': process.title,
-        'sistema operativo': process.platform,
-        'uso memoria': process.memoryUsage()
-    })
-})
 
-const { fork } = require('child_process')
-app.get('/api/randoms', (req, res) => {
-    const cant = req.query.cant || 100000000
-    const child = fork('./child.js')
-    child.send(cant)
-    child.on('message', result => {
-        res.send({result})
-    })
-})
+app.use('/', infoRouter)
 
-
-// Router
+// uso Router authRouter
 app.use('/',authRouter)
 authRouter.use(express.static('public'));
 
-/* const PORT = 8080 */
+
 httpServer.listen(configServer.p, () => {
     console.log(`Servidor online puerto ${configServer.p || 8080}`)
 })
-/* .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); */
+.on('error', (e) => console.log('Error en inicio de servidor: ', e.message));
