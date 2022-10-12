@@ -13,24 +13,31 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
-/* require('dotenv').config(); */
+require('dotenv').config();
 const User = require('./utils/userSchema')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const { hashPassword, comparePassword } = require('./utils/hashPassword');
 const { Types } = require('mongoose')
 
-const connection = require('./db/mongo')
+/* const connection = require('./db/mongo') */
 /* connection() */
 
-
-
+const parseArgs = require('minimist');
+const connectionOptions = {
+    alias: {
+        p: "port",
+    },
+    default: {
+        port: 8080,
+    }
+}
+const configServer = parseArgs(process.argv.slice(2), connectionOptions);
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 const productos= require('./routes/productos')
 const authRouter = require('./routes/auth')
-const path = require('path')
 
 app.set('view engine', 'ejs')
 
@@ -99,9 +106,7 @@ passport.use('login', new LocalStrategy(
 
 //Signgup
 passport.use('signup', new LocalStrategy(
-    {  passReqToCallback: true},  //con esto da error un un objeto que no se de donde sale (no entra a mongo atlas), 
-    //sin eso da error  req.isAuthenticated is not a function pero entra a mongo atlas
-    // cagregando req a la funcion de abajo carga usuario en mongo atlas pero rompe req.isAuthenticated is not a function
+    {  passReqToCallback: true},  
     async ( req, username, password, done) => {
        /*  try { */
             console.log(req)
@@ -131,12 +136,36 @@ passport.deserializeUser(async (id, done) => {
     done(null, user);
 });
 
+//Route info
+app.get('/info', (req, res) => {
+    res.send({
+        'agrumentos': process.argv, //?
+        'directorio': process.cwd(),
+        'id proceso': process.pid,
+        'version node': process.version,
+        'titulo': process.title,
+        'sistema operativo': process.platform,
+        'uso memoria': process.memoryUsage()
+    })
+})
+
+const { fork } = require('child_process')
+app.get('/api/randoms', (req, res) => {
+    const cant = req.query.cant || 100000000
+    const child = fork('./child.js')
+    child.send(cant)
+    child.on('message', result => {
+        res.send({result})
+    })
+})
+
+
 // Router
 app.use('/',authRouter)
 authRouter.use(express.static('public'));
 
-const PORT = 8080
-httpServer.listen(PORT, () => {
-    console.log(`Servidor online puerto ${PORT}`)
+/* const PORT = 8080 */
+httpServer.listen(configServer.p, () => {
+    console.log(`Servidor online puerto ${configServer.p || 8080}`)
 })
 /* .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); */
