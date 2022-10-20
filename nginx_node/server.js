@@ -26,6 +26,7 @@ const parseArgs = require('minimist');
 const connectionOptions = {
     alias: {
         p: "port",
+        m: "mode" 
     },
     default: {
         port: 8080,
@@ -138,32 +139,31 @@ app.use('/',authRouter)
 
 
 //logica desafio clase 30
-/* console.log("m ", configServer.m) */
-// if (configServer.m =="cluster") {
-//     /* console.log("m no es FORK o no se pas'o el parametro") */
-//     if (cluster.isPrimary) {
-//         console.log(`Master ${process.pid} is running`)
-//         for (let i = 0; i < numCPUs; i++) {
-//             cluster.fork()
-//         }
-//         cluster.on('exit', (worker, code, signal) => {
-//             console.log(`worker ${worker.process.pid} died`)
-//         })
-//     } else {
-//         httpServer.listen(configServer.p || 8080)
-        
-//         console.log(`Worker ${process.pid} started`)
-//     }
-// } else if (configServer.m =="fork" || !configServer.m)  {
-//     httpServer.listen(configServer.p, () => {
-//         console.log(`Servidor online puerto ${configServer.p || 8080}`)
-//     })
-//     .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 
-// }
+console.log("m: ", configServer.m)
+if (configServer.m =="cluster") {
+    /* console.log("m no es FORK o no se pas'o el parametro") */
+    if (cluster.isPrimary) {
+        console.log(`Master ${process.pid} is running`)
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork()
+        }
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`worker ${worker.process.pid} died`)
+        })
+    } else {
+        httpServer.listen(configServer.p || 8080)
+        console.log("en else")
+        console.log(`Worker ${process.pid} started`)
+    }
+} else if (configServer.m =="fork" || !configServer.m)  {
+    httpServer.listen(configServer.p, () => {
+        console.log(`Servidor online puerto ${configServer.p || 8080}`)
+    })
+    .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 
+}
 
 
-
-httpServer.listen(configServer.p, () => {
+/* httpServer.listen(configServer.p, () => {
     console.log(`Servidor online puerto ${configServer.p || 8080}`)
 })
-.on('error', (e) => console.log('Error en inicio de servidor: ', e.message));
+.on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); */

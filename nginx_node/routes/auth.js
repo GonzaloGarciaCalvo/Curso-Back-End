@@ -73,7 +73,7 @@ authRouter.post("/login",
     (req, res) => {
         
         /* req.session.user = req.user */
-        res.redirect('/home')
+        res.redirect('./pages/home')
     }
 )
 
