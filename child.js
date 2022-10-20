@@ -1,5 +1,4 @@
 const random = (cant) => {
-  /* cant? cant:100000000; */
   let numbersArr = []
   let numObject = {}
   console.log("cant en child ", cant)
@@ -13,8 +12,6 @@ const random = (cant) => {
           ? numObject[num]++
           : numObject[num] = 1
   }
-  
-  
 /*   for (const num of numbersArr) {
         if (numObject[num]) {
           //numObject[num]++ 
@@ -23,7 +20,6 @@ const random = (cant) => {
           numObject[num] = 1
         }
 } */
-  
   return numObject
 }
 
