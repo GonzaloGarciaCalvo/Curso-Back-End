@@ -135,7 +135,7 @@ app.use('/', infoRouter)
 
 // uso Router authRouter
 app.use('/',authRouter)
-/* authRouter.use(express.static('public')); */
+authRouter.use(express.static('public'));
 
 
 //logica desafio clase 30
