@@ -8,8 +8,9 @@ randomsRouter.get('/api/randoms', (req, res) => {
     console.log("cant en ruta ", cant)
     const child = fork('./child.js')
     child.send(cant)
+    console.log(process.argv)
     child.on('message', result => {
-        res.send({result})
+        res.send({result:result, process:process.argv })
     })
 })
 
