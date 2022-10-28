@@ -12,6 +12,10 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
+const compression = require('compression')
+app.use(compression())
+const {loggerConsole, loggerWarn, loggerError} = require('./loggers/winston');
+
 require('dotenv').config();
 const User = require('./utils/userSchema')
 const passport = require('passport')
@@ -60,6 +64,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
+
+
 
 
 io.on('connection', async (socket) => {

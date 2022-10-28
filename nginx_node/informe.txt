@@ -1,0 +1,2 @@
+1- Con compression  /info   444B, transferido 704B
+   Sin compression /info     444B, transferido 684B
