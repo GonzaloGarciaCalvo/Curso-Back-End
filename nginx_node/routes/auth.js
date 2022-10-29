@@ -4,6 +4,7 @@ const path = require('path')
 const authRouter = new Router()
 const auth = require('../middleware/auth')
 const passport = require('passport')
+const {loggerConsole} = require('../loggers/winston');
 
 
 // authRouter.get('/', (req, res) => {
@@ -71,7 +72,7 @@ const passport = require('passport')
 authRouter.post("/login",  
     passport.authenticate('login', { failureRedirect: '/nocredentials' }), 
     (req, res) => {
-        
+        loggerConsole.log('info', 'peticion a /')
         /* req.session.user = req.user */
         res.redirect('./pages/home')
     }
@@ -90,8 +91,7 @@ authRouter.post('/signup',
 
 
 authRouter.get('/home', auth, (req, res) => {   // falla, no pasa el username a la view y rompe
-    console.log("ruta home")
-    console.log("req.user.username", req.user.username) // lo muestra
+    loggerConsole.log('info', 'peticion a /home')
     const email= req.user.username
     res.render('./pages/home', {
         /* user: req.user, */
@@ -100,10 +100,12 @@ authRouter.get('/home', auth, (req, res) => {   // falla, no pasa el username a 
 
 })
 authRouter.get('/signup', (req, res) => {
+    loggerConsole.log('info', 'peticion a /pages/signup')
     res.render('./pages/signup')
 })
 
 authRouter.get('/registroExitoso', (req, res) => {
+    loggerConsole.log('info', 'peticion a /pages/registroExitoso')
     res.render('./pages/registroExitoso')
 });
 /* authRouter.get('/singupExitoso', (req, res) => {
@@ -115,15 +117,18 @@ authRouter.get('/registroExitoso', (req, res) => {
     res.render('./pages/noCredentials', { error: 'Correo electronico ya existente' })
 }); */
 authRouter.get('/nocredentials', (req, res) =>{
+    loggerConsole.log('info', 'peticion a /pages/noCredentials')
     res.render('./pages/noCredentials', { error: 'Correo o password invalidos' })
 });
 authRouter.get('/errorRegister', (req, res) =>{
+    loggerConsole.log('info', 'peticion a /pages*errorRegister')
     res.render('./pages/errorRegister', { error: 'Registro incorrecto, correo o password invalidos' })
 });
 
 
 //Logout
 authRouter.get("/logout", (req, res) => {
+    loggerConsole.log('info', 'peticion a /pages/logout')
     const email= req.user.username
     req.session.destroy();
     req.logout(() => {

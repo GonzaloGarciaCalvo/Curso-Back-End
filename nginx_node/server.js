@@ -143,6 +143,13 @@ app.use('/', infoRouter)
 app.use('/',authRouter)
 authRouter.use(express.static('public'));
 
+app.get('*', (req, res) => {
+    const { url, method } = req.query
+    loggerWarn.log('warn', 'Ruta no existente')
+    /* logger.warn(`Ruta ${url} con método ${method} no implementada`) */
+    res.status(404).send(`Ruta ${url} con método ${method} no implementada`)
+})
+
 
 //logica desafio clase 30
 console.log("m: ", configServer.m)
@@ -163,10 +170,12 @@ if (configServer.m =="cluster") {
     }
 } else if (configServer.m =="fork" || !configServer.m)  {
     httpServer.listen(configServer.p, () => {
-        console.log(`Servidor online puerto ${configServer.p || 8080}`)
+        /* console.log(`Servidor online puerto ${configServer.p || 8080}`) */
+        loggerConsole.log('debug', `Servidor online puerto ${configServer.p || 8080}`)
     })
     .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 
 }
+
 
 
 /* httpServer.listen(configServer.p, () => {
