@@ -152,9 +152,8 @@ app.get('*', (req, res) => {
 
 
 //logica desafio clase 30
-console.log("m: ", configServer.m)
+console.log("m: ", configServer.m || "FORK")
 if (configServer.m =="cluster") {
-    /* console.log("m no es FORK o no se pas'o el parametro") */
     if (cluster.isPrimary) {
         console.log(`Master ${process.pid} is running`)
         for (let i = 0; i < numCPUs; i++) {

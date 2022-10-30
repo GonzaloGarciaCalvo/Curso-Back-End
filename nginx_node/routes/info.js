@@ -6,6 +6,16 @@ const {loggerConsole} = require('../loggers/winston');
 
 infoRouter.get('/info', (req, res) => {
   loggerConsole.log('info', 'peticion a info')
+  
+  //Info de la session
+  /* console.log('argumentos ', process.argv)
+  console.log('directorio', process.cwd())
+  console.log('id proceso ', process.pid)
+  console.log('version node ', process.version)
+  console.log('sistema operativo ', process.platform)
+  console.log('uso memoria (rss)', process.memoryUsage().rss)
+  console.log('cantidad de procesadores',numCPUs) */
+
   res.send({
       'argumentos': process.argv, 
       'directorio': process.cwd(),
