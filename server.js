@@ -12,8 +12,8 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo');
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
 
-const compression = require('compression')
-app.use(compression())
+/* const compression = require('compression')
+app.use(compression()) */
 const {loggerConsole, loggerWarn, loggerError} = require('./loggers/winston');
 
 require('dotenv').config();
@@ -41,21 +41,25 @@ const configServer = parseArgs(process.argv.slice(2), connectionOptions);
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 //Routers
-const productos= require('./routes/productos')
+/* const productos= require('./routes/productos') */
+const routerCarrito = require('./routes/routerCarrito')
+const routerProductos = require('./routes/routerProductos')
 const authRouter = require('./routes/auth')
-const randomsRouter = require('./routes/randoms')
-const infoRouter = require('./routes/info')
+/* const randomsRouter = require('./routes/randoms')
+const infoRouter = require('./routes/info') */
 
 app.set('view engine', 'ejs')
 
 const {save, verMsj} = require("./controllers/mensajes")
 
-app.use('/', productos)
-app.use('/', randomsRouter)
+/* app.use('/', productos) */
+/* app.use('/', randomsRouter) */
+app.use('/api/productos', routerProductos)
+app.use('/api/carritos', routerCarrito)
 
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_DB,
+        mongoUrl: 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test',
         mongoOptions,
         maxAge:600000,
         retries: 0
@@ -137,18 +141,18 @@ passport.deserializeUser(async (id, done) => {
 });
 
 
-app.use('/', infoRouter)
+/* app.use('/', infoRouter) */
 
 // uso Router authRouter
 app.use('/',authRouter)
 authRouter.use(express.static('public'));
 
-app.get('*', (req, res) => {
-    const { url, method } = req.query
-    loggerWarn.log('warn', 'Ruta no existente')
-    /* logger.warn(`Ruta ${url} con método ${method} no implementada`) */
-    res.status(404).send(`Ruta ${url} con método ${method} no implementada`)
-})
+// app.get('*', (req, res) => {
+//     const { url, method } = req.query
+//     loggerWarn.log('warn', 'Ruta no existente')
+//     /* logger.warn(`Ruta ${url} con método ${method} no implementada`) */
+//     res.status(404).send(`Ruta ${url} con método ${method} no implementada`)
+// })
 
 
 //logica desafio clase 30

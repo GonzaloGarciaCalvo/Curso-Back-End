@@ -1,12 +1,12 @@
 const connection = require("../db/mongo");
 const mongoose = require('mongoose')
 const  normalizar = require("./normalizr");
-try {
-    connection()
-    /* console.log("Conectado a MongoDB") */
-} catch (error) {
-    console.log(error)
-}
+// try {    // conflicto con concexion del  DAOS
+//     connection()
+//     /* console.log("Conectado a MongoDB") */
+// } catch (error) {
+//     console.log(error)
+// }
 
 const mongooseSchema = new mongoose.Schema({
     author: {

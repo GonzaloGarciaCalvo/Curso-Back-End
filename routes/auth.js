@@ -74,7 +74,8 @@ authRouter.post("/login",
     (req, res) => {
         loggerConsole.log('info', 'peticion a /')
         /* req.session.user = req.user */
-        res.redirect('./pages/home')
+        res.redirect('/home')
+        /* res.render('./pages/home') */
     }
 )
 
@@ -90,7 +91,8 @@ authRouter.post('/signup',
 );
 
 
-authRouter.get('/home', auth, (req, res) => {   // falla, no pasa el username a la view y rompe
+authRouter.get('/home', auth, (req, res) => {   
+    console.log("peticion a home")
     loggerConsole.log('info', 'peticion a /home')
     const email= req.user.username
     res.render('./pages/home', {
