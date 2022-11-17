@@ -17,11 +17,12 @@ app.use(compression()) */
 const {loggerConsole, loggerWarn, loggerError} = require('./loggers/winston');
 
 require('dotenv').config();
-const User = require('./utils/userSchema')
+/* const User = require('./utils/userSchema')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
-const { hashPassword, comparePassword } = require('./utils/hashPassword');
-const { Types } = require('mongoose')
+const { hashPassword, comparePassword } = require('./utils/hashPassword'); */
+const passport = require('./authentication/passport');
+/* const { Types } = require('mongoose') */
 
 const cluster = require('cluster')
 const numCPUs = require('os').cpus().length
@@ -37,6 +38,8 @@ const connectionOptions = {
     }
 }/* m: "mode" */
 const configServer = parseArgs(process.argv.slice(2), connectionOptions);
+
+const mailerFunction = require('./utils/twilio')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -89,56 +92,76 @@ io.on('connection', async (socket) => {
 //Inicializacion passport
 app.use(passport.initialize());
 app.use(passport.session())
+const userNameGlobal = {username:null};
+module.exports = userNameGlobal
 
 
-/// Strategies  ///
+// /// Strategies  ///
 
-//Login
-passport.use('login', new LocalStrategy(
-    async (username, password, done) => {
-        try {
-            const user = await User.findOne({ username });
-            const hassPass = user?.password
-            if (!user || !comparePassword(password, hassPass)) {
-                return done(null, false)
-            } else {
-                return done(null, user)
-            }
-        }
-        catch (error) {
-            console.log("error en password: ", error)
-            done(error)
-        }
-    }
-))
+// //Login
+// passport.use('login', new LocalStrategy(
+//     async (username, password, done) => {
+//         try {
+//             const user = await User.findOne({ username });
+//             userNameGlobal.username = username
+//             console.log("req.username ", userNameGlobal)
+//             const hassPass = user?.password
+//             if (!user || !comparePassword(password, hassPass)) {
+//                 return done(null, false)
+//             } else {
+//                 return done(null, user)
+//             }
+//         }
+//         catch (error) {
+//             console.log("error en password: ", error)
+//             done(error)
+//         }
+//     }
+// ))
 
-//Signgup
-passport.use('signup', new LocalStrategy(
-    {  passReqToCallback: true},  
-    async ( req, username, password, done) => {
-       /*  try { */
-            const user = await User.findOne({ username:username });
-            if (user) {
-                return done(null, false)
-            }
-            const hashedPassword = hashPassword(password);
-            const newUser = new User({ username:username, password: hashedPassword });
-            await newUser.save();
-            return done(null, newUser);
-       /*  } catch(error) {
-            console.log("error en signup ",error)
-        } */
-}));
+// //Signgup
+// passport.use('signup', new LocalStrategy(
+//     {  passReqToCallback: true},  
+//     async ( req, username, password, done) => {
+//        /*  try { */
+//             const user = await User.findOne({ username:username });
+//             /* req.username = user */
+            
+//             if (user) {
+//                 return done(null, false)
+//             }
+//             const hashedPassword = hashPassword(password);
+//             const newUser = new User({ 
+//                 username:username, 
+//                 password: hashedPassword 
+//             });
 
-//Serializer
-passport.serializeUser((user, done) => {
-    done(null, user._id);
-});
-passport.deserializeUser(async (id, done) => {
-    id = Types.ObjectId(id);
-    const user = await User.findById(id);
-    done(null, user);
-});
+//            /*  email,
+//             password: hashedPassword,
+//             nombre: nombre,
+//             direccion: direccion,
+//             edad: edad,
+//             telefono: telefonoRegistrado,
+//             foto: foto,
+//             ordenes: ordenes */
+
+//             await newUser.save();
+//             console.log("req.username ", user)
+//             return done(null, newUser);
+//        /*  } catch(error) {
+//             console.log("error en signup ",error)
+//         } */
+// }));
+
+// //Serializer
+// passport.serializeUser((user, done) => {
+//     done(null, user._id);
+// });
+// passport.deserializeUser(async (id, done) => {
+//     id = Types.ObjectId(id);
+//     const user = await User.findById(id);
+//     done(null, user);
+// });
 
 
 /* app.use('/', infoRouter) */
@@ -147,12 +170,9 @@ passport.deserializeUser(async (id, done) => {
 app.use('/',authRouter)
 authRouter.use(express.static('public'));
 
-// app.get('*', (req, res) => {
-//     const { url, method } = req.query
-//     loggerWarn.log('warn', 'Ruta no existente')
-//     /* logger.warn(`Ruta ${url} con método ${method} no implementada`) */
-//     res.status(404).send(`Ruta ${url} con método ${method} no implementada`)
-// })
+app.get('*', (req, res) => {
+    res.send(`<h1> Ruta ${req.url} no implementada</h1>` )
+})
 
 
 //logica desafio clase 30

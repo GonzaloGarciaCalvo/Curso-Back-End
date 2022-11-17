@@ -14,13 +14,15 @@ routerCarrito.use(express.json());
 routerCarrito.use(express.urlencoded({ extended: true }));
 
 
+
 //getall
 routerCarrito.get('/', async (req, res) => {
   try {
     const getAll = await cart.getAll()
+		console.log("getAll ", getAll)
     res.json(getAll)
 	} catch (error) {
-		console.log(error)
+		console.log("error mostrado en router", error)
 	}
 
 })
@@ -36,12 +38,13 @@ routerCarrito.get("/:id/productos", async (req, res) => {
 // POST crea 1 carrito
 routerCarrito.post("/", (req, res) => {
 	let timestamp = Date.now();
-
-	cart.save({ timestamp, productos: [] }).then((data) => {
-		res.json({
-			id: data,
-		});
-	});
+	cart.save({ timestamp, productos: [] })
+	.then((data) => {
+		console.log("data._id en router", data._id)
+		res.send(
+			data._id,
+		);
+	})
 });
 
 // Delete borra 1 carrito completo

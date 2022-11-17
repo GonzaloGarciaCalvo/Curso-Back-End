@@ -47,6 +47,7 @@ class ContenedorFirebase {
 			console.log("en save");
 			const doc = this.collection.doc();
 			const insert = await doc.create({ ...newDoc });
+			console.log("indert en save", insert)
 			return insert;
 		} catch (error) {
 			console.log(error);
@@ -63,8 +64,8 @@ class ContenedorFirebase {
 					console.log("id en update firebase ", id)
 					console.log("obj en update ", obj)// llega id
 					console.log("obj.id ", obj.id, " tipo ", typeof(obj.id))
-					const doc = this.collection.doc(obj.id) // rompe
-					console.log('doc en update ', doc) // no se ejecuta
+					const doc = this.collection.doc(obj.id) // 
+					console.log('doc en update ', doc) // 
 					await doc.update(obj);
 					return obj.id;
 		} catch (error) {
