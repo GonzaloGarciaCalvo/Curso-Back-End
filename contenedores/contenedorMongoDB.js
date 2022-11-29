@@ -8,24 +8,23 @@ const mongoose =require('mongoose')
 
 class ContenedorMongoDB {
     constructor(modelo) {
-    /* constructor(ruta, modelo) { */
-        /* this.ruta = ruta */ // va a ser url
+    
         this.modelo = modelo
-        this.connection()
+        /* this.connection() */
     }
-    connection = async () => {
-        try {
-            /* console.log('modelo en ContenedorMongoDB', this.modelo()) */
-            const url = 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test'
-            await mongoose.connect(url,{
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-            })
-            console.log('MongoDB en connection contenedorMongoDB')
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    // connection = async () => {
+    //     try {
+    //         /* console.log('modelo en ContenedorMongoDB', this.modelo()) */
+    //         const url = 'mongodb+srv://garciacalvog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test'
+    //         await mongoose.connect(url,{
+    //             useNewUrlParser: true,
+    //             useUnifiedTopology: true,
+    //         })
+    //         console.log('MongoDB en connection contenedorMongoDB')
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
     async save(item) {
         try {

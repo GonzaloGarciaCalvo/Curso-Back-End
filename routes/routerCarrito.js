@@ -2,11 +2,12 @@ const express = require('express');
 /* import express from 'express' */
 const { Router } = express;
 
-/* const CarritoFirebase = require('../../daos/carritos/CarritosDaoFirebase') */
-const dao = require('../daos') // reemplaza CarritoFirebase
+/* const dao = require('../daos') 
 const cart = dao.carritosDao
-const prod = dao.productosDao
-/* const cart = carritosDao.productosDao */
+const prod = dao.productosDao */
+const cart = require('../api/carritos')
+
+const prod = require('../api/productos')
 
 
 const routerCarrito = new Router();  // routerCarrito

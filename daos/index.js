@@ -53,4 +53,14 @@ selector = 'mongoDB'
     }
     }
 
-    module.exports = {productosDao, carritosDao} 
+    /* module.exports = {productosDao, parritosDao}  */
+
+    const getProductosDao = productosDao
+    
+    const getCarritosDao= carritosDao
+    
+
+
+
+    /* module.exports = {getProductosDao, getCarritosDao} */
+

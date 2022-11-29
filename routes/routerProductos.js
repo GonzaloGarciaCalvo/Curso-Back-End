@@ -2,8 +2,9 @@ const express = require('express');
 /* import express from 'express' */
 const { Router } = express;
 
-const dao = require('../daos')
-const prod = dao.productosDao
+/* const dao = require('../daos')
+const prod = dao.productosDao */
+const prod = require('../api/productos')
 
 const routerProductos = new Router();
 routerProductos.use(express.json());
