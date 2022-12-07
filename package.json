@@ -102,6 +102,8 @@
   },
   "homepage": "https://github.com/GonzaloGarciaCalvo/Curso-Back-End#readme",
   "devDependencies": {
-    "mocha": "^10.1.0"
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0",
+    "supertest": "^6.3.2"
   }
 }
