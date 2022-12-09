@@ -5,7 +5,7 @@ const {supertest} = require('supertest')
 /* import { expect } from 'chai' */
 const {expect} = requiere('chai')
 import { generar } from './generador/usuarios.js'
-import app from '../server.js'
+const app =require( '../server.js')
 
 let request
 let server

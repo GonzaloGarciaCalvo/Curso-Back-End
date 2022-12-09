@@ -10,8 +10,16 @@ const routerProductos = new Router();
 routerProductos.use(express.json());
 routerProductos.use(express.urlencoded({ extended: true }));
 
+const {
+    saveController, 
+  getAllcontroller, 
+  getByIdController, 
+  updateController,
+  deletecontroller
+} = require('../controllers/productos')
+
 //Save
-routerProductos.post('/', async (req, res) => {
+/* routerProductos.post('/', async (req, res) => {
     const {nombre, categoria, precio, thumbnail, stock} = req.body
     const item = {
         nombre:nombre,
@@ -23,7 +31,10 @@ routerProductos.post('/', async (req, res) => {
     }
     const insertar = await prod.save(item);
     res.json(insertar)
-})
+}) */
+
+routerProductos.post('/', saveController)
+
 /* const prodSchema = new Schema({
     nombre: { type: String, required:true },
     categoria:{ type: String, required:true },
@@ -33,23 +44,32 @@ routerProductos.post('/', async (req, res) => {
 },{timestamps: true})  */
 
 //Getall
-routerProductos.get('/', async (req, res) => {
+routerProductos.get('/', 
+    getAllcontroller
+
+/* async (req, res) => {
 
     const getAll = await prod.getAll()
     res.json(getAll)
 
-})
+} */)
+
+
 
 //GetbyId
-routerProductos.get("/:id", async (req, res) => {
+routerProductos.get("/:id", 
+    getByIdController
+/* async (req, res) => {
     const id = req.params.id;
     const getById = await prod.getById(id)
     res.json(getById)
-})
+} */)
 
 
 //Update
-routerProductos.put('/:id', async (req, res) => {
+routerProductos.put('/:id',
+    updateController
+/* async (req, res) => {
     const id = req.params.id;
     const numberId = Number(id) || id
     console.log("numberId en routerProductos Update ",numberId)
@@ -67,16 +87,18 @@ routerProductos.put('/:id', async (req, res) => {
     console.log("item en routerProductos ", item)
     const insertar = await prod.update(item, numberId);
     res.json(insertar)
-})
+} */)
 
 //Delete
-routerProductos.delete('/:id', async (req, res) => {
+routerProductos.delete('/:id',
+    deletecontroller
+ /* async (req, res) => {
 
     const id= req.params.id
     const eliminar = await prod.deleteById(id);
     res.json(eliminar)
 
-})
+} */)
 
 /* export default routerProductos */
 module.exports = routerProductos

@@ -53,7 +53,8 @@ const infoRouter = require('./routes/info') */
 
 app.set('view engine', 'ejs')
 
-const {save, verMsj} = require("./controllers/mensajes")
+const {save, verMsj} = require("./normalizado/mensajes");
+const { builtinModules } = require('module');
 
 /* app.use('/', productos) */
 /* app.use('/', randomsRouter) */
@@ -198,6 +199,8 @@ if (configServer.m =="cluster") {
     })
     .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 
 }
+
+module.exports = app
 
 
 

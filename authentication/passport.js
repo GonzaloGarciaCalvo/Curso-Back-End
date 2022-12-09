@@ -30,10 +30,10 @@ passport.use('login', new LocalStrategy(
 passport.use('signup', new LocalStrategy(
   {  passReqToCallback: true},  
   async ( req, username, password, done) => {
-     /*  try { */
+      try {
           const user = await User.findOne({ username:username });
           /* req.username = user */
-          
+          console.log("req.body.username", req.body.username)
           if (user) {
               return done(null, false)
           }
@@ -55,9 +55,9 @@ passport.use('signup', new LocalStrategy(
           await newUser.save();
           console.log("req.username ", user)
           return done(null, newUser);
-     /*  } catch(error) {
+      } catch(error) {
           console.log("error en signup ",error)
-      } */
+      }
 }));
 
 //Serializer
