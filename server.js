@@ -10,7 +10,10 @@ const io = new IOServer(httpServer)
 const session = require('express-session')
 
 const MongoStore = require('connect-mongo');
-const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true }
+const mongoOptions = { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+}
 
 /* const compression = require('compression')
 app.use(compression()) */

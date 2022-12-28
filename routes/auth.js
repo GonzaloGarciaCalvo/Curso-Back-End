@@ -82,7 +82,7 @@ authRouter.post("/login",
 
 authRouter.post('/signup',
 	passport.authenticate('signup', {
-		successRedirect: "/registroExitoso",  // la muestra
+		successRedirect: "/registroExitoso", 
 		failureRedirect: "/errorRegister",   
 	}),
 	(req, res) => {

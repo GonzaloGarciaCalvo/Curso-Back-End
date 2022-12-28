@@ -3,10 +3,13 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const { hashPassword, comparePassword } = require('../utils/hashPassword');
 const { Types } = require('mongoose')
-/// Strategies  ///
 
 //Login
 passport.use('login', new LocalStrategy(
+    {  passReqToCallback: true,
+        usernameField: 'email',
+        passwordField: 'password' //
+    },   
   async (username, password, done) => {
       try {
           const user = await User.findOne({ username });
@@ -28,20 +31,33 @@ passport.use('login', new LocalStrategy(
 
 //Signgup
 passport.use('signup', new LocalStrategy(
-  {  passReqToCallback: true},  
-  async ( req, username, password, done) => {
-      try {
-          const user = await User.findOne({ username:username });
-          /* req.username = user */
-          console.log("req.body.username", req.body.username)
-          if (user) {
-              return done(null, false)
-          }
-          const hashedPassword = hashPassword(password);
-          const newUser = new User({ 
-              username:username, 
-              password: hashedPassword 
-          });
+    {  passReqToCallback: true,
+        usernameField: 'email',
+        passwordField: 'password' //
+    },   
+    async ( req, username, password, done) => {
+        try {
+            const {name, direction, telefono, role} = req.body
+            const user = await User.findOne({
+                email:email
+                 /* username:username  */
+            });
+            /* req.username = user */
+            console.log("req.body.username", req.body.email)
+            if (user) {
+                return done(null, false)
+            }
+
+            const hashedPassword = hashPassword(password);
+            const newUser = new User({ 
+                email:email, 
+                password: hashedPassword,
+                name:name,
+                age:age,
+                phone:phone,
+                address:address,
+                role:role,
+            });
 
          /*  email,
           password: hashedPassword,
