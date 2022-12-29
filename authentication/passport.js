@@ -5,29 +5,36 @@ const { hashPassword, comparePassword } = require('../utils/hashPassword');
 const { Types } = require('mongoose')
 
 //Login
-passport.use('login', new LocalStrategy(
-    {  passReqToCallback: true,
-        usernameField: 'email',
-        passwordField: 'password' //
-    },   
-  async (username, password, done) => {
-      try {
-          const user = await User.findOne({ username });
-          /* userNameGlobal.username = username
-          console.log("req.username ", userNameGlobal) */
-          const hassPass = user?.password
-          if (!user || !comparePassword(password, hassPass)) {
-              return done(null, false)
-          } else {
-              return done(null, user)
-          }
-      }
-      catch (error) {
-          console.log("error en password: ", error)
-          done(error)
-      }
-  }
-))
+passport.use(
+	"login",
+	new LocalStrategy(
+		{
+			passReqToCallback: true,
+			usernameField: "email",
+			passwordField: "password", //
+		},
+		async (req, email, password, done) => {
+			try {
+				const user = await User.findOne({ email });
+				console.log("en passport login");
+				const hashPass = user?.password;
+				console.log("hashpassword", hashPass);
+				if (!user || !comparePassword(password, hashPass)) {
+					/* console.log("password:", password);
+					console.log("hasspass", hashPass); */
+					return done(null, false);
+				} else {
+					/* console.log("password:", password);
+					console.log("hasspass", hashPass); */
+					return done(null, user);
+				}
+			} catch (error) {
+				console.log("error en password: ", error);
+				done(error);
+			}
+		}
+	)
+);
 
 //Signgup
 passport.use('signup', new LocalStrategy(
@@ -35,15 +42,15 @@ passport.use('signup', new LocalStrategy(
         usernameField: 'email',
         passwordField: 'password' //
     },   
-    async ( req, username, password, done) => {
+    async ( req, email, password, done) => {
         try {
-            const {name, direction, telefono, role} = req.body
+            const {email, password, name, phone, age,address, role} = req.body
             const user = await User.findOne({
                 email:email
                  /* username:username  */
             });
             /* req.username = user */
-            console.log("req.body.username", req.body.email)
+            console.log("req.body.username", req.body.email) //ok
             if (user) {
                 return done(null, false)
             }
@@ -69,7 +76,7 @@ passport.use('signup', new LocalStrategy(
           ordenes: ordenes */
 
           await newUser.save();
-          console.log("req.username ", user)
+          console.log("user en passport login ", user)
           return done(null, newUser);
       } catch(error) {
           console.log("error en signup ",error)

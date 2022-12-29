@@ -16,7 +16,7 @@ const productos = mongoose.model('productos', prodSchema)
 
 class ProductosDaoMongo extends ContenedorMongoDB {
     constructor() {
-        super(productos)
+        super(productos);
         ( async () => {
 			try {
 					/* console.log('modelo en ContenedorMongoDB', this.modelo()) */

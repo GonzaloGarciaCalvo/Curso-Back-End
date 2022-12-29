@@ -94,10 +94,13 @@ authRouter.post('/signup',
 authRouter.get('/home', auth, (req, res) => {   
     console.log("peticion a home")
     loggerConsole.log('info', 'peticion a /home')
-    const email= req.user.username
+    /* const email= req.user.username */
+    const email= req.user.email
+    console.log("email en auth _", email)
     res.render('./pages/home', {
         /* user: req.user, */
-        email:email
+        /* email:email */
+        user:email
     })
 
 })
@@ -119,6 +122,10 @@ authRouter.get('/registroExitoso', (req, res) => {
     res.render('./pages/noCredentials', { error: 'Correo electronico ya existente' })
 }); */
 authRouter.get('/nocredentials', (req, res) =>{
+    const email= req.user.email
+    const user = req.user
+    console.log("email en /noCredentials", email) // OK
+    console.log("user en /noCredentials", user)
     loggerConsole.log('info', 'peticion a /pages/noCredentials')
     res.render('./pages/noCredentials', { error: 'Correo o password invalidos' })
 });
@@ -131,7 +138,7 @@ authRouter.get('/errorRegister', (req, res) =>{
 //Logout
 authRouter.get("/logout", (req, res) => {
     loggerConsole.log('info', 'peticion a /pages/logout')
-    const email= req.user.username
+    const email= req.user.username // username?
     req.session.destroy();
     req.logout(() => {
         res.render('./pages/logout',{email})
