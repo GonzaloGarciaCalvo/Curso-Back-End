@@ -10,12 +10,12 @@ passport.use(
 	new LocalStrategy(
 		{
 			passReqToCallback: true,
-			usernameField: "email",
+			/* usernameField: "email", */
 			passwordField: "password", //
 		},
-		async (req, email, password, done) => {
+		async (req,username, password, done) => {
 			try {
-				const user = await User.findOne({ email });
+				const user = await User.findOne({ email:username });
 				console.log("en passport login");
 				const hashPass = user?.password;
 				console.log("hashpassword", hashPass);
@@ -30,7 +30,7 @@ passport.use(
 				}
 			} catch (error) {
 				console.log("error en password: ", error);
-				done(error);
+				/* done(error); */
 			}
 		}
 	)
@@ -39,10 +39,10 @@ passport.use(
 //Signgup
 passport.use('signup', new LocalStrategy(
     {  passReqToCallback: true,
-        usernameField: 'email',
-        passwordField: 'password' //
+        /* usernameField: 'email', */
+        /* passwordField: 'password' */ //
     },   
-    async ( req, email, password, done) => {
+    async ( req, username, password, done) => {
         try {
             const {email, password, name, phone, age,address, role} = req.body
             const user = await User.findOne({

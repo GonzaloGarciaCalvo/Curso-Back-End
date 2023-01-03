@@ -51,3 +51,21 @@ Content-Type: application/json
 POST http://localhost:8080/api/carritos/ HTTP/1.1 
 Content-Type: application/json
 
+###
+POST http://localhost:8080/api/ordenes/ HTTP/1.1 
+Content-Type: application/json
+
+    {
+        "email": "email@email.com",
+        "productos": [
+		{
+			"nombre": "remera1",
+			"precio": 6000,
+			"cantidad": 1,
+		}
+	    ],
+        "direccion": "Cualquiera 2000",
+        "ciudad": "Capital Federal",
+        "total": 6000,
+        "numero":0
+    }

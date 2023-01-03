@@ -4,10 +4,10 @@ const OrdenesFirebase = require('../../contenedores/contenedorFirebase')
 const db = firebase.firestore();
 const prod = db.collection("productos"); */
 
-class OrdenesFirebase extends OrdenesFirebase {
+class OrdenesDaoFirebase extends OrdenesFirebase {
     constructor() {
         super('ordenes')
     }  
 }
-module.exports = OrdenesFirebase
+module.exports = OrdenesDaoFirebase
 /* export default ProductosFirebase */

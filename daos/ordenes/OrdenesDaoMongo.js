@@ -4,12 +4,22 @@ const mongoose =require('mongoose')
 const { Schema } = mongoose;
 
 const ordenSchema = new Schema({
-    nombre: { type: String, required:true },
-    categoria:{ type: String, required:true },
-    precio: { type: Number, required:true },
-    thumbnail:{ type: String, required:true },
-    stock: { type: Number, required:true },
-},{timestamps: true}) 
+	email: { type: String, required: true, ref: "User" },
+	estado: { type: Boolean, default: true },
+	productos: [
+		{
+			nombre: { type: String, required: true },
+			precio: { type: Number, required: true },
+			cantidad: { type: Number, required: true },
+		}
+	],
+	direccion: { type: String, required: true },
+	ciudad: { type: String, required: true },
+	total: { type: Number, required: true },
+	numero: { type: Number, required: true },
+	timestamp: { type: Date, default: Date.now },
+});
+
 const ordenes = mongoose.model('ordenes', ordenSchema)
 
 

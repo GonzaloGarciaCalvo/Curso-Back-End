@@ -1,9 +1,9 @@
-const ProductosDaoFirebase = require('./ProductosDaoFirebase')
-const ProductosDaoMongo = require('./ProductosDaoMongo')
-const ProductosDaoArchivo = require('./ProductosDaoArchivo')
+const OrdenesDaoFirebase = require('./OrdenesDaoFirebase')
+const OrdenesDaoMongo = require('./OrdenesDaoMongo')
+const OrdenesDaoArchivo = require('./OrdenesDaoArchivo')
 
 
-let productosDao;
+let ordenesDao;
 let selector;
 selector = 'mongoDB'
 /* selector = 'firebase' */
@@ -13,21 +13,21 @@ selector = 'mongoDB'
   switch (selector) {
 
     case 'firebase': {
-      productosDao = new ProductosDaoFirebase()    
+      ordenesDao = new OrdenesDaoFirebase()    
     }
     break;
     
     case 'mongoDB':{
-    productosDao = new ProductosDaoMongo()
+    ordenesDao = new OrdenesDaoMongo()
     }
     break;
 
     case 'archivo':{
-      productosDao = new ProductosDaoArchivo()
+      ordenesDao = new OrdenesDaoArchivo()
     }
     }
 
-    const getProductosDao = productosDao
+    const getOrdenesDao = ordenesDao
 
 
-    module.exports = getProductosDao
+    module.exports = getOrdenesDao
