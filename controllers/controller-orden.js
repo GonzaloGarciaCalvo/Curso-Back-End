@@ -1,12 +1,14 @@
 const express = require('express');
 const orden = require('../api/ordenes')
+const mailOrden = require("../utils/mailer");
 
 const generateOrderController = async (req, res) => {
-    console.log("en generateOrderController")
-  const { email, productos, ciudad, direccion, total, numero } = req.body;
-  /* const getAll = await orden.getAll();
+    
+  const { email, productos, ciudad, direccion, total } = req.body;
+  const getAll = await orden.getAll();
+  console.log("en generateOrderController")
 
-  let numero = getAll.length + 1; */
+  let numero = getAll.length + 1;
 
   let newOrden =  {
     email,
@@ -16,33 +18,34 @@ const generateOrderController = async (req, res) => {
     total,
     numero,
   };
-  const result = await orden.save(newOrden);
-  console.log("result en controller-orden:", result)
+  const savedOrder = await orden.save(newOrden);
+  console.log("savedOrder en controller-orden:", savedOrder)
 
-  if (result) {
-    /* mailOrden(email, result); */
-    res.json(result);
+  if (savedOrder) {
+    mailOrden(email, savedOrder);
+    res.json(savedOrder);
   } else {
-    res.status(404).json({ message: "Error, vuelva a intentarlo" });
+    res.status(405).json({ message: "Error, vuelva a intentarlo" });
   }
 };
 
 const getOrderByUserController = async (req, res) => {
   const email = req.params.email;
-  const result = await orden.getByEmail(email);
-  const orders = result.map((item) => {
+  const savedOrder = await orden.getByEmail(email);
+  console.log("savedOrder", savedOrder)
+  const orders = savedOrder.map((item) => {
     let order = {
-      email: item.emaiteml,
+      email: item.email,
       numero: item.numero,
       productos: item.productos,
       estado: item.estado,
       fecha: item.timestamp.toString(),
       total: item.total,
     };
-    return order;
+    return order; 
   });
 
-  result.length !== 0
+  savedOrder?.length !== 0
     ? res.json(orders)
     : res.json({ message: "No hay ordenes guardadas" });
 };

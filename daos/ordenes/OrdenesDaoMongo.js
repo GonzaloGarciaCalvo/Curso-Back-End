@@ -1,17 +1,16 @@
-const ContenedorMongoDB = require("../../contenedores/contenedorMongodb");
-
+const ContenedorMongoDB = require("../../contenedores/contenedorMongoDB");
 const mongoose =require('mongoose') 
 const { Schema } = mongoose;
 
 const ordenSchema = new Schema({
-	email: { type: String, required: true, ref: "User" },
+	email: { type: String, required: true},
 	estado: { type: Boolean, default: true },
 	productos: [
 		{
 			nombre: { type: String, required: true },
 			precio: { type: Number, required: true },
 			cantidad: { type: Number, required: true },
-		}
+		},
 	],
 	direccion: { type: String, required: true },
 	ciudad: { type: String, required: true },
@@ -43,7 +42,7 @@ class OrdenesDaoMongo extends ContenedorMongoDB {
 
     async getByEmail(email) {
         try {
-            const order = await this.modelo.findOne({ email: email })
+            const order = await this.modelo.find({ email: email })
             return order
         } catch (error) {
             console.log(error)

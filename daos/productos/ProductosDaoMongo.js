@@ -1,4 +1,4 @@
-const ContenedorMongoDB = require("../../contenedores/contenedorMongodb");
+const ContenedorMongoDB = require("../../contenedores/contenedorMongoDB");
 /* import ContenedorMongoDB from '../../contenedores/contenedorMongoDB' */
 /* const {productos} = require('../../schemas/schemas') */
 const mongoose =require('mongoose') 

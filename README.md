@@ -1,5 +1,5 @@
 # PENDIENTES
-rutas carritos
+rutas carritos  no funciona en el rest
 
 jwt
 

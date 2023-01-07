@@ -20,10 +20,7 @@ app.use(compression()) */
 const {loggerConsole, loggerWarn, loggerError} = require('./loggers/winston');
 
 require('dotenv').config();
-/* const User = require('./utils/userSchema')
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy;
-const { hashPassword, comparePassword } = require('./utils/hashPassword'); */
+
 const passport = require('./authentication/passport');
 /* const { Types } = require('mongoose') */
 
@@ -42,8 +39,6 @@ const parseArgs = require('minimist');
 }
 const configServer = parseArgs(process.argv.slice(2), connectionOptions); */
 
-const mailerFunction = require('./utils/twilio')
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 //Routers
@@ -52,6 +47,7 @@ const routerCarrito = require('./routes/routerCarrito')
 const routerProductos = require('./routes/routerProductos')
 const authRouter = require('./routes/auth')
 const routerOrdenes = require('./routes/routerOrden')
+const routerMensajes = require('./routes/routerMensajes')
 /* const randomsRouter = require('./routes/randoms')
 const infoRouter = require('./routes/info') */
 
@@ -65,6 +61,7 @@ const { builtinModules } = require('module');
 app.use('/api/productos', routerProductos)
 app.use('/api/carritos', routerCarrito)
 app.use('/api/ordenes', routerOrdenes)
+app.use('/api/mensajes', routerMensajes)
 
 /* mongoUrl: 'mongodb+srv://garciacalog:yJrrTE4mcwui4Ed@cluster0.k3ncstn.mongodb.net/test', */
 
@@ -79,8 +76,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
-
-
 
 
 io.on('connection', async (socket) => {
@@ -113,27 +108,27 @@ app.get('*', (req, res) => {
 
 
 
-// if (process.env.MODE =="cluster") {
-//     if (cluster.isPrimary) {
-//         console.log(`Master ${process.pid} is running`)
-//         for (let i = 0; i < numCPUs; i++) {
-//             cluster.fork()
-//         }
-//         cluster.on('exit', (worker, code, signal) => {
-//             console.log(`worker ${worker.process.pid} died`)
-//         })
-//     } else {
-//         httpServer.listen(process.env.PORT || 8080)
-//         console.log("en else")
-//         console.log(`Worker ${process.pid} started`)
-//     }
-// } else if (process.env.MODE =="fork")  {
-//     httpServer.listen(process.env.PORT, () => {
-//         console.log(`Servidor online puerto ${process.env.PORT || 8080}`)
-//         /* loggerConsole.log('debug', `Servidor online puerto ${process.env.PORT || 8080}`) */
-//     })
-//     .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 
-// }
+if (process.env.MODE =="cluster") {
+    if (cluster.isPrimary) {
+        console.log(`Master ${process.pid} is running`)
+        for (let i = 0; i < numCPUs; i++) {
+            cluster.fork()
+        }
+        cluster.on('exit', (worker, code, signal) => {
+            console.log(`worker ${worker.process.pid} died`)
+        })
+    } else {
+        httpServer.listen(process.env.PORT || 8080)
+        console.log("en else")
+        console.log(`Worker ${process.pid} started`)
+    }
+} else if (process.env.MODE =="fork")  {
+    httpServer.listen(process.env.PORT, () => {
+        console.log(`Servidor online puerto ${process.env.PORT || 8080}`)
+        /* loggerConsole.log('debug', `Servidor online puerto ${process.env.PORT || 8080}`) */
+    })
+    .on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 
+}
 
 
 
@@ -167,9 +162,3 @@ app.get('*', (req, res) => {
 
 /* module.exports = app */
 
-console.log(process.env.PORT)
-
- httpServer.listen(process.env.PORT, () => {
-    console.log(`Servidor online puerto ${process.env.PORT}`)
-})
-.on('error', (e) => console.log('Error en inicio de servidor: ', e.message)); 

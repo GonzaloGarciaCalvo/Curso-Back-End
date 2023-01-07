@@ -1,4 +1,4 @@
-const moongose = require ('mongoose');
+/* const moongose = require ('mongoose');
 
 
 async function connection() {
@@ -7,4 +7,4 @@ console.log("conexion en mognojs")
     const ruta = await moongose.connect(URL)
     return ruta
 }
-module.exports = connection
+module.exports = connection */

@@ -20,29 +20,29 @@ socket.on('MENSAJES_EXISTENTES', (a) => {
         if (element) return agregarMasajes(element)
     });
 })
-socket.on('porcentaje', async (a,b) => {
-   /*  console.log('a ', a)
-    console.log("b ", b) */
-   await compresion(a,b)
-})
+// socket.on('porcentaje', async (a,b) => {
+//    /*  console.log('a ', a)
+//     console.log("b ", b) */
+//    await compresion(a,b)
+// })
 
 const enviarMensaje = () => {
     
-    const nombre = document.getElementById("nombre").value
+/*     const nombre = document.getElementById("nombre").value
     const apellido = document.getElementById("apellido").value
     const edad = document.getElementById("edad").value
     const alias = document.getElementById("alias").value
-    const avatar = document.getElementById("avatar").value
-    const text = document.getElementById("mensaje").value
+    const avatar = document.getElementById("avatar").value*/
+    const text = document.getElementById("mensaje").value 
     const correo= document.getElementById('correo').value
     const mensaje = {
         author: {
             id:correo,
-            nombre: nombre,
+            /* nombre: nombre,
             apellido: apellido,
             edad: edad,
             alias: alias,
-            avatar: avatar
+            avatar: avatar */
         },
         text: text
     }
@@ -63,22 +63,22 @@ const agregarMasajes = (msg) => {
     
 }
 
-const compresion = (a,b) => {
-    // b peso original
-    let desnormalizar = normalizr.denormalize(a.result, file, a.entities);
-    /* console.log("desnormalizar  ",desnormalizar)
-    console.log(" b peso original", b) */
-    let desnormalizarPeso = JSON.stringify(desnormalizar).length / 1024
-    /* console.log("desnormalizarPeso  ",desnormalizarPeso) */
-    let resultado = ((parseFloat(b/desnormalizarPeso)*100)-100).toFixed(2)
+// const compresion = (a,b) => {
+//     // b peso original
+//     let desnormalizar = normalizr.denormalize(a.result, file, a.entities);
+//     /* console.log("desnormalizar  ",desnormalizar)
+//     console.log(" b peso original", b) */
+//     let desnormalizarPeso = JSON.stringify(desnormalizar).length / 1024
+//     /* console.log("desnormalizarPeso  ",desnormalizarPeso) */
+//     let resultado = ((parseFloat(b/desnormalizarPeso)*100)-100).toFixed(2)
     
 
-    const div = document.getElementById('compresion').innerHTML += `
-    <div class='card'>
-        <p> La compresion es de ${resultado} %</p>
-    </div>
-    `
-}
+//     const div = document.getElementById('compresion').innerHTML += `
+//     <div class='card'>
+//         <p> La compresion es de ${resultado} %</p>
+//     </div>
+//     `
+// }
 
 ////////////////////////////////////   
 ///  mostrar productos en home  ///
